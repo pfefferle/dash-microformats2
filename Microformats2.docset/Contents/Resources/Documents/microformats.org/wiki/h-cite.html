@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/h-cite by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 20 Mar 2015 22:27:21 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+	
+	<meta content="MediaWiki 1.13.2" name="generator"/>
+		<meta content="h-cite,citation-formats,h-card,humans first,irc,microformats,reuse,simpler,solve simpler problems first,specific,h-cite-feedback" name="keywords"/>
+		<link href="http://microformats.org/favicon.ico" rel="shortcut icon"/>
+		<link href="http://microformats.org/wiki/opensearch_desc.php" rel="search" title="Microformats Wiki (en)" type="application/opensearchdescription+xml"/>
+		<link href="http://microformats.org/wiki/index.php?title=Special:RecentChanges&amp;feed=rss" rel="alternate" title="Microformats Wiki RSS Feed" type="application/rss+xml"/>
+		<link href="http://microformats.org/wiki/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="Microformats Wiki Atom Feed" type="application/atom+xml"/>
+	<link href="skins/common/shared.css" rel="stylesheet" type="text/css"/>		
+	<link href="skins/Microformats/microformats.css" rel="stylesheet" type="text/css"/>
+
+	<style type="text/css">/*<![CDATA[*/
+@import "http://microformats.org/wiki/index.php?title=MediaWiki:Common.css&amp;usemsgcache=yes&amp;action=raw&amp;ctype=text/css&amp;smaxage=18000";
+@import "http://microformats.org/wiki/index.php?title=MediaWiki:Microformats_Wiki.css&amp;usemsgcache=yes&amp;action=raw&amp;ctype=text/css&amp;smaxage=18000";
+@import "http://microformats.org/wiki/index.php?title=-&amp;action=raw&amp;gen=css&amp;maxage=18000&amp;useskin=Microformats+Wiki";
+/*]]>*/</style>
+
+
+    
+    		
+<style type="text/css">/*<![CDATA[*/
+.source-html4strict {line-height: normal;}
+.source-html4strict li {line-height: normal;}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for html4strict
+ * CSS class: source-html4strict, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.source-html4strict .de1, .source-html4strict .de2 {font-family: monospace; font-weight: normal; font-style: normal;}
+.source-html4strict .imp {font-weight: bold; color: red;}
+.source-html4strict li, .source-html4strict li.li1 {font-weight: normal;}
+.source-html4strict li.li2 {font-weight: bold;}
+.source-html4strict .kw1 {color: #b1b100;}
+.source-html4strict .kw2 {color: #000000; font-weight: bold;}
+.source-html4strict .kw3 {color: #000066;}
+.source-html4strict .coMULTI {color: #808080; font-style: italic;}
+.source-html4strict .es0 {color: #000099; font-weight: bold;}
+.source-html4strict .br0 {color: #66cc66;}
+.source-html4strict .sy0 {color: #66cc66;}
+.source-html4strict .st0 {color: #ff0000;}
+.source-html4strict .nu0 {color: #cc66cc;}
+.source-html4strict .sc0 {color: #00bbdd;}
+.source-html4strict .sc1 {color: #ddbb00;}
+.source-html4strict .sc2 {color: #009900;}
+.source-html4strict .ln-xtra, .source-html4strict li.ln-xtra, .source-html4strict div.ln-xtra {color: #cc0; background-color: #ffc;}
+
+/*]]>*/
+</style>
+<style type="text/css">/*<![CDATA[*/
+@import "http://microformats.org/wiki/index.php?title=MediaWiki:Geshi.css&amp;usemsgcache=yes&amp;action=raw&amp;ctype=text/css&amp;smaxage=18000";
+/*]]>*/
+</style>        
+        	
+	<title>h-cite · Microformats Wiki</title>
+	
+<style id="dash-style" type="text/css">.content { width: 100%; }</style></head>
+	<!-- TODO: Template-dervied body class: spec and draft -->
+<body class="page-h-cite specification draft">
+    
+    
+
+    <div class="content hentry">
+    
+	
+
+	    <h1 class="entry-title">h-cite</h1>
+
+		<p class="sub-title"></p>
+
+								    <!-- TODO: Jump nav -->
+		    <div id="jump-to-nav">Jump to:		        <a href="#sidebar">navigation</a>, 
+		        <a href="#search">search</a>
+		    </div>
+		        
+        <div class="entry-content">
+		<p><span class="h-card vcard"><span class="p-name fn"><a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek Çelik</a></span> (<span class="p-role role">Editor</span>)</span>
+</p>
+<hr/>
+<p><dfn style="font-style:normal;font-weight:bold">h-cite</dfn> is a simple, open format for publishing citations and references to online publications. h-cite is one of several open <a href="http://microformats.org/wiki/microformats" title="microformats">microformat</a> draft standards suitable for embedding data in HTML/HTML5.
+</p>
+
+<a name="Example"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Example"></a> Example </span></h2>
+<p>Here is a simple minimal abstract web citation example:
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"h-cite"</span><span class="kw2">&gt;</span></span>
+  <span class="sc2">&lt;time <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"dt-published"</span><span class="kw2">&gt;</span></span>YYYY-MM-DD<span class="sc2"><span class="kw2">&lt;</span><span class="sy0">/</span>time&gt;</span> 
+  <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-author h-card"</span><span class="kw2">&gt;</span></span>AUTHOR<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span>: 
+  <span class="sc2"><span class="kw2">&lt;cite&gt;</span></span><span class="sc2"><span class="kw2">&lt;a</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"u-url p-name"</span> <span class="kw3">href</span><span class="sy0">=</span><span class="st0">"URL"</span><span class="kw2">&gt;</span></span>TITLE<span class="sc2"><span class="kw2">&lt;/a&gt;</span></span><span class="sc2"><span class="kw2">&lt;/cite&gt;</span></span>
+<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span></pre></div>
+<a name="Get_started"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Get%20started"></a> Get started </span></h3>
+<p>The class <b><code>h-cite</code></b> is a <i>root class name</i> that indicates the presence of an h-cite.
+</p><p>The classes <b><code>dt-published</code></b>, <b><code>p-author</code></b>, <b><code>p-name</code></b>, and <b><code>u-url</code></b> define  <i>properties</i> of the h-cite. 
+</p><p>The class <b><code>h-card</code></b> on the same <code>&lt;span&gt;</code> as <b><code>p-author</code></b> indicates the presence of a nested <a href="h-card.html" title="h-card">h-card</a> microformat as the <b>author</b> of the h-cite.
+</p>
+<a name="Properties"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Properties"></a> Properties </span></h2>
+<p>h-cite properties (inside class <code><b>h-cite</b></code>)
+</p>
+<ul><li> <b><code>p-name</code></b> - name of the work
+</li><li> <b><code>dt-published</code></b> - date (and optionally time) of publication
+</li><li> <b><code>p-author</code></b> - author of publication, with optional nested <a href="h-card.html" title="h-card">h-card</a>
+</li><li> <b><code>u-url</code></b> - a URL to access the cited work
+</li><li> <b><code>u-uid</code></b> - a URL/URI that uniquely/canonically identifies the cited work, canonical permalink.
+</li><li> <b><code>p-publication</code></b> - for citing articles in publications with more than one author, or perhaps when the author has a specific publication vehicle for the cited work. Also works when the publication is known, but the authorship information is either unknown, ambiguous, unclear, or collaboratively complex enough to be unable to list explicit author(s), e.g. like with many wiki pages.
+</li><li> <b><code>dt-accessed</code></b> - date the cited work was accessed for whatever reason it is being cited. Useful in case online work changes and it's possible to access the dt-accessed datetimestamped version in particular, e.g. via the Internet Archive.
+</li><li> <b><code>p-content</code></b> for when the citation includes the content itself, like when citing short text notes (e.g. tweets).
+</li></ul>
+<a name="Status"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Status"></a> Status </span></h2>
+<p><b>h-cite</b> is a microformats.org draft specification. Public discussion on h-cite takes place on <a class="new" href="http://microformats.org/wiki/index.php?title=h-cite-feedback&amp;action=edit&amp;redlink=1" title="h-cite-feedback (not yet written)">h-cite-feedback</a>, the #microformats <a href="http://microformats.org/wiki/irc" title="irc">irc</a> channel on irc.freenode.net, and <a class="external text" href="http://microformats.org/discuss/mail/microformats-new/" rel="nofollow" title="http://microformats.org/discuss/mail/microformats-new/">microformats-new mailing list</a>.
+</p>
+<a name="Property_Details"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Property%20Details"></a> Property Details </span></h2>
+<p>(stub, to be expanded)
+</p><p>All web citation properties are derived from those implied in <a href="http://microformats.org/wiki/citation-formats#styles" title="citation-formats">existing citation styling guides</a> for citing permalinks to articles and short text notes online.
+</p><p>Date-time properties (dt-published, dt-accessed) may optionally include time information in addition to the date if relevant to the citation (e.g. when citing short text notes (tweets) of which there may be several in a single day).
+</p><p>To be added:
+</p>
+<ul><li> for each property, what equivalent TCMOS, APA, MLA terms/vocabulary is being expressed/captured as researched in the <a href="http://microformats.org/wiki/citation-formats#styles" title="citation-formats">citation formats styles</a> section.
+</li><li> transforms from the web citations proposal properties into each of those citation styles.
+<ul><li> for citations of blog posts / articles 
+</li><li> for citations of text notes / tweets
+</li><li> see examples in wild below for markup samples to style in each of the TCMOS/APA/MLA styles for blog/note citations.
+</li></ul>
+</li></ul>
+<a name="Offline_Citations"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Offline%20Citations"></a> Offline Citations </span></h2>
+<p>The web citation proposal can be used for simple web-to-off-web citation use cases. As suggested by Ed Summers, dropping the hyperlink to the cited web article provides a simple off-web citation:
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"h-cite"</span><span class="kw2">&gt;</span></span>
+  <span class="sc2">&lt;time <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"dt-published"</span><span class="kw2">&gt;</span></span>YYYY-MM-DD<span class="sc2"><span class="kw2">&lt;</span><span class="sy0">/</span>time&gt;</span> 
+  <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-author h-card"</span><span class="kw2">&gt;</span></span>AUTHOR<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span>: 
+  <span class="sc2"><span class="kw2">&lt;cite</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-name"</span><span class="kw2">&gt;</span></span>TITLE<span class="sc2"><span class="kw2">&lt;/cite&gt;</span></span>
+<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span></pre></div>
+<p>Next steps: 
+</p>
+<ul><li> Try such markup with actual content being published on the web (perhaps a bibliography, list of papers in a resume, etc.)
+</li><li> See how it works/feels there
+</li><li> Determine what seems to be missing. 
+</li><li> See if the "p-publisher" property helps in some web-to-off-web citation use cases.
+</li></ul>
+<a name="Examples_in_the_wild"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Examples%20in%20the%20wild"></a> Examples in the wild </span></h2>
+<p>Real world in the wild examples:
+</p>
+<ul><li> ... add uses of h-cite you see in the wild here.
+</li></ul>
+<ul><li> <cite class="h-cite"><a class="external text" href="http://christopheducamp.com/blog/test-indieweb-parvenir-a-posser-un-article-vers-twitter/" rel="nofollow" title="http://christopheducamp.com/blog/test-indieweb-parvenir-a-posser-un-article-vers-twitter/">Test #IndieWeb : Parvenir à « POSSEr » un article vers Twitter</a></cite> has an h-cite of a short note:
+</li></ul>
+<div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;blockquote&gt;</span></span><span class="sc2"><span class="kw2">&lt;p&gt;</span></span>
+  <span class="sc2"><span class="kw2">&lt;cite</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"h-cite"</span><span class="kw2">&gt;</span></span>
+    <span class="sc2"><span class="kw2">&lt;a</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"u-url p-name"</span> <span class="kw3">href</span><span class="sy0">=</span><span class="st0">"http://tantek.com/2013/104/t2/urls-readable-speakable-listenable-retypable"</span><span class="kw2">&gt;</span></span> 
+      URLs should be readable, speakable, listenable, and unambiguously 
+retypable, e.g. from print: tantek.com/w/ShortURLPrintExample #UX 
+    <span class="sc2"><span class="kw2">&lt;/a&gt;</span></span> 
+   (<span class="sc2"><span class="kw2">&lt;abbr</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-author h-card"</span> <span class="kw3">title</span><span class="sy0">=</span><span class="st0">"Tantek Çelik"</span><span class="kw2">&gt;</span></span>Çelik<span class="sc2"><span class="kw2">&lt;/abbr&gt;</span></span> 
+    <span class="sc2">&lt;time <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"dt-published"</span><span class="kw2">&gt;</span></span>2013-04-14<span class="sc2"><span class="kw2">&lt;</span><span class="sy0">/</span>time&gt;</span>)
+  <span class="sc2"><span class="kw2">&lt;/cite&gt;</span></span>
+<span class="sc2"><span class="kw2">&lt;/p&gt;</span></span><span class="sc2"><span class="kw2">&lt;/blockquote&gt;</span></span></pre></div>
+<p>Real but not quite wild (used by the specification author)
+</p>
+<ul><li> Every blog post on <a class="external free" href="http://tantek.com/" rel="nofollow" title="http://tantek.com">http://tantek.com</a> has a text field for copying h-cite markup for that blog post.
+</li><li> <cite class="h-cite"><a class="external text" href="http://tantek.com/2012/353/b1/why-html-classes-css-class-selectors" rel="nofollow" title="http://tantek.com/2012/353/b1/why-html-classes-css-class-selectors">Why you should say HTML classes, CSS class selectors, or CSS pseudo-classes, but not CSS classes</a></cite> has a couple of interesting uses of h-cite:
+<ul><li> properties used: p-name, u-url, p-author, p-publication, dt-published, dt-accessed (basically all proposed properties except p-content!)
+</li><li> additional experimental property: p-x-translation - which refers to a nested h-cite with its own implied p-name and implied u-url.
+</li></ul>
+</li></ul>
+<a name="Background"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Background"></a> Background </span></h2>
+<p>This work is based on how existing <a href="http://microformats.org/wiki/citation-formats#styles" title="citation-formats">citation format <i>styles</i></a> (APA, MLA, TCMOS) represent references to articles on the web, and is designed to match the implied schema of those styles. The web citations proposal defines how to markup such reference representation styles in order to satisfy the use-cases above.
+</p>
+<a name="Goal"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Goal"></a> Goal </span></h3>
+<p>A primary goal of the web citation effort is to both start small, and always "make small possible", that is, no matter how it is extended, continue permitting very small meaningful citations with perhaps only 2-3 properties (e.g. date published, author, name of work).
+</p>
+<a name="Previous_Proposals"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Previous%20Proposals"></a> Previous Proposals </span></h3>
+<p>The biggest problem with all previous proposals is that they tried to do too much. They didn't design a citation <i>micro</i>format that could be used as a building block, but rather, erred on the side of attempting to describe the myriad types of references to dead-tree resources. They were so over-designed that their authors didn't even dogfood them on their own sites. -- <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 00:56, 7 August 2012 (UTC)
+</p>
+<a name="FAQ"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/FAQ"></a> FAQ </span></h2>
+<a name="Why"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Why"></a> Why </span></h3>
+<p><i>Why markup web citations? What problem does it solve?</i>
+</p><p>A: In the simplest form, marking up a web citation URL, name, date published, author etc. allow for processing of web citations into whatever "style" or "format" (MLA vs APA etc.) a user wishes to publish them themselves.
+</p>
+<a name="Why_not_just_a_href"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Why%20not%20just%20a%20href"></a> Why not just a href </span></h3>
+<p><i>Doesn't <code>&lt;a href&gt;</code> solve the problem of marking up citations in an article on the web that refers to other articles on the web?</i>
+</p><p>A: No, <code>&lt;a href&gt;</code> is necessary but insufficient for marking up <em>citations</em> to articles on the web. 
+</p>
+<ul><li> <b>Insufficient semantic.</b> <code>&lt;a href&gt;</code> is sufficient only for providing a hyperlink (which may or may not be a citation, e.g. it may be a "see also" link rather than link to a source being cited for particular assertion or fact).
+</li><li> <b>A href only marks up article link and name</b> An <code>&lt;a href&gt;</code> can only represent the "url" and "name" of a citation. Where as <a href="http://microformats.org/wiki/citation-formats#styles" title="citation-formats">published web citations</a> typically also include:
+<ul><li> article author name (sometimes author photo and URL)
+</li><li> article publication date
+</li><li> article publication name
+</li><li> article access date (sometimes, e.g. Wikipedia citations)
+</li></ul>
+</li></ul>
+<a name="Design_Principles"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Design%20Principles"></a> Design Principles </span></h2>
+<p>Principles driving this proposal:
+</p>
+<ul><li> <b>solve a <a class="new" href="http://microformats.org/wiki/index.php?title=specific&amp;action=edit&amp;redlink=1" title="specific (not yet written)">specific</a> problem</b>. In this case <b>web citations</b> seeks to solve a <i>more</i> specific problem than previous proposals, that of citations from the web to the web (more constrained than any publication to any publication).
+</li><li> <a class="mw-redirect" href="http://microformats.org/wiki/solve_simpler_problems_first" title="solve simpler problems first">solve simpler problems first</a>. Existing web-to-web citations contain very little information compared to generalized academic citations, thus <b>web citations</b> is greatly simplified compared to previous proposals by only starting with a handful of properties.
+</li><li> <a class="mw-redirect" href="http://microformats.org/wiki/humans_first" title="humans first">humans first</a> - <b>web citations</b> focuses on the human readability and writability aspects of citations in articles first and foremost, and only secondarily considers the machine readability/reusability of the data contained therein.
+</li><li> <a href="http://microformats.org/wiki/reuse" title="reuse">reuse</a> building blocks - by re-using the better designed aspects of <a href="http://microformats.org/wiki/citation-formats#styles" title="citation-formats">existing citation conventions</a> for web resources, <b>web citations</b> builds on top of previous work to make citations human readable/writable, as well as what implied properties are commonly expressed by such previous work.
+</li></ul>
+<a name="Focus"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Focus"></a> Focus </span></h3>
+<p>The <dfn>web citations</dfn> proposal uses a smaller, <a class="mw-redirect" href="http://microformats.org/wiki/simpler" title="simpler">simpler</a> set of only <i>eight</i> properties to solve the <a class="new" href="http://microformats.org/wiki/index.php?title=specific&amp;action=edit&amp;redlink=1" title="specific (not yet written)">specific</a> problem of how to markup citations in an article <em>on the web</em> that refers to other articles <em>on the web</em>. Offline to offline, and online to offline references were specifically not explicitly addressed in initial design.
+</p>
+<a name="First_Proposal"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/First%20Proposal"></a> First Proposal </span></h2>
+<p>This design was first publicly proposed as the result of an interactive web citation design discussion during IndieWebCamp2012:
+</p>
+<ul><li> <span class="h-cite"><time class="dt-published">2012-07-01</time> <span class="p-publisher">IndieWebCamp2012</span>: <cite class="p-name"><a class="external text" href="http://indiewebcamp.com/2012/Academic_Citations_Web" rel="nofollow" title="http://indiewebcamp.com/2012/Academic_Citations_Web">Academic Citations for the Web</a></cite></span>
+</li></ul>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 73/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+<div class="printfooter">
+Retrieved from "<a href="h-cite.html">http://microformats.org/wiki/h-cite</a>"</div>
+		</div>	
+		
+			        <h2>Categories</h2>
+		    <div id="category-links">
+		        <ul>
+		        		            <li><a href="http://microformats.org/wiki/Category:Draft_Specifications" rel="tag">
+		                Draft Specifications		            </a></li>
+		        		        </ul>
+		    </div>		        
+				
+                    
+        
+        
+
+	</div>
+	
+<!-- end of the sidebar -->
+
+<div id="footer">
+
+
+    <address class="vcard">
+        The content of this wiki is the combined effort of the
+        <a class="fn org url" href="http://microformats.org/">
+            microformats community
+        </a>.
+    </address>
+
+	<ul>
+    				<li id="about"><a href="http://microformats.org/wiki/Microformats_Wiki:About" title="Microformats Wiki:About">About Microformats Wiki</a></li>
+				<li id="disclaimer"><a href="http://microformats.org/wiki/Microformats_Wiki:General_disclaimer" title="Microformats Wiki:General disclaimer">Disclaimers</a></li>
+        <li>Powered by <a href="http://mediawiki.org/">MediaWiki</a> | <a href="http://mediatemple.net/">(mt) media temple</a></li>
+	</ul>
+</div>
+
+		
+<!-- Served in 0.279 secs. -->
+
+
+
+
+
+
+</body><!-- Mirrored from microformats.org/wiki/h-cite by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 20 Mar 2015 22:27:22 GMT --></html>

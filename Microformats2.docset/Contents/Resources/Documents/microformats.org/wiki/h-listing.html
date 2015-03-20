@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/h-listing by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 20 Mar 2015 22:27:21 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+	
+	<meta content="MediaWiki 1.13.2" name="generator"/>
+		<meta content="h-listing,commerce-examples,currency,h-card,h-entry,hCalendar,hCard,hListing,hReview,hcalendar,hcard" name="keywords"/>
+		<link href="http://microformats.org/favicon.ico" rel="shortcut icon"/>
+		<link href="http://microformats.org/wiki/opensearch_desc.php" rel="search" title="Microformats Wiki (en)" type="application/opensearchdescription+xml"/>
+		<link href="http://microformats.org/wiki/index.php?title=Special:RecentChanges&amp;feed=rss" rel="alternate" title="Microformats Wiki RSS Feed" type="application/rss+xml"/>
+		<link href="http://microformats.org/wiki/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="Microformats Wiki Atom Feed" type="application/atom+xml"/>
+	<link href="skins/common/shared.css" rel="stylesheet" type="text/css"/>		
+	<link href="skins/Microformats/microformats.css" rel="stylesheet" type="text/css"/>
+
+	<style type="text/css">/*<![CDATA[*/
+@import "http://microformats.org/wiki/index.php?title=MediaWiki:Common.css&amp;usemsgcache=yes&amp;action=raw&amp;ctype=text/css&amp;smaxage=18000";
+@import "http://microformats.org/wiki/index.php?title=MediaWiki:Microformats_Wiki.css&amp;usemsgcache=yes&amp;action=raw&amp;ctype=text/css&amp;smaxage=18000";
+@import "http://microformats.org/wiki/index.php?title=-&amp;action=raw&amp;gen=css&amp;maxage=18000&amp;useskin=Microformats+Wiki";
+/*]]>*/</style>
+
+
+    
+    		
+<style type="text/css">/*<![CDATA[*/
+.source-html4strict {line-height: normal;}
+.source-html4strict li {line-height: normal;}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for html4strict
+ * CSS class: source-html4strict, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.source-html4strict .de1, .source-html4strict .de2 {font-family: monospace; font-weight: normal; font-style: normal;}
+.source-html4strict .imp {font-weight: bold; color: red;}
+.source-html4strict li, .source-html4strict li.li1 {font-weight: normal;}
+.source-html4strict li.li2 {font-weight: bold;}
+.source-html4strict .kw1 {color: #b1b100;}
+.source-html4strict .kw2 {color: #000000; font-weight: bold;}
+.source-html4strict .kw3 {color: #000066;}
+.source-html4strict .coMULTI {color: #808080; font-style: italic;}
+.source-html4strict .es0 {color: #000099; font-weight: bold;}
+.source-html4strict .br0 {color: #66cc66;}
+.source-html4strict .sy0 {color: #66cc66;}
+.source-html4strict .st0 {color: #ff0000;}
+.source-html4strict .nu0 {color: #cc66cc;}
+.source-html4strict .sc0 {color: #00bbdd;}
+.source-html4strict .sc1 {color: #ddbb00;}
+.source-html4strict .sc2 {color: #009900;}
+.source-html4strict .ln-xtra, .source-html4strict li.ln-xtra, .source-html4strict div.ln-xtra {color: #cc0; background-color: #ffc;}
+
+/*]]>*/
+</style>
+<style type="text/css">/*<![CDATA[*/
+@import "http://microformats.org/wiki/index.php?title=MediaWiki:Geshi.css&amp;usemsgcache=yes&amp;action=raw&amp;ctype=text/css&amp;smaxage=18000";
+/*]]>*/
+</style>        
+        	
+	<title>h-listing draft · Microformats Wiki</title>
+	
+<style id="dash-style" type="text/css">.content { width: 100%; }</style></head>
+	<!-- TODO: Template-dervied body class: spec and draft -->
+<body class="page-h-listing specification draft">
+    
+    
+
+    <div class="content hentry">
+    
+	
+
+	    <h1 class="entry-title">h-listing draft</h1>
+
+		<p class="sub-title"></p>
+
+								    <!-- TODO: Jump nav -->
+		    <div id="jump-to-nav">Jump to:		        <a href="#sidebar">navigation</a>, 
+		        <a href="#search">search</a>
+		    </div>
+		        
+        <div class="entry-content">
+		<p><i>This document represents a <strong>draft</strong> microformat specification. Although drafts are somewhat mature in the development process, the stability of this document cannot be guaranteed, and implementers should be prepared to keep abreast of future developments and changes. Watch this wiki page, or follow discussions on the <a class="external text" href="http://microformats.org/wiki/irc" rel="nofollow" title="http://microformats.org/wiki/irc">#microformats Freenode IRC channel</a> to stay up-to-date.</i>
+</p><p><dfn style="font-style:normal;font-weight:bold">h-listing</dfn> is a simple, open format for publishing product data on the web. h-listing is one of several open <a href="http://microformats.org/wiki/microformats" title="microformats">microformat</a> draft standards suitable for embedding data in HTML/HTML5.
+</p><p>h-Listing is the <a href="microformats2.html" title="microformats2">microformats2</a> update to <a class="mw-redirect" href="http://microformats.org/wiki/hListing" title="hListing">hListing</a>.
+</p><p><small>Per <a class="external text" href="http://creativecommons.org/publicdomain/zero/1.0/" rel="nofollow" title="http://creativecommons.org/publicdomain/zero/1.0/">CC0</a>,
+to the extent possible under law, the editors have waived 
+all copyright and related or neighboring rights to this work. 
+In addition, as of 2015-03-20, 
+the editors have made this specification available under the
+<a class="external text" href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="nofollow" title="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0">Open Web Foundation Agreement Version 1.0</a>.</small>
+</p><p><br/>
+</p>
+
+<a name="Draft_Proposal"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Draft%20Proposal"></a> Draft Proposal </span></h2>
+<a name="Editors"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Editors"></a>Editors</span></h3>
+<ul><li> <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek Çelik</a>
+</li><li> <a href="http://microformats.org/wiki/User:TomMorris" title="User:TomMorris">Tom Morris</a>
+</li><li> <a href="http://microformats.org/wiki/User:ChiefRA" title="User:ChiefRA">Arthur Rădulescu</a>
+</li></ul>
+<p><br/>
+</p>
+<a name="Authors_and_Contributors"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Authors%20and%20Contributors"></a>Authors and Contributors</span></h3>
+<a name="Introduction"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Introduction"></a>Introduction</span></h2>
+<p>Individuals and professionals are increasingly publishing their offerings online: whether as items for sale or rent (cars, homes, apartments), services for hire (music lessons, dog walker, plumber), openings (jobs, volunteers, extra spot in a book club) or personals (people looking for dates, companions, roommates).  The goal of publishing (and promoting) these listings online is to seek out interested parties, often within a limited time period.
+</p><p>While descriptions of products and services are common on the Web, particularly on e-commerce sites, we are proposing an hListing microformat for sharing, searching, and syndicating the information that helps match up buyers and sellers. This proposal follows the common practices of trading sites such as Craigslist, eBay and newspaper classifieds.
+</p><p>If <a href="http://microformats.org/wiki/hreview" title="hreview">hReview</a> is about an item and what you think of it, h-listing is about an item and what you want to <i>do</i> with it.
+</p>
+<a name="Inspiration_and_Acknowledgments"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Inspiration%20and%20Acknowledgments"></a> Inspiration and Acknowledgments </span></h3>
+<p>Thanks to everyone who participated in the initial burst of hListing activity in August 2005, particularly Emiliano Martínez Luque and Trevor O'Reilly, for naming the effort and organizing the listing-{brainstorming, formats, examples} pages on the wiki. We would like to thank Tantek for an initial debate about whether to extend hReview or pursue an independent-though-similar hListing and later on, h-Listing for our proposal.
+</p>
+<a name="Scope"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Scope"></a> Scope </span></h3>
+<a name="Format"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Format"></a> Format </span></h2>
+<a name="In_General"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/In%20General"></a> In General </span></h3>
+<p>The h-listing format is based on a set of fields common to numerous listing sites and formats in use today on the web.  Where possible field names have been chosen based on those defined by the related <a href="http://microformats.org/wiki/hreview" title="hreview">hReview</a>, <a href="http://microformats.org/wiki/hcard" title="hcard">hCard</a>, <a href="http://microformats.org/wiki/hcalendar" title="hcalendar">hCalendar</a> standards.
+</p>
+<a name="Properties"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Properties"></a> Properties </span></h3>
+<p>(Not yet finished)
+</p><p>The class <b><code>h-listing</code></b> is a <i>root class name</i> that indicates the presence of an h-Listing.
+</p>
+<ul><li> <kbd>h-listing</kbd>: root
+<ul><li> <kbd>p-lister</kbd>: <a href="h-card.html" title="h-card">h-card</a>
+</li><li> <kbd>dt-listed</kbd>: datetime, optional
+</li><li> <kbd>dt-expired</kbd>: datetime, optional
+</li><li> <kbd>p-price</kbd>: text, optional (should include a floating-point number with optional ISO currency codes)
+</li><li> <kbd>p-category</kbd>: text, optional, zero or more
+</li><li> <kbd>p-action</kbd>: text, optional, one of the following values
+<ul><li> sell, rent, trade, meet, announce, offer, wanted, event, service
+</li></ul>
+</li><li> <kbd>u-url</kbd>
+</li></ul>
+</li></ul>
+<p><br/>
+</p>
+<a name="Summary_of_Changes"></a><h4> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Summary%20of%20Changes"></a> Summary of Changes </span></h4>
+<ul><li> Modified to use <a class="mw-redirect" href="http://microformats.org/wiki/microformats-2" title="microformats-2">microformats-2</a>.
+</li><li> The <kbd>version</kbd> property from <a class="mw-redirect" href="http://microformats.org/wiki/hListing" title="hListing">hListing</a> has been deprecated. No hListing markup (even in example files used by parsers) has ever been presented that actually uses the version property, nor any enumeration of valid values. No other microformat thus far has had a version property, and explicit versioning seems like clumsy design: any future changes to the specification should be made in such a way as to support existing content and degrade gracefully per the <a class="external text" href="http://www.w3.org/TR/html-design-principles/#compatibility" rel="nofollow" title="http://www.w3.org/TR/html-design-principles/#compatibility">design principles of HTML</a>.
+</li><li> The <kbd>dtlisted</kbd> and <kbd>dtexpired</kbd> properties are prefixed with <kbd>dt-</kbd> in microformats2 anyway, so no duplication of the <kbd>dt</kbd> is needed.
+</li><li> <kbd>lister</kbd> must contain an embedded <kbd><a href="h-card.html" title="h-card">h-card</a></kbd> object for simplicity—the <a class="mw-redirect" href="http://microformats.org/wiki/microformats-2-parsing" title="microformats-2-parsing">microformats-2-parsing</a> specification would need to be modified to specify any optimisations there.
+</li><li> The use of <a href="http://microformats.org/wiki/rel-tag" title="rel-tag">rel-tag</a> has been deprecated due to the <kbd>rel</kbd> attribute being defined as document scoped in HTML5. Following on from the example of <kbd><a href="h-entry.html" title="h-entry">h-entry</a></kbd>, <kbd>category</kbd> seems the ideal mapping.
+</li><li> <kbd>permalink</kbd> has been replaced with <kbd>url</kbd> following <a href="h-entry.html" title="h-entry">h-entry</a>.
+</li></ul>
+<a name="Property_Details"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Property%20Details"></a>Property Details</span></h2>
+<p>h-Listing property details:
+</p>
+<a name="Authoring_guidelines"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Authoring%20guidelines"></a>Authoring guidelines</span></h2>
+<a name="action_type_internationalisation"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/action%20type%20internationalisation"></a> action type internationalisation </span></h3>
+<p>One issue with hard-coded action types is it prevents internationalisation.
+</p><p>The <kbd>p-</kbd> value <a class="mw-redirect" href="http://microformats.org/wiki/microformats-2-parsing#parsing_a_p-_property" title="microformats-2-parsing">parsing algorithm</a> can be used to provide an alternative text description in a non-English language, at the cost of introducing <a class="mw-redirect" href="http://microformats.org/wiki/invisible_data" title="invisible data">invisible data</a>.
+</p><p>For instance, one could use a <kbd>data</kbd> element.
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2">&lt;section <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"h-listing"</span> <span class="kw3">lang</span><span class="sy0">=</span><span class="st0">"fr"</span><span class="kw2">&gt;</span></span>
+  <span class="sc2"><span class="kw2">&lt;h1&gt;</span></span><span class="sc2">&lt;data <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"action"</span> <span class="kw3">value</span><span class="sy0">=</span><span class="st0">"sale"</span><span class="kw2">&gt;</span></span>À vendre<span class="sc2"><span class="kw2">&lt;</span><span class="sy0">/</span>data&gt;</span>! <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"summary"</span><span class="kw2">&gt;</span></span>Belle usine widget pour produire widgets magique et révolutionnaire<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span><span class="sc2"><span class="kw2">&lt;/h1&gt;</span></span>
+<span class="sc2"><span class="kw2">&lt;</span><span class="sy0">/</span>section&gt;</span></pre></div>
+<p><br/>
+</p>
+<a name="Examples"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Examples"></a>Examples</span></h2>
+<a name="Challenges_and_problems"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Challenges%20and%20problems"></a> Challenges and problems </span></h3>
+<p>See <a class="new" href="http://microformats.org/wiki/index.php?title=h-listing-challenges&amp;action=edit&amp;redlink=1" title="h-listing-challenges (not yet written)">h-Listing Challenge Problems</a> for some hypothetical examples that illustrate corners of the specification.
+</p>
+<ul><li> If no action is specified, should parsers assume the 'sale' property? A listing with no action seems less than useful.
+</li></ul>
+<p><br/>
+</p>
+<a name="Examples_in_the_Wild"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Examples%20in%20the%20Wild"></a> Examples in the Wild </span></h2>
+<p>This section is <b>informative</b>.
+</p><p>The following sites have implemented <strong class="selflink">h-listing</strong>, and thus are a great place to start for anyone looking for examples "in the wild" to try parsing, indexing, organizing etc. If your site is marked up with hListing, feel free to add it to the <b>top</b> of this list.  Include both a URL to the top level site, and at least one URL to a specific hListing item on that site so that the hListing markup can be verified.
+</p><p>Once the list grows too big, we'll make a separate wiki page like <a class="new" href="http://microformats.org/wiki/index.php?title=h-listing-examples-in-wild&amp;action=edit&amp;redlink=1" title="h-listing-examples-in-wild (not yet written)">h-listing-examples-in-wild</a>.
+</p><p><br/>
+</p>
+<a name="implementations"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/implementations"></a> implementations </span></h2>
+<p>Please add links to sites that consume h-listings, and tools which generate h-listings.
+</p>
+<ul><li> ...
+</li></ul>
+<p><br/>
+</p>
+<a name="Changes"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Changes"></a>Changes</span></h2>
+<a name="Background"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Background"></a> Background </span></h2>
+<p>Unlike <a class="mw-redirect" href="http://microformats.org/wiki/hCard" title="hCard">hCard</a>, <a class="mw-redirect" href="http://microformats.org/wiki/hCalendar" title="hCalendar">hCalendar</a>, <a class="mw-redirect" href="http://microformats.org/wiki/hReview" title="hReview">hReview</a> and other microformats, hListing has not been nearly as widely adopted. A number of inconsistencies and unclear properties has led to difficulty by page authors to implement the microformat.
+</p>
+<a name="Discussions"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Discussions"></a> Discussions </span></h2>
+<ul><li> Feedback is encouraged on the <a class="new" href="http://microformats.org/wiki/index.php?title=h-listing-feedback&amp;action=edit&amp;redlink=1" title="h-listing-feedback (not yet written)">h-listing-feedback</a> page.
+</li></ul>
+<a name="Internationalization"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Internationalization"></a>Internationalization</span></h3>
+<p><i>Internationalization:</i> Though there are many English-language tokens, they are only used as class-names; user-visible listing information can be completely localized. N.b. that (X)HTML lang attribute rules still apply as usual, for multilingual aggregators of h-Listings.
+</p><p><br/>
+</p>
+<a name="See_also"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/See%20also"></a> See also</span></h2>
+<ul><li> <strong class="selflink">h-listing</strong>, a draft reboot of hListing based on <a class="mw-redirect" href="http://microformats.org/wiki/microformats-2" title="microformats-2">microformats-2</a>
+</li><li> <a class="new" href="http://microformats.org/wiki/index.php?title=h-listing-issues&amp;action=edit&amp;redlink=1" title="h-listing-issues (not yet written)">h-listing-issues</a>
+</li><li> <a class="new" href="http://microformats.org/wiki/index.php?title=h-listing-feedback&amp;action=edit&amp;redlink=1" title="h-listing-feedback (not yet written)">h-listing-feedback</a>
+</li><li> <a class="new" href="http://microformats.org/wiki/index.php?title=h-listing-brainstorming&amp;action=edit&amp;redlink=1" title="h-listing-brainstorming (not yet written)">h-listing-brainstorming</a>
+</li><li> <a href="http://microformats.org/wiki/commerce-examples" title="commerce-examples">commerce-examples</a>
+</li><li> <a href="http://microformats.org/wiki/currency" title="currency">currency</a> proposal
+</li></ul>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 131/1000000
+Post-expand include size: 840/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+<div class="printfooter">
+Retrieved from "<a href="h-listing.html">http://microformats.org/wiki/h-listing</a>"</div>
+		</div>	
+		
+			        <h2>Categories</h2>
+		    <div id="category-links">
+		        <ul>
+		        		            <li><a href="http://microformats.org/wiki/Category:Draft_Specifications" rel="tag">
+		                Draft Specifications		            </a></li>
+		        		        </ul>
+		    </div>		        
+				
+                    
+        
+        
+
+	</div>
+	
+<!-- end of the sidebar -->
+
+<div id="footer">
+
+
+    <address class="vcard">
+        The content of this wiki is the combined effort of the
+        <a class="fn org url" href="http://microformats.org/">
+            microformats community
+        </a>.
+    </address>
+
+	<ul>
+    				<li id="about"><a href="http://microformats.org/wiki/Microformats_Wiki:About" title="Microformats Wiki:About">About Microformats Wiki</a></li>
+				<li id="disclaimer"><a href="http://microformats.org/wiki/Microformats_Wiki:General_disclaimer" title="Microformats Wiki:General disclaimer">Disclaimers</a></li>
+        <li>Powered by <a href="http://mediawiki.org/">MediaWiki</a> | <a href="http://mediatemple.net/">(mt) media temple</a></li>
+	</ul>
+</div>
+
+		
+<!-- Served in 0.343 secs. -->
+
+
+
+
+
+
+</body><!-- Mirrored from microformats.org/wiki/h-listing by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 20 Mar 2015 22:27:21 GMT --></html>
