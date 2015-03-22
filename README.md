@@ -1,6 +1,6 @@
 # dash-microformats2
 
-dash-microformats2 is a docset for [Dash.app][] containing the latest (stable) [Microformats2 specs](http://microformats.org/wiki/microformats2).
+dash-microformats2 is a docset for [Dash.app][] containing the latest [Microformats2 specs](http://microformats.org/wiki/microformats2).
 
 ![](screenshot.png)
 

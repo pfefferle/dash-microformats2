@@ -30,8 +30,12 @@ for filename in os.listdir(os.path.join(DOCUMENTS_DIR, MICROFORMATS_DIR)):
 
     if len(title) > 0:
         path = os.path.join(MICROFORMATS_DIR, filename)
-        cur.execute('INSERT OR IGNORE INTO searchIndex(name, type, path) VALUES (?,?,?)', (title, 'Guide', path))
-        print 'title: %s, path: %s' % (title, path)
+        if (re.search('^h-.*', title)) :
+            type = 'Object'
+        else:
+            type = 'Guide'
+        cur.execute('INSERT OR IGNORE INTO searchIndex(name, type, path) VALUES (?,?,?)', (title, type, path))
+        print 'title: %s, type: %s, path: %s' % (title, type, path)
 
     # strip unecessary HTML like sidebar, header and footer
     sidebar = soup.find(id='sidebar')

@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/microformats2-parsing-faq by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 22 Mar 2015 19:17:10 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+	
+	<meta content="MediaWiki 1.13.2" name="generator"/>
+		<meta content="microformats2-parsing-faq,HTML5,h-adr,h-card,h-entry,h-event,h-geo,h-product,h-recipe,h-resume,h-review" name="keywords"/>
+		<link href="http://microformats.org/favicon.ico" rel="shortcut icon"/>
+		<link href="http://microformats.org/wiki/opensearch_desc.php" rel="search" title="Microformats Wiki (en)" type="application/opensearchdescription+xml"/>
+		<link href="http://microformats.org/wiki/index.php?title=Special:RecentChanges&amp;feed=rss" rel="alternate" title="Microformats Wiki RSS Feed" type="application/rss+xml"/>
+		<link href="http://microformats.org/wiki/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="Microformats Wiki Atom Feed" type="application/atom+xml"/>
+	<link href="skins/common/shared.css" rel="stylesheet" type="text/css"/>		
+	<link href="skins/Microformats/microformats.css" rel="stylesheet" type="text/css"/>
+
+	<style type="text/css">/*<![CDATA[*/
+@import "http://microformats.org/wiki/index.php?title=MediaWiki:Common.css&amp;usemsgcache=yes&amp;action=raw&amp;ctype=text/css&amp;smaxage=18000";
+@import "http://microformats.org/wiki/index.php?title=MediaWiki:Microformats_Wiki.css&amp;usemsgcache=yes&amp;action=raw&amp;ctype=text/css&amp;smaxage=18000";
+@import "http://microformats.org/wiki/index.php?title=-&amp;action=raw&amp;gen=css&amp;maxage=18000&amp;useskin=Microformats+Wiki";
+/*]]>*/</style>
+
+
+    
+    		
+        
+        	
+	<title>microformats2-parsing-faq · Microformats Wiki</title>
+	
+<style id="dash-style" type="text/css">.content { width: 100%; }</style></head>
+	<!-- TODO: Template-dervied body class: spec and draft -->
+<body class="page-microformats2-parsing-faq ">
+    
+    
+
+    <div class="content hentry">
+    
+	
+
+	    <h1 class="entry-title">microformats2-parsing-faq</h1>
+
+		<p class="sub-title"></p>
+
+								    <!-- TODO: Jump nav -->
+		    <div id="jump-to-nav">Jump to:		        <a href="#sidebar">navigation</a>, 
+		        <a href="#search">search</a>
+		    </div>
+		        
+        <div class="entry-content">
+		<p><br/>
+This page documents answers to frequently (or expected to be) asked questions about <a href="microformats2-parsing.html" title="microformats2-parsing">microformats2-parsing</a>.
+</p><p>For questions about <a href="microformats2.html" title="microformats2">microformats2</a> in general, see <a href="microformats2-faq.html" title="microformats2-faq">microformats2-faq</a>.
+</p>
+
+<a name="questions"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/questions"></a> questions </span></h2>
+<a name="which_backcompat_root_classes"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/which%20backcompat%20root%20classes"></a> which backcompat root classes </span></h3>
+<p>Q: Which backcompat root classes should a <a href="microformats2.html" title="microformats2">microformats2</a> parser support?
+</p><p>A: The microformats2 specification lists <a href="microformats2.html#v2_vocabularies" title="microformats2">which microformats2 vocabularies are ready for use</a>, and each of those lists their classic microformat (if any) that has sufficiently broad use and support to be included in the set of backcompat root classes that a <a href="microformats2.html" title="microformats2">microformats2</a> parser should support. Here they are in a list: (each is linked to the backcompat parsing section in its respective microformats2 vocabulary specification)
+</p>
+<ul><li> <a href="h-adr.html#Backward_Compatiblity" title="h-adr">adr</a>
+</li><li> <a href="h-geo.html#Backward_Compatiblity" title="h-geo">geo</a>
+</li><li> <a href="h-entry.html#Backward_Compatiblity" title="h-entry">hentry</a>
+</li><li> <a href="h-product.html#Backward_Compatiblity" title="h-product">hproduct</a>
+</li><li> <a href="h-recipe.html#Backward_Compatiblity" title="h-recipe">hrecipe</a>
+</li><li> <a href="h-resume.html#Backward_Compatiblity" title="h-resume">hresume</a>
+</li><li> <a href="h-review.html#Backward_Compatiblity" title="h-review">hreview</a>
+</li><li> <a href="h-review-aggregate.html#Backward_Compatiblity" title="h-review-aggregate">hreview-aggregate</a>
+</li><li> <a href="h-card.html#Backward_Compatiblity" title="h-card">vcard</a>
+</li><li> <a href="h-event.html#Backward_Compatiblity" title="h-event">vevent</a>
+</li></ul>
+<a name="normalizing_u-.2A_property_values"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/normalizing%20u-%2A%20property%20values"></a> normalizing u-* property values </span></h3>
+<p>Q: In the <a href="microformats2-parsing.html#parsing_a_u-_property" title="microformats2-parsing">Parsing u-* section</a>, shouldn't item 5 (if there is a gotten value…) be at the end of the section? Shouldn't normalizing apply wherever the value comes from? (question from IRC, 2012-296).
+</p><p>A: Normalizing u-* property values occurs exactly where necessary and no more. In particular, normalizing only when present in URL attributes follows the semantics of those attributes (normalization to absolute URLs) per the <a class="mw-redirect" href="http://microformats.org/wiki/HTML5" title="HTML5">HTML5</a> specification, whereas when the value is present in a title attribute or in text, the expectation, in both normal usage and in the browser, is that such values are displayed and used as is without any normalization.
+</p>
+<a name="checking_for_explicit_properties_before_implying"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/checking%20for%20explicit%20properties%20before%20implying"></a> checking for explicit properties before implying </span></h3>
+<p>Q: When checking for whether or not to look for implied properties, should the parser look for an explicit "p-name" in particular or "*-name" in the list of parsed property names?
+</p><p>A: Before implying a "name" property, look for the unprefixed property, e.g. "name", not "p-name" nor "*-name".
+</p><p>In the JSON set of parsed property names, there are no prefixes (e.g. see the "Parsed JSON" examples in <a href="microformats2.html" title="microformats2">microformats2</a>).
+</p><p>The order of operations in the parsing algorithm is explicit about this: parsers only imply properties <i>after</i> parsing an element for all explicit properties, per <a href="microformats2-parsing.html#parse_an_element_for_microformats" title="microformats2-parsing">parse an element for microformats</a>.
+</p><p>Parsing for implied properties specifically refers to "name", "photo", and "url": <a href="microformats2-parsing.html#parsing_for_implied_properties" title="microformats2-parsing">parsing for implied properties</a> - all unprefixed versions of the property names.
+</p><p>The p- u- dt- e- prefixes are basically parse-time directives that are dropped once parsing is done and you collect the properties/values into your JSON parse tree.
+</p>
+<a name="empty_property_values"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/empty%20property%20values"></a> empty property values </span></h3>
+<p>Q: <a href="microformats2-parsing.html" title="microformats2-parsing">microformats2-parsing</a> lists many selectors of the form "abbr.p-x[title]".  Is this intended to also match attributes with empty values?
+</p><p>A: Yes, the assumption is that the inclusion of an empty attribute value was a deliberate action by the author.
+</p><p><br/>
+</p>
+<a name="add_another_question_topic_here"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/add%20another%20question%20topic%20here"></a> add another question topic here </span></h3>
+<p>Q: What's the question?
+</p><p>A: We have an answer.
+</p>
+<a name="see_also"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/see%20also"></a> see also </span></h2>
+<ul><li> <a href="microformats2.html" title="microformats2">microformats2</a>
+</li><li> <a href="microformats2-parsing.html" title="microformats2-parsing">microformats2-parsing</a>
+</li><li> <a href="http://microformats.org/wiki/microformats2-parsing-brainstorming" title="microformats2-parsing-brainstorming">microformats2-parsing-brainstorming</a>
+</li><li> <a href="microformats2-faq.html" title="microformats2-faq">microformats2-faq</a>
+</li></ul>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 11/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+<div class="printfooter">
+Retrieved from "<a href="microformats2-parsing-faq.html">http://microformats.org/wiki/microformats2-parsing-faq</a>"</div>
+		</div>	
+		
+				
+                    
+        
+        
+
+	</div>
+	
+<!-- end of the sidebar -->
+
+<div id="footer">
+
+
+    <address class="vcard">
+        The content of this wiki is the combined effort of the
+        <a class="fn org url" href="http://microformats.org/">
+            microformats community
+        </a>.
+    </address>
+
+	<ul>
+    				<li id="about"><a href="http://microformats.org/wiki/Microformats_Wiki:About" title="Microformats Wiki:About">About Microformats Wiki</a></li>
+				<li id="disclaimer"><a href="http://microformats.org/wiki/Microformats_Wiki:General_disclaimer" title="Microformats Wiki:General disclaimer">Disclaimers</a></li>
+        <li>Powered by <a href="http://mediawiki.org/">MediaWiki</a> | <a href="http://mediatemple.net/">(mt) media temple</a></li>
+	</ul>
+</div>
+
+		
+<!-- Served in 0.155 secs. -->
+
+
+
+
+
+
+</body><!-- Mirrored from microformats.org/wiki/microformats2-parsing-faq by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 22 Mar 2015 19:17:10 GMT --></html>
