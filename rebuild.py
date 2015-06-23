@@ -58,7 +58,15 @@ for filename in os.listdir(os.path.join(DOCUMENTS_DIR, MICROFORMATS_DIR)):
     if (lastModified):
         lastModified.extract()
 
+    # markup sections by adding dash <a> tags for each header in the file
+    for link in soup.find_all("link"):
+        test = re.compile("^https?://.*", re.IGNORECASE)
+
+        if "href" in link.attrs and test.match(link["href"].strip()):
+            link.extract()
+
     [t.extract() for t in soup('script')]
+    [t.extract() for t in soup('style')]
 
     dashStyle = soup.find(id='dash-style')
 
@@ -67,7 +75,7 @@ for filename in os.listdir(os.path.join(DOCUMENTS_DIR, MICROFORMATS_DIR)):
         style.append('.content { width: 100%; }');
         soup.head.append(style)
 
-    # support table of contents by adding dash <a> tags for each header in the file
+    # markup sections by adding dash <a> tags for each header in the file
     for tag in soup.find_all(class_='mw-headline'):
         dashAnchor = tag.find('a', class_='dashAnchor')
         if dashAnchor:
@@ -79,6 +87,29 @@ for filename in os.listdir(os.path.join(DOCUMENTS_DIR, MICROFORMATS_DIR)):
         name = '//apple_ref/cpp/Section/' + urllib.quote(text, '')
         dashAnchor = BeautifulSoup('<a name="%s" class="dashAnchor"></a>' % name).a
         tag.insert(0, dashAnchor)
+
+    # markup properties and objects by adding dash <a> tags for each header in the file
+    for code in soup.find_all('code'):
+
+        dashAnchor = code.find('a', class_='dashAnchor')
+        if dashAnchor:
+            continue
+
+        text = code.text.strip()
+
+        if (re.search('^(p|e|dt|u)-[a-z]+', text)) :
+
+            #print 'adding toc tag for section: %s' % text
+            name = '//apple_ref/cpp/Property/' + urllib.quote(text, '')
+            dashAnchor = BeautifulSoup('<a name="%s" class="dashAnchor"></a>' % name).a
+            code.insert(0, dashAnchor)
+
+        if (re.search('^h-[a-z]+', text)) :
+
+            #print 'adding toc tag for section: %s' % text
+            name = '//apple_ref/cpp/Object/' + urllib.quote(text, '')
+            dashAnchor = BeautifulSoup('<a name="%s" class="dashAnchor"></a>' % name).a
+            code.insert(0, dashAnchor)
 
     fp = open(os.path.join(DOCUMENTS_DIR, MICROFORMATS_DIR, filename), 'w')
     fp.write(str(soup))
