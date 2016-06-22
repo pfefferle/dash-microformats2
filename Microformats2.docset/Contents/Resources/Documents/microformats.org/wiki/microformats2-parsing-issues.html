@@ -1,0 +1,1512 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/microformats2-parsing-issues by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 Jun 2016 19:41:11 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+	
+	<meta content="MediaWiki 1.13.2" name="generator"/>
+		<meta content="microformats2-parsing-issues,microformats2-parsing-issues,2015-01-20,Atom,HTML5,Tantek,XOXO,adr,events/2013-09-14-microformats2-parsing,geo,h-entry" name="keywords"/>
+		
+		
+		
+		
+	<link href="skins/common/shared.css" rel="stylesheet" type="text/css"/>		
+	<link href="skins/Microformats/microformats.css" rel="stylesheet" type="text/css"/>
+
+	
+
+
+    
+    		
+
+
+        
+        	
+	<title>microformats2-parsing-issues · Microformats Wiki</title>
+	
+<style id="dash-style" type="text/css">.content { width: 100%; }</style></head>
+	<!-- TODO: Template-dervied body class: spec and draft -->
+<body class="page-microformats2-parsing-issues ">
+    
+    
+
+    <div class="content hentry">
+    
+	
+
+	    <h1 class="entry-title">microformats2-parsing-issues</h1>
+
+		<p class="sub-title"></p>
+
+								    <!-- TODO: Jump nav -->
+		    <div id="jump-to-nav">Jump to:		        <a href="#sidebar">navigation</a>, 
+		        <a href="#search">search</a>
+		    </div>
+		        
+        <div class="entry-content">
+		<p>This page documents issues with the <a href="microformats2-parsing.html" title="microformats2-parsing">microformats2-parsing</a> specification before 2016-06-20.
+</p><p><b>See <a class="external free" href="https://github.com/microformats/microformats2-parsing/issues" rel="nofollow" title="https://github.com/microformats/microformats2-parsing/issues">https://github.com/microformats/microformats2-parsing/issues</a> for current and new issues!</b>
+</p><p><span style="font-weight:bold;padding:0.5em;background:orange">Note: all current issues resolved as of 2016-06-04</span>
+</p>
+<ul><li> Pending edits to this page, and the <a href="microformats2-parsing.html" title="microformats2-parsing">microformats2-parsing</a> specification.
+</li></ul>
+
+<a name="issues"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/issues"></a> issues </span></h2>
+<p>Open issues in various states of partial resolution from none to nearly resolved.
+</p>
+<a name="unicode_generation_in_JSON"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/unicode%20generation%20in%20JSON"></a> unicode generation in JSON </span></h3>
+<p>Currently we will convert HTML entities into unicode as part of the parsing process. However, these and other non-asciicharacters can be output as escaped unicode in the generated JSON
+Broadly this is OK, as we assume JSON parsers should be able to handle this accordingly.
+However, it does mean the text is somewhat ambiguous, and unclear, especially when complex unicode codepoints like emoji are involved.
+</p><p>Secondarily, when the parsed output of an e- element is presented, having \u escaped text in the HTML is not really valid, and utf8 would be preferred. That way the JSON output could safely pass through a naive string concatenation model as well as a valid unicode decoder (some languages do not cope with astral plane unicode well, yet utf8 safely encodes them).
+</p><p>See <a class="external free" href="https://github.com/tommorris/mf2py/issues/65" rel="nofollow" title="https://github.com/tommorris/mf2py/issues/65">https://github.com/tommorris/mf2py/issues/65</a> for further discussion of this.
+</p><p>I have tweaked unmung to output utf8 instead for inline data entry, eg: <a class="external text" href="http://www.unmung.com/?url=&amp;html=%3Cdiv+class%3D%22h-entry%22%3E%3Cspan+class%3D%22e-name%22%3EEntity+%26mdash%3B+emdash%3C%2Fspan%3E%3C%2Fdiv%3E%0D%0A%3Cdiv+class%3D%22h-entry%22%3E%3Cspan+class%3D%22e-name%22%3Eunicode+%E2%80%94+emdash+%E2%AD%90%EF%B8%8F%E2%9A%A1%EF%B8%8F%3C%2Fspan%3E%3C%2Fdiv%3E&amp;pretty=on" rel="nofollow" title="http://www.unmung.com/?url=&amp;html=%3Cdiv+class%3D%22h-entry%22%3E%3Cspan+class%3D%22e-name%22%3EEntity+%26mdash%3B+emdash%3C%2Fspan%3E%3C%2Fdiv%3E%0D%0A%3Cdiv+class%3D%22h-entry%22%3E%3Cspan+class%3D%22e-name%22%3Eunicode+%E2%80%94+emdash+%E2%AD%90%EF%B8%8F%E2%9A%A1%EF%B8%8F%3C%2Fspan%3E%3C%2Fdiv%3E&amp;pretty=on">this case</a>
+</p>
+<div class="discussion">
+<ul><li> +1 <a href="http://microformats.org/wiki/User:Kylewm" title="User:Kylewm">Kylewm</a> with a caveat.
+<ul><li> Returned JSON SHOULD (not MUST) be UTF8 rather than ASCII with \u encoding because it is easier to read and debug.
+</li><li> When parsing e- properties, HTML entities should be left escaped in the "html" value. This is important when parsing a reply-context; if the original post contains an escaped HTML code snippet, I want the reply context to show the same code snippet, rather than converting it all into real tags.
+</li><li> e.g. <code>"content": [{"html": "&amp;lt;b&amp;gt;1&amp;mdash;2&amp;lt;/b&amp;gt;", "value": "&lt;b&gt;1—2&lt;/b&gt;"}]</code>. 
+</li></ul>
+</li><li> +0 <a href="http://microformats.org/wiki/User:WillNorris" title="User:WillNorris">willnorris</a> (+1 to saying that microformats parsers should standardize on UTF-8 for e-* text, however I feel like e-* html should be left as unscathed as possible.  html encoding may harken to a time before UTF-8, but if the content was authored that way, shouldn't necessary be changing that)
+</li></ul>
+</div>
+<a name="ignore_u-camelCase_properties"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/ignore%20u-camelCase%20properties"></a> ignore u-camelCase properties </span></h3>
+<p>Due to Suit CSS (and others? citations?) recent (2015-?) use of "u-*" class names for so-called "<a class="external text" href="http://davidtheclark.com/on-utility-classes/" rel="nofollow" title="http://davidtheclark.com/on-utility-classes/">utility classes</a>", we are seeing some false positives in a few very rare instances, e.g.: <a class="external text" href="http://www.unmung.com/mf2?url=http%3A%2F%2Fwww.kevinmarks.com%2Ftwitterutils.html&amp;html=&amp;pretty=on" rel="nofollow" title="http://www.unmung.com/mf2?url=http%3A%2F%2Fwww.kevinmarks.com%2Ftwitterutils.html&amp;html=&amp;pretty=on">this twitter markup</a>
+</p><p>(Nearly) all these "utility classes" use camelCase for the class name suffixes, thus we can filter them out by looking for camelCase (since microformats class name conventions are always all lowercase and hyphenated), or even just looking for (and rejecting) *any* capital letters.
+</p><p>Proposal:
+</p>
+<ul><li> microformats2 parsers MUST IGNORE u-* classnames where the * has any uppercase letter(s).
+</li></ul>
+<div class="discussion">
+<ul><li> +1 <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> Let's get this fix rolling quickly to avoid further pollution.
+</li><li> +1 <a href="http://microformats.org/wiki/User:Barnabywalters" title="User:Barnabywalters">Barnaby</a> php-mf2 already ignores classnames with capitalised prefixes, ignoring any classnames with capital letters seems totally reasonable 
+</li><li> +1 <a href="http://microformats.org/wiki/User:Kylewm" title="User:Kylewm">Kylewm</a> agree with rejecting property names that include capital letters (specifically detecting camelCase seems harder to define)
+</li><li> +1 <a href="http://microformats.org/wiki/User:GlennJones" title="User:GlennJones">Glenn</a> agreed, a simple change which should help avoid further pollution
+</li><li> +1 (see also below) <a href="http://microformats.org/wiki/User:WillNorris" title="User:WillNorris">WillNorris</a> 22:15, 5 June 2016 (UTC)
+</li></ul>
+</div>
+<p>Additional proposal: (same reasoning, filter out more crap)
+</p>
+<ul><li> microformats2 parsers MUST IGNORE all property classnames where the property name has any capital letters or numerals (0-9).
+</li><li> microformats2 class names MUST contain only lowercase letters and dash: /[a-z\-]/
+</li></ul>
+<div class="discussion">
+<ul><li> +1 <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> Let's get this fix rolling quickly to avoid further pollution.
+</li><li> +1 I've already implemented this in the go library, additionally extending it to all properties, not just u-* <a href="http://microformats.org/wiki/User:WillNorris" title="User:WillNorris">WillNorris</a> 22:15, 5 June 2016 (UTC)
+</li></ul>
+</div>
+<a name="exclude_style_elements_before_parsing"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/exclude%20style%20elements%20before%20parsing"></a> exclude style elements before parsing </span></h3>
+<p><a class="external text" href="http://logs.glob.uno/?c=freenode%23microformats#c85457" rel="nofollow" title="http://logs.glob.uno/?c=freenode%23microformats#c85457">2016-01-25 raised in #microformats</a>
+</p><p>Ran into an issue of a &lt;style&gt; element being parsed as plain text in a p-name. Should <a href="microformats2-parsing.html" title="microformats2-parsing">microformats2-parsing</a> be updated to indicate &lt;style&gt; should be excluded when parsing? Appears to implicitly fall under <a href="microformats2-parsing.html#note_HTML_parsing_rules" title="microformats2-parsing">microformats2-parsing#note_HTML_parsing_rules</a>
+</p><p>Sample link: <a class="external free" href="http://veganstraightedge.com/notes/2016/01/16/tonight-s-dinner-tacocleanse-beverly-hills-c" rel="nofollow" title="http://veganstraightedge.com/notes/2016/01/16/tonight-s-dinner-tacocleanse-beverly-hills-c">http://veganstraightedge.com/notes/2016/01/16/tonight-s-dinner-tacocleanse-beverly-hills-c</a>
+</p><p>The &lt;script&gt; tag can be similarly problematic.
+</p><p>Proposal: Drop both &lt;script&gt; and &lt;style&gt; elements completely when parsing any property (including e-* HTML values). <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 01:01, 29 February 2016 (UTC)
+</p>
+<div class="discussion">
+<p>Please discuss and/or give +1/0/-1 feedback
+</p>
+<ul><li> +1 <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> as proposer
+</li><li> +1 <a href="http://microformats.org/wiki/User:Aaronpk" title="User:Aaronpk">aaronpk</a> as a consumer of HTML from an e-* property, I will always be sanitizing the HTML and removing &lt;script&gt; and &lt;style&gt; anyway
+</li><li> +1 <a href="http://microformats.org/wiki/User:Kylewm" title="User:Kylewm">kylewm</a>
+</li><li> 0 <a href="http://microformats.org/wiki/User:Barnabywalters" title="User:Barnabywalters">Barnaby</a> +1 to removing the contents of &lt;script&gt; and &lt;style&gt; from all plaintext properties (and 'value' property in HTML dicts), -1 to removing &lt;script&gt; and &lt;style&gt; from HTML. That’s a job for a sanitization stage. As aaronpk points out, sanitization will have to be done anyway if the content is to be reposted, so doing so in the parser doesn’t actually save anyone any work, but removes information which could be useful to people (example use cases: publishing posts with embedded per-post styling, publishing interactive HTML documents with embedded javascript)
+<ul><li> +1 this seems like reasonable feedback to make a new refined proposal. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 20:37, 13 March 2016 (UTC)
+</li><li> +1 I like the revised proposal and am happy to change my vote to this <a href="http://microformats.org/wiki/User:Aaronpk" title="User:Aaronpk">Aaronpk</a> 21:16, 13 March 2016 (UTC)
+</li><li> +1 Totally agree with narrowing the proposal. All the problems I've had with script and style tags come from plaintext properties, and agree that they may even be useful to some consumers of the HTML properties (e.g. an embedded YouTube video) <a href="http://microformats.org/wiki/User:Kylewm" title="User:Kylewm">Kylewm</a> 23:40, 13 March 2016 (UTC)
+</li></ul>
+</li></ul>
+</div>
+<p>Proposal 2: Drop both &lt;script&gt; and &lt;style&gt; elements completely when parsing any property (except for e-* HTML values, which preserve all markup). <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 20:37, 13 March 2016 (UTC)
+</p>
+<div class="discussion">
+<p>Please discuss and/or give +1/0/-1 feedback
+</p>
+<ul><li> +1 <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> as proposer
+</li><li> +1 <a href="http://microformats.org/wiki/User:Barnabywalters" title="User:Barnabywalters">Barnaby</a>
+</li><li> +1 <a href="http://microformats.org/wiki/User:Kylewm" title="User:Kylewm">Kylewm</a> leave sanitization to the sanitizers!
+</li><li> +1 <a href="http://microformats.org/wiki/User:GlennJones" title="User:GlennJones">Glenn</a>
+</li><li> +1 implemented in go parser <a href="http://microformats.org/wiki/User:WillNorris" title="User:WillNorris">WillNorris</a> 22:16, 5 June 2016 (UTC)
+</li></ul>
+</div>
+<a name="use_poster_if_no_src_on_video_for_u_props"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/use%20poster%20if%20no%20src%20on%20video%20for%20u%20props"></a> use poster if no src on video for u props </span></h3>
+<p><a class="external text" href="https://indiewebcamp.com/irc/2015-12-13#t1450035721661" rel="nofollow" title="https://indiewebcamp.com/irc/2015-12-13#t1450035721661">2015-12-13 raised in #indiewebcamp</a>
+</p><p>There is a use-case of marking up the "poster" of a video element as the u-featured of an <a href="h-entry.html" title="h-entry">h-entry</a>, to do that, we need to change <a href="microformats2-parsing.html#parsing_a_u-_property" title="microformats2-parsing">u- property parsing</a> to look at the poster attribute of the video element, after it's looked for the src attribute.
+</p>
+<blockquote>" else if video.u-x[poster], then get the poster attribute "</blockquote>
+<p>Real-world example of markup in the wild:
+</p>
+<ul><li> <a class="external free" href="http://veganstraightedge.com/videos/2013/5/31/1/backyard-squirrel-buddy" rel="nofollow" title="http://veganstraightedge.com/videos/2013/5/31/1/backyard-squirrel-buddy">http://veganstraightedge.com/videos/2013/5/31/1/backyard-squirrel-buddy</a>
+<ul><li> and likely all other videos posted there.
+</li></ul>
+</li></ul>
+<p>Background discussion that led to this proposal:
+</p>
+<ul><li> <a class="external free" href="https://indiewebcamp.com/irc/2015-12-13#t1450035721661" rel="nofollow" title="https://indiewebcamp.com/irc/2015-12-13#t1450035721661">https://indiewebcamp.com/irc/2015-12-13#t1450035721661</a>
+</li></ul>
+<p>This seems very straightforward so I've added it as PROPOSED directly in the parsing spec. This issue is for tracking the discussion.
+</p><p>Feedback from parser implementers please!
+</p>
+<div class="discussion">
+<ul><li> +1 <a href="http://microformats.org/wiki/User:Barnabywalters" title="User:Barnabywalters">Barnaby</a> easy to implement and based on real-world markup, no objections
+</li><li> +1 <a href="http://microformats.org/wiki/User:Kylewm" title="User:Kylewm">Kylewm</a> sgtm
+</li><li> +1 <a href="http://microformats.org/wiki/User:GlennJones" title="User:GlennJones">Glenn</a>
+</li><li> +1 implemented in go library <a href="http://microformats.org/wiki/User:WillNorris" title="User:WillNorris">WillNorris</a> 22:19, 5 June 2016 (UTC)
+</li></ul>
+</div>
+<a name="uf2_children_on_backcompat_properties"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/uf2%20children%20on%20backcompat%20properties"></a> uf2 children on backcompat properties </span></h3>
+<p><a class="external text" href="http://logs.glob.uno/?c=freenode%23microformats&amp;s=today#c84632" rel="nofollow" title="http://logs.glob.uno/?c=freenode%23microformats&amp;s=today#c84632">2015-11-24 raised by Calli</a> in #microformats
+</p><p>Related but different from <a href="#uf2_children_inside_a_classic_microformats_root_class_name" title="">#uf2_children_inside_a_classic_microformats_root_class_name</a>, when there is a uf2 child directly on a backcompat property, what should happen? E.g.
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;div</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"vcard"</span><span class="kw2">&gt;</span></span>
+ <span class="sc2"><span class="kw2">&lt;div</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"adr h-adr"</span><span class="kw2">&gt;</span></span>
+  <span class="sc2"><span class="kw2">&lt;div</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"locality"</span><span class="kw2">&gt;</span></span>MF1<span class="sc2"><span class="kw2">&lt;/div&gt;</span></span>
+  <span class="sc2"><span class="kw2">&lt;div</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-locality"</span><span class="kw2">&gt;</span></span>MF2<span class="sc2"><span class="kw2">&lt;/div&gt;</span></span>
+ <span class="sc2"><span class="kw2">&lt;/div&gt;</span></span>
+<span class="sc2"><span class="kw2">&lt;/div&gt;</span></span></pre></div>
+<p>What is the expected behavior and parser output?
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-javascript"><span class="st0">"items"</span><span class="sy0">:</span> <span class="br0">[</span><span class="br0">{</span> 
+  <span class="st0">"type"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"h-card"</span><span class="br0">]</span><span class="sy0">,</span>
+  <span class="st0">"properties"</span><span class="sy0">:</span> <span class="br0">{</span>
+    <span class="st0">"adr"</span><span class="sy0">:</span> <span class="br0">[</span><span class="br0">{</span>
+      <span class="st0">"value"</span><span class="sy0">:</span> <span class="st0">"MF1MF2"</span><span class="sy0">,</span>
+      <span class="st0">"type"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"h-adr"</span><span class="br0">]</span><span class="sy0">,</span>
+      <span class="st0">"properties"</span><span class="sy0">:</span> <span class="br0">{</span>
+        <span class="st0">"locality"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"MF2"</span><span class="br0">]</span><span class="sy0">,</span>
+        <span class="st0">"name"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"MF1MF2"</span><span class="br0">]</span>
+       <span class="br0">}</span>
+     <span class="br0">}</span><span class="br0">]</span>
+   <span class="br0">}</span>  
+<span class="br0">}</span><span class="br0">]</span></pre></div>
+<p>Another example:
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;div</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"vcard"</span><span class="kw2">&gt;</span></span>
+  <span class="sc2"><span class="kw2">&lt;div</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"adr h-custom"</span><span class="kw2">&gt;</span></span>
+    <span class="sc2"><span class="kw2">&lt;div</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"locality"</span><span class="kw2">&gt;</span></span>MF1<span class="sc2"><span class="kw2">&lt;/div&gt;</span></span>
+    <span class="sc2"><span class="kw2">&lt;div</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-locality"</span><span class="kw2">&gt;</span></span>MF2<span class="sc2"><span class="kw2">&lt;/div&gt;</span></span>
+  <span class="sc2"><span class="kw2">&lt;/div&gt;</span></span>
+<span class="sc2"><span class="kw2">&lt;/div&gt;</span></span></pre></div>
+<div dir="ltr" style="text-align: left;"><pre class="source-javascript"><span class="st0">"items"</span><span class="sy0">:</span> <span class="br0">[</span><span class="br0">{</span> 
+  <span class="st0">"type"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"h-card"</span><span class="br0">]</span><span class="sy0">,</span>
+  <span class="st0">"properties"</span><span class="sy0">:</span> <span class="br0">{</span>
+    <span class="st0">"adr"</span><span class="sy0">:</span> <span class="br0">[</span><span class="br0">{</span>
+      <span class="st0">"value"</span><span class="sy0">:</span> <span class="st0">"MF1MF2"</span><span class="sy0">,</span>
+      <span class="st0">"type"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"h-custom"</span><span class="br0">]</span><span class="sy0">,</span>
+      <span class="st0">"properties"</span><span class="sy0">:</span> <span class="br0">{</span>
+        <span class="st0">"locality"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"MF2"</span><span class="br0">]</span><span class="sy0">,</span>
+        <span class="st0">"name"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"MF1MF2"</span><span class="br0">]</span>
+       <span class="br0">}</span>
+     <span class="br0">}</span><span class="br0">]</span>
+   <span class="br0">}</span>  
+<span class="br0">}</span><span class="br0">]</span></pre></div>
+<p>Per the <a href="#any_h-_root_class_name_overrides_and_stops_backcompat_root" title="">#any_h-_root_class_name_overrides_and_stops_backcompat_root</a> resolution, the class name "h-custom" overrides the use of "adr" as a backcompat root.
+</p>
+<div class="discussion">
+<ul><li> Proposal: the nested "adr h-adr" child is treated as an mf2 object, not backcompat, and thus the resulting parsed "locality" property has a single value of "MF2". Proposed by Calli, noting that Glenn Jones's microformatshiv gets that result currently, and it would be easier for him (Calli) to implement this way.
+<ul><li> +1 Tantek, seems reasonable and the reasoning provided is good (we have one implementation this way already)
+</li><li> +1 Kyle, this is consistent with the resolution to the related issue
+</li><li> +1 Calli, yes, this is easier for me to implement (than taking both MF1 and MF2 properties) because it is consistent - for me, consistency is the controlling factor in favor rather than ease of parser implementation
+</li><li> +1 Barnaby, php-mf2’s mf1 backcompat produces this exact result, and it makes a lot of sense to me
+</li><li> +1 makes sense <a href="http://microformats.org/wiki/User:WillNorris" title="User:WillNorris">WillNorris</a> 22:23, 5 June 2016 (UTC)
+</li></ul>
+</li></ul>
+</div>
+<a name="default_generated_HTML"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/default%20generated%20HTML"></a> default generated HTML </span></h3>
+<p>2015-09-08 raised by Tantek in #indiewebcamp
+</p><p>Should there be a default (perhaps not quite "canonical") way to map/generate HTML+microformats2 from a parsed mf2 JSON output?
+</p><p>E.g. straw proposal:
+</p>
+<ul><li> JSON/mf2 -&gt; <a class="mw-redirect" href="http://microformats.org/wiki/XOXO" title="XOXO">XOXO</a>+mf2
+</li></ul>
+<p>Existing work / mappings:
+</p>
+<ul><li> <a class="external free" href="https://granary-demo.appspot.com/?input=json-mf2&amp;output=html#input" rel="nofollow" title="https://granary-demo.appspot.com/?input=json-mf2&amp;output=html#input">https://granary-demo.appspot.com/?input=json-mf2&amp;output=html#input</a>
+</li><li> <a class="external free" href="https://github.com/snarfed/granary/blob/master/granary/microformats2.py#L295" rel="nofollow" title="https://github.com/snarfed/granary/blob/master/granary/microformats2.py#L295">https://github.com/snarfed/granary/blob/master/granary/microformats2.py#L295</a>
+</li></ul>
+<p>Related to:
+</p>
+<ul><li> <a class="external free" href="https://github.com/snarfed/granary/issues/31" rel="nofollow" title="https://github.com/snarfed/granary/issues/31">https://github.com/snarfed/granary/issues/31</a>
+</li></ul>
+<p>Use-cases:
+</p>
+<ul><li> default webview / presentation for a site that stores mf2 JSON output
+</li><li> possibly a way to implement a distributed HTTP webcache retrieval protocol
+</li></ul>
+<p>Thoughts?
+</p>
+<div class="discussion">
+<ul><li> +1 <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> I think we should have this, but am open to proposals on specifics!
+</li><li> +1 <a href="http://microformats.org/wiki/User:GlennJones" title="User:GlennJones">Glenn</a> Also think this is worth looking at, but I am not sure it should be part of the parser spec. Feels like it should be built as a separate library and have it own spec on the microformats wiki.
+</li><li> +1 <a href="http://microformats.org/wiki/User:Barnabywalters" title="User:Barnabywalters">Barnaby</a> agreed with Glenn, this would be a nice thing to have, but IMO it’s out of scope for the parser and should be specified separately. Personally I would probably implement it separately too, depending on how much work it is.
+</li><li> -1 <a href="http://microformats.org/wiki/User:Kylewm" title="User:Kylewm">Kylewm</a> A pretty display would be a nice debugging tool, but I'm -1 the proposal to define a specific, default HTML output. The two proposed use-cases are totally buildable without it.
+</li><li> -1 Agree with Kyle above... this sounds like a great tool that someone should build and we could even publish "recommended" markup if you don't already have your own template, but this doesn't really belong in the mf2 spec itself. <a href="http://microformats.org/wiki/User:WillNorris" title="User:WillNorris">WillNorris</a> 22:32, 5 June 2016 (UTC)
+</li></ul>
+</div>
+<a name="Noscript_skip.2Fparse"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Noscript%20skip%2Fparse"></a> Noscript skip/parse </span></h3>
+<p>2015-07-28
+</p><p>Should mf parsers skip <code>&lt;noscript&gt;</code> tag in the HTML, like the <code>&lt;template&gt;</code> tag mentioned in <a class="external free" href="microformats2-parsing.html#note_HTML_parsing_rules" rel="nofollow" title="http://microformats.org/wiki/microformats2-parsing#note_HTML_parsing_rules">http://microformats.org/wiki/microformats2-parsing#note_HTML_parsing_rules</a> ?
+</p><p>mf2py skips <code>&lt;noscript&gt;</code> when using the html5lib DOM parser but no when using lxml parser. Example use of <code>&lt;noscript&gt;</code> <a class="external free" href="https://kartikprabhu.com/" rel="nofollow" title="https://kartikprabhu.com/">https://kartikprabhu.com/</a> featured images have a no javascript fallback image inside <code>&lt;noscript&gt;</code> with <code>class='u-featured'</code> markup.
+</p>
+<ul><li> html5lib actually HTML-escapes the contents of <code>&lt;noscript&gt;</code>, so to mf2py it just looks like plain text with no tags. In Woodwind, I've resorted to using regex to strip out <code>&lt;noscript&gt;</code> tags before parsing (very hacky). <a href="http://microformats.org/wiki/User:Kylewm" title="User:Kylewm">Kylewm</a> 15:52, 25 August 2015 (UTC)
+</li></ul>
+<div class="discussion">
+<ul><li> +1 <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> skip noscript (and inside) because in today's typical browsing contexts, nothing in noscript is displayed, thus we should discourage marking up effectively invisible content.
+<ul><li> Proposed change to <a href="microformats2-parsing.html#parse_a_document_for_microformats" title="microformats2-parsing">microformats2-parsing#parse_a_document_for_microformats</a>:
+<ul><li> from: "follow the HTML parsing rules"
+</li><li> to: "follow the HTML parsing rules (including skipping/omitting <code>&lt;noscript&gt;</code> elements, e.g. like the html5lib DOM parser)
+</li></ul>
+</li></ul>
+</li><li> -1 <a href="http://microformats.org/wiki/User:GlennJones" title="User:GlennJones">Glenn</a> This subject does need to be address, but differently to proposed change. My personal view is that  e-* html should be passed through raw and then the consumer can process it in a way they feel fit. Its a case for helper libraries. I am about to build a helper library to do this based on the Readability code to post process e-* html. Other people may want to take different approaches, defining this in the spec feels like move into a whole area of new functionally.  
+</li><li> 0 <a href="http://microformats.org/wiki/User:Barnabywalters" title="User:Barnabywalters">Barnaby</a> to me this should be treated the same as the script/style contents — removed completely from all plaintext properties, but left unaltered in raw HTML.
+</li><li> +0 <a href="http://microformats.org/wiki/User:Kylewm" title="User:Kylewm">Kylewm</a> Is it possible a js-only client-rendered site would want to serve microformats in a noscript block? I know we encourage people to do better progressive-enhancement than that, but not everyone does, and I'd prefer it to no microformats.
+</li></ul>
+<p>As a separate new point we need to consider "exclude tags" lists for parsed text from html.  We should consider <code>&lt;noscript&gt;</code>, <code>&lt;noframe&gt;</code> and <code>&lt;template&gt;</code> there maybe other I have not gone through all the tags in current HTML spec. Also we should consider what to do about the more common pattern of fallback text within media tags <code>&lt;video&gt;</code>, <code>&lt;audio&gt;</code> etc. This should be explicitly discussed in the parsing rules. At the moment my experimental text normalisation does exclude tags, but the default text parse does not. Currently the fallback content in media tags like <code>&lt;video&gt;</code> is added to the parse text. 12:56, 25 Septemeber 2015 (UTC)
+</p>
+<ul><li> <a href="http://microformats.org/wiki/User:Barnabywalters" title="User:Barnabywalters">Barnaby</a> in theory, as the video and audio data by default can’t be included in plaintext properties, and the fallback content (much like img alt attributes) should be somehow human-readable and useful, I would suggest keeping it in plaintext properties. I’d like to see some real-world examples of what fallback content people are using — if it’s links or plaintext descriptions this approach could work well, if people are writing instructions saying “install flash” or “update your browser” it’s not going to produce very pretty results
+</li><li> +1 in theory to stripping it out for the same reasons Tantek mentioned above.  I haven't tested this in go, but would be surprised if it had issues.  <a href="http://microformats.org/wiki/User:WillNorris" title="User:WillNorris">WillNorris</a> 22:37, 5 June 2016 (UTC)
+</li><li> ...
+</li></ul>
+</div>
+<a name="implied_properties_when_an_explicit_class_is_provided"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/implied%20properties%20when%20an%20explicit%20class%20is%20provided"></a> implied properties when an explicit class is provided </span></h3>
+<div class="discussion">
+<p>Should "u-url" still be implied if another explicit class is already provided?
+</p><p>Should "p-name" still be implied if another explicit class is already provided?
+</p><p>Here is a somewhat contrived "u-url" related example, taken from Bridgy's unit tests.
+</p>
+<code><pre>&lt;article class="h-entry"&gt;
+  &lt;a class="u-like-of" href="http://orig.domain/baz"&gt;liked this&lt;/a&gt;
+&lt;/article&gt;
+</pre></code>
+<p>In this case, <a class="external free" href="http://orig.domain/baz" rel="nofollow" title="http://orig.domain/baz">http://orig.domain/baz</a> is almost certainly not the u-url, so IMO it would be better to leave it out —<a href="http://microformats.org/wiki/User:Kylewm" title="User:Kylewm">Kylewm</a> 15:10, 7 October 2014 (UTC)
+</p><p><b>2015-01-20 consensus</b>
+</p>
+<ul><li> Changed my mind. Simpler to do nothing. Example provided is artificially constructed, does not reflect likely real world confusion of if we make implied properties more complicated. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 06:26, 21 January 2015 (UTC)
+</li><li> ++ Consensus on do nothing for this case. At <a class="mw-redirect" href="http://microformats.org/wiki/2015-01-20" title="2015-01-20">2015-01-20</a>
+</li></ul>
+<p><b>Proposed resolution:</b>
+</p>
+<ul><li> Changed again. Due to indiewebcamp.com/edit use-case, this now makes sense for all implied properties. That is:
+<ul><li> If an element has any explicit property class name(s) on it, then it must not be used to imply any properties. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 20:50, 27 May 2015 (UTC)
+<ul><li> +1 this seems reasonable, if a publisher is going to add an mf2 class, it is unlikely they want other classes automatically implied from the same value <a href="http://microformats.org/wiki/User:Aaronpk" title="User:Aaronpk">Aaronpk</a> 23:19, 29 November 2015 (UTC)
+</li><li> -1 for now. To my knowledge, this has only been observed in artificially constructed unit tests and examples, and it adds some weird edge cases that are hard to reason about. <a href="http://microformats.org/wiki/User:Kylewm" title="User:Kylewm">Kylewm</a> 00:46, 1 December 2015 (UTC)
+</li><li> -0 failed consensus, this proposal is rejected. - <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 22:11, 1 April 2016 (UTC)
+</li></ul>
+</li><li> Refined: Or should this be refined by per parsing prefix? <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 22:59, 18 September 2015 (UTC) 
+<ul><li> Any explicit "p-*" property means no implied "p-name" from that element
+</li><li> Any explicit "u-*" property means no implied "u-url" nor "u-photo" from that element.
+</li><li> ... provide input on this refined proposal here
+</li></ul>
+</li><li> Suggestion: split this issue up per property. I think it makes sense for u-url and can be easily added to the spec as e.g. ".h-x&gt;a[href]:only-of-type:not[.h-*<strong>,.u-*</strong>]". <a href="http://microformats.org/wiki/User:Kylewm" title="User:Kylewm">Kylewm</a> 00:46, 1 December 2015 (UTC)
+<ul><li> Obviously wrong to assume a link explicitly pointing elsewhere is our "url" 
+</li><li> More difficult to make a case for photo
+<ul><li> though if there is an img with u-featured but not u-photo, it's likely that was an explicit author decision (e.g. for an article) - <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 22:11, 1 April 2016 (UTC)
+</li></ul>
+</li><li> Especially difficult to make a case for name.
+<ul><li> "name" is implied at least by [.h-x textContent], so often the excluded element would end up included anyway.
+</li><li> Yet over-implied p-names appear to cause problems with many Bridgy webmention consuming use-cases<a class="external autonumber" href="https://indiewebcamp.com/irc/2016-04-01/line/1459530869915" rel="nofollow" title="https://indiewebcamp.com/irc/2016-04-01/line/1459530869915">[1]</a>, that's a good case - <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 22:11, 1 April 2016 (UTC)
+</li><li> may need a broader rule, like any explicit p-* property on an element stops implied p-name. - <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 22:11, 1 April 2016 (UTC)
+</li></ul>
+</li><li> ... provide input on this refined proposal here
+</li><li> +1 consensus in the room at IWS 2016 (willnorris, gRegor, kylewm, tantek): do this for specifically for implied URL, do nothing for now for name and photo. <a href="http://microformats.org/wiki/User:WillNorris" title="User:WillNorris">WillNorris</a> 22:56, 5 June 2016 (UTC)
+</li></ul>
+</li></ul>
+</li></ul>
+</div>
+<a name="whitespace_collapsing_revisited"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/whitespace%20collapsing%20revisited"></a> whitespace collapsing revisited </span></h3>
+<p>2015-05-27: (raised by <a href="http://microformats.org/wiki/User:Kevin_Marks" title="User:Kevin Marks">Kevin Marks</a> per Glenn Jones)
+</p><p>Revising the microformats tests to conform to the "don't collapse whitespace" rule below reveals some non-intuitive cases. 
+preserving whitespace in addresses is somewhat defensible, but in an implied name it is often unhelpful, as it preserves non-user visible space there for authoring reasons.
+</p><p>For example:
+<a class="external text" href="https://github.com/microformats/tests/commit/a325e0e9bc2089507e69b1883f7065a3316e07c2#diff-d577012c1438978a571c4049179607f0" rel="nofollow" title="https://github.com/microformats/tests/commit/a325e0e9bc2089507e69b1883f7065a3316e07c2#diff-d577012c1438978a571c4049179607f0">this test</a> shows how extraneous whitespace ends up in the <code>name</code>
+</p>
+<code><pre>&lt;div class="h-review-aggregate"&gt;
+    &lt;div class="p-item h-event"&gt;
+        &lt;h3 class="p-name"&gt;Fullfrontal&lt;/h3&gt;
+        &lt;p class="p-description"&gt;A one day JavaScript Conference held in Brighton&lt;/p&gt;
+        &lt;p&gt;&lt;time class="dt-start" datetime="2012-11-09"&gt;9th November 2012&lt;/time&gt;&lt;/p&gt;    
+    &lt;/div&gt; 
+    
+    &lt;p class="p-rating"&gt;
+        &lt;span class="p-average value"&gt;9.9&lt;/span&gt; out of 
+        &lt;span class="p-best"&gt;10&lt;/span&gt; 
+        based on &lt;span class="p-count"&gt;62&lt;/span&gt; reviews
+    &lt;/p&gt;
+&lt;/div&gt;
+</pre></code>
+<p>give a parsed result of:
+</p>
+<code><pre>{
+    "items": [{
+        "type": ["h-review-aggregate"],
+        "properties": {
+            "item": [{
+                "value": "Fullfrontal\nA one day JavaScript Conference held in Brighton\n9th November 2012",
+                "type": ["h-event"],
+                "properties": {
+                    "name": ["Fullfrontal"],
+                    "description": ["A one day JavaScript Conference held in Brighton"],
+                    "start": ["2012-11-09"]
+                }
+            }],
+            "rating": ["9.9"],
+            "average": ["9.9"],
+            "best": ["10"],
+            "count": ["62"],
+            "name": ["Fullfrontal\nA one day JavaScript Conference held in Brighton\n9th November 2012\n\n\n9.9 out of \n        10 \n        based on 62 reviews"]
+        }
+    }],
+    "rels": {}
+}
+</pre></code>
+<p>The <code>value</code> is a reasonable textual representation of the event, but the implied <code>name</code> is full of spurious whitespace that any consumer would have to strip. 
+</p><p><a class="external text" href="https://github.com/microformats/tests/commit/4c9690b53b0a2f40440abac8e609c51ac7dd6d56" rel="nofollow" title="https://github.com/microformats/tests/commit/4c9690b53b0a2f40440abac8e609c51ac7dd6d56">h-review</a> has similar issues
+</p><p>2015-05-28: (Addition by <a href="http://microformats.org/wiki/User:GlennJones" title="User:GlennJones">Glenn Jones</a>)
+</p><p>The example below shows the type of markup most effected by the "implied name" and "don't collapse whitespace" rule working together to produce output that is hard to use without further processing.
+</p>
+<code><pre>&lt;a class="h-card" href="http://glennjones.net"&gt;
+     &lt;span class="p-given-name"&gt;Glenn&lt;/span&gt;
+     &lt;span class="p-family-name"&gt;Jones&lt;/span&gt;
+&lt;/a&gt;
+</pre></code>
+<p>The output for the name property from the above HTML would be <code>Glenn\r\n     Jones</code> using the (trim lead/trailing) suggested in the  parsing spec.  I could of course move the spans onto one line, but it feels fragile to consider whitespace sensitivity in HTML like this. Added to the fact that HTML templating environments often take away that level of whitespace control from authors anyway.
+</p><p>There are issues with both: keeping whitespace, returns and tabs from parsed HTML or collapse that whitespace. If we return the whitespace it becomes mal-formatted for humans because it was only added to make the HTML code understandable and in most cases was not meant to be used/read outside of that context. If we collapse the whitespace we can have issues of whitespace sensitive text from <code>&lt;pre&gt;</code> etc. being incorrectly formatted. 
+</p><p>Providing a CSS aware innerText feature would produce the most useable output, but this is too complex/time consuming to build for most parser developers. In the face of no perfect solution I have taken the 80:20 view,  whereby errant whitespace, causes me considerably more problems than mal-formatted <code>&lt;pre&gt;</code> content so I collapse whitespace on all text returned. 
+</p><p>This feature is a non-CSS aware version of innerText. It does not cover all rendering edge cases, but enough to produce practical output.
+</p><p>For now, I have started changing the node parser to flag "white-space collapsing" as an experimental feature which is off by default i.e. <a class="external free" href="http://glennjones.net/tools/microformats/" rel="nofollow" title="http://glennjones.net/tools/microformats/">http://glennjones.net/tools/microformats/</a> but personally I will parse everything with this on as I find it the most practical solution.  
+</p><p>Not sure where that leaves me on the options below.
+</p><p><br/>
+Options:
+</p><p>Choose from:
+</p>
+<ol><li> keep as is and every parser client has to post process for common cases.
+</li><li> <b>keep as is but have mf2 parser trim leading/trailing whitespace (likely to provide desired result and be reasonably backcompat)</b>
+<ul><li> +1 my preference of the two options. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 20:45, 27 May 2015 (UTC)
+</li><li> +1 though this doesn't solve any of the problems discussed above, it's still worth doing <a href="http://microformats.org/wiki/User:Kevin_Marks" title="User:Kevin Marks">Kevin Marks</a> 16:41, 28 May 2015 (UTC)
+</li><li> +1 will help parsers be more consistent with each other, and I haven't ever encountered a case where preserving leading/trailing whitespace was desirable <a href="http://microformats.org/wiki/User:Kylewm" title="User:Kylewm">Kylewm</a> 20:45, 8 June 2015 (UTC)
+</li></ul>
+</li></ol>
+<p>2015-06-08 option 2 resolved by consensus and implementation in mf2py.
+</p><p>Somewhat orthogonal:
+</p>
+<ul><li> make <code>value</code> on properties with children normalise whitespace
+<ul><li> -1 Seems like a bad idea as this "value" is supposed to be the same as if there was no embedded child microformat. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 20:45, 27 May 2015 (UTC)
+</li></ul>
+</li><li> make implied <code>name</code> normalise whitespace.
+<ul><li> +0 This is reasonable and already done somewhat in the parsing spec (trim lead/trailing). <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 20:45, 27 May 2015 (UTC)
+</li><li> +1 Given the universality of name, this would fix most of the issues we see. <a href="http://microformats.org/wiki/User:Kevin_Marks" title="User:Kevin Marks">Kevin Marks</a> 16:41, 28 May 2015 (UTC)
+</li></ul>
+</li><li> Put \n in textual forms if there is a <code>&lt;p&gt;</code> tag in the original.
+<ul><li> -1 that's a long path to go down with whitespace equivalents for HTML markup. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 20:45, 27 May 2015 (UTC)
+</li><li> would only preserving whitespace if in &lt;pre&gt; be an 80:20 compromise? <a href="http://microformats.org/wiki/User:Kevin_Marks" title="User:Kevin Marks">Kevin Marks</a> 16:41, 28 May 2015 (UTC)
+</li></ul>
+</li></ul>
+<p>Because there are both code markup and specific vocabulary (label) needs for preserving whitespace, we are compelled to preserve in general, perhaps except for very specific limited generic cases (e.g. trim leading/trailing, "value" parsing, implied name). <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a>
+</p>
+<a name="u-_parsing_iframe_src"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/u-%20parsing%20iframe%20src"></a> u- parsing iframe src </span></h3>
+<p>Currently if I put u-* on an iframe it gets the value of the fallback text. This seems a shame. Getting the URL seems a sensible answer.
+<a href="http://microformats.org/wiki/User:Kevin_Marks" title="User:Kevin Marks">Kevin Marks</a> 09:07, 11 July 2015 (UTC)
+</p>
+<div class="discussion">
+<ul><li> +1 from the room at IWS 2016 <a href="http://microformats.org/wiki/User:WillNorris" title="User:WillNorris">WillNorris</a> 22:57, 5 June 2016 (UTC)
+</li></ul>
+</div>
+<a name="i-_parsing_iframe_src"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/i-%20parsing%20iframe%20src"></a> i- parsing iframe src </span></h3>
+<p>More controversially, what about using an iframe for transclusion? A use case here is comments on a static site. Currently, on eg <a class="external free" href="http://www.kevinmarks.com/microformatschema.html" rel="nofollow" title="http://www.kevinmarks.com/microformatschema.html">http://www.kevinmarks.com/microformatschema.html</a> the comments are injected via JS, making them opaque to parsers and thus precluding further parsing such as salmentions.
+</p><p>If instead they were an iframe embedding them, a parser could optionally fetch its contents, parse them, and include them in the parsed mf2 output at that point. Overloading u-* for this seems wrong; e-* as below for srcdoc would have a different effect; this implies a new prefix directive would be needed. A strawman i-* (for include) may work.
+<a href="http://microformats.org/wiki/User:Kevin_Marks" title="User:Kevin Marks">Kevin Marks</a> 09:07, 11 July 2015 (UTC)
+</p>
+<a name="e-_parsing_iframe_srcdoc"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/e-%20parsing%20iframe%20srcdoc"></a> e- parsing iframe srcdoc </span></h3>
+<div class="discussion">
+<ul><li> Proposal: addition of a new e-* parsing rule for iframe elements with srcdoc attributes. E.G.
+</li></ul>
+<div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;div</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"h-entry"</span><span class="kw2">&gt;</span></span>
+ <span class="sc2"><span class="kw2">&lt;iframe</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"e-content"</span> srcdoc<span class="sy0">=</span><span class="st0">"&lt;p&gt;</span></span>A paragraph of HTML with <span class="sc1">&amp;quot;</span>quoted quotes<span class="sc1">&amp;quot;</span> <span class="sc1">&amp;amp;</span>amp; doubly quoted ampersands<span class="sc2"><span class="kw2">&lt;/p&gt;</span></span>" /&gt;
+<span class="sc2"><span class="kw2">&lt;/div&gt;</span></span></pre></div>
+<div dir="ltr" style="text-align: left;"><pre class="source-javascript"><span class="br0">{</span>
+ <span class="st0">"items"</span><span class="sy0">:</span> <span class="br0">[</span><span class="br0">{</span>
+  <span class="st0">"type"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"h-entry"</span><span class="br0">]</span><span class="sy0">,</span>
+  <span class="st0">"properties"</span><span class="sy0">:</span> <span class="br0">{</span>
+   <span class="st0">"content"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"&lt;p&gt;A paragraph of HTML with &amp;quot;quoted quotes&amp;quot; &amp;amp; doubly quoted ampersands&lt;/p&gt;"</span><span class="br0">]</span>
+  <span class="br0">}</span>
+ <span class="br0">}</span><span class="br0">]</span>
+<span class="br0">}</span></pre></div>
+<p>This would allow, for example, HTML comments to be sandboxed inside iframes but still parsable as microformats.
+</p><p>I believe the correct processing would be to leave " entities as they are but to unescape any doubly-escaped ampersands.
+</p>
+<ul><li><ul><li> Is there any use case for that? —<a href="http://microformats.org/wiki/User:TomMorris" title="User:TomMorris">Tom Morris</a> 12:32, 14 September 2013 (UTC)
+</li><li> +1 we need documentation of use case and existing sites publishing iframe srcdoc like this - <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 00:47, 15 September 2013 (UTC)
+</li><li> Rejected by consensus at <a class="mw-redirect" href="http://microformats.org/wiki/2015-01-20" title="2015-01-20">2015-01-20</a> meetup due to lack of real world uses cases / existing sites. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 06:26, 21 January 2015 (UTC)
+</li></ul>
+</li></ul>
+</div>
+<a name="How_to_interpret_mf2_properties_on_select"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/How%20to%20interpret%20mf2%20properties%20on%20select"></a> How to interpret mf2 properties on select </span></h3>
+<p>How should select elements with properties be treated any differently?
+</p><p>Awaiting real world examples / stronger use-cases, until then no special treatment of select elements with properties:
+</p>
+<div class="discussion">
+<ul><li> Are there any real world examples of select elements with microformats properties?
+</li><li> What would the use-case be for putting a microformats property class name on a select element?
+</li><li> Nothing special. By consensus at <a class="mw-redirect" href="http://microformats.org/wiki/2015-01-20" title="2015-01-20">2015-01-20</a> meetup due to lack of real world uses cases / existing sites. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 06:26, 21 January 2015 (UTC)
+</li></ul>
+</div>
+<a name="How_to_interpret_mf2_root_name_on_form"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/How%20to%20interpret%20mf2%20root%20name%20on%20form"></a> How to interpret mf2 root name on form </span></h3>
+<p>See what to do about <em>root class names</em> on <code>&lt;form&gt;</code> elements in particular:
+</p>
+<ul><li> <a href="http://microformats.org/wiki/hcard-input" title="hcard-input">hcard-input</a>
+</li></ul>
+<p>Awaiting real world examples / stronger use-cases, until then, no special treatment of root class names on <code>&lt;form&gt;</code> elements:
+</p>
+<div class="discussion">
+<ul><li> Are there any real world examples of a <code>&lt;form&gt;</code> element with a microformats root class name?
+</li><li> <a href="http://microformats.org/wiki/hcard-input" title="hcard-input">hcard-input</a> is one possible use-case, is anyone attempting to use forms for hCard input, e.g. with scripts to help make it work?
+</li><li> Are there other use-cases for putting a microformats root class name on a <code>&lt;form&gt;</code> element?
+</li><li> As of <a class="mw-redirect" href="http://microformats.org/wiki/2015-01-20" title="2015-01-20">2015-01-20</a> - no consensus - need more input as to when/why this is useful to do anything special.
+</li></ul>
+</div>
+<p><br/>
+</p>
+<a name="Parsing_Literal_Values"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Parsing%20Literal%20Values"></a>Parsing Literal Values</span></h3>
+<p>Issue raised by: <a href="http://microformats.org/wiki/User:BenWard" title="User:BenWard">Ben Ward</a>
+</p><p>It is proposed for microformats2 that all microformats be parsable from just their root element, e.g. <code>&lt;p class="h-card"&gt;Ben Ward&lt;/p&gt;</code> would create an hCard with the following properties after parsing:
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-javascript"><span class="br0">{</span> 
+  <span class="st0">'type'</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">'h-card'</span><span class="br0">]</span><span class="sy0">,</span>
+  <span class="st0">'properties'</span><span class="sy0">:</span> <span class="br0">{</span>
+     <span class="st0">'name'</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">'Ben Ward'</span><span class="br0">]</span>
+  <span class="br0">}</span>
+<span class="br0">}</span></pre></div>
+<p>This is a four-fold change from the current <a class="mw-redirect" href="http://microformats.org/wiki/hCard" title="hCard">hCard</a>:
+</p>
+<ol><li> type is generically identifiable as a microformat root, even in parsed form. The use of the 'h-' prefix persists into the type of the object. This is deliberately so, as a result of re-using the JSON data model of microdata which itself is re-using a common JSON convention, such that microformatted data is clearly distinguishable (as opposed to any other random schema that may be using a similar data model).
+</li><li> root-class-only support. Per <a class="mw-redirect" href="http://microformats.org/wiki/microformats-2-implied-properties" title="microformats-2-implied-properties">microformats-2-implied-properties</a>, the <i>name</i> property is implied by the entirety of the root class name element.
+</li><li> 'name' instead of 'fn'. As also documented in <a class="mw-redirect" href="http://microformats.org/wiki/microformats-2-implied-properties" title="microformats-2-implied-properties">microformats-2-implied-properties</a>, the continuous challenges/problems and need to repeatedly re-explain 'fn' over the years combined with the real-world market response of nearly every other party doing a person vocabulary renaming 'fn' to 'name', microformats 2 makes this change as well.
+</li><li> There is no automatic parse-time inferring of <code>'given-name': ['Ben']</code> and <code>'family-name': ['Ward']</code>. Any such inferring *might* be made by a vCard converter, but is left up to that specific application (not all applications) built on that vocabulary, though even in that case it may not be necessary, as an empty "N:;;;" <a class="mw-redirect" href="http://microformats.org/wiki/vCard" title="vCard">vCard</a> property is sufficient to satisfy the N property requirement of <a class="mw-redirect" href="http://microformats.org/wiki/vCard" title="vCard">vCard</a>, and also causes no problems when imported into various <a href="http://microformats.org/wiki/vcard-implementations" title="vcard-implementations">vcard-implementations</a>.
+</li></ol>
+<p>It is required of the extractor to understand that when a microformats object specifies no explicit child properties, that it must treat <code><a class="dashAnchor" name="//apple_ref/cpp/Object/h-card"></a>h-card</code> as having a <code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-name"></a>p-name</code>. But, the parser is generic, so it also treats <code><a class="dashAnchor" name="//apple_ref/cpp/Object/h-review"></a>h-review</code>, <code><a class="dashAnchor" name="//apple_ref/cpp/Object/h-entry"></a>h-entry</code>, <code><a class="dashAnchor" name="//apple_ref/cpp/Object/h-recipe"></a>h-recipe</code>, <code><a class="dashAnchor" name="//apple_ref/cpp/Object/h-geo"></a>h-geo</code> as having a ‘<code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-name"></a>p-name</code>’.
+</p><p>As a result, specific vocabularies are evolved to drop their specific form of name (e.g. fn, summary, entry-title) and simplified to use a common 'name' property instead.
+</p><p>Note: while the overwhelming majority of real world publishing/consuming uses of microformats do so with proper nouns which have names (and thus this parser-level incorporation of an implied 'name'), there are some formats that do not have a 'name' semantic. For example, <a href="http://microformats.org/wiki/geo" title="geo">geo</a>, <a href="http://microformats.org/wiki/adr" title="adr">adr</a>, and possibly if/when developed, units of measure, length, cost. The current thinking is that the benefits to the far greater proper-noun use-case of microformats outweigh the technical inelegance of having an extra/ignored 'name' property on formats that lack such a semantic.
+</p><p>Some formats also may appear in theory to better imply some other property, e.g. a review might be thought to imply its <i>content</i>, not its name, and an Atom entry its <i>content</i>, not its title, but in practice (actual publishing patterns) this is not the case. Typically, brief unstructured reviews (or mentions thereof) provide a <i>summary</i> (often hyperlinked to an expanded structured form) of that review, not its content, and similarly, brief unstructured posts (e.g. RSS items) have historically most often been link blog items which include the title of an item and a link. Short status updates as well established by Twitter are newer and would seem to imply purely content with no title, at least semantically, however, even Twitter populates the RSS title and ATOM entry title of their feeds with the content. It's not clear what went into that decision, however, that's likely irrelevant, as the outcome turns out to be emergent consistency among publishing behaviors.
+</p><p>To avoid overloading or undermining the semantics of a vocabulary, I propose that we handle this at the extractor level in a simpler fashion: Define a new property for literal data, that an extractor will provide if no other information was available. All <i>interpreters</i> may then be instructed that in the event that an object has no properties, it can attempt to interpret the literal value from the page instead.
+</p>
+<ul><li> This was one of the design iterations I went through which led me to the current implied 'name' design. Another iteration was the ability for a vocabulary to specify a single required property which was implied if there were no properties provided. However, the combination of the fact that in most cases such single required properties were quite name-like, and that a vocabulary-specific rule like that would then bind parsers to specific vocabularies (even so slightly) led me to collapse them into implying a 'name'. It's not perfect, but it's the best alternative so far that balances practical convenience of publishing/consuming, avoids vocabulary-specific knowledge in the parser, and technical (in)elegance. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 13:48, 4 October 2011 (UTC)
+</li></ul>
+<p>In existing microformats, the closest existing example we have for this is the <code>label</code> property in hCard, which is used to represent the literal address label for a place. It is a corresponding piece of <code>fn</code>, <code>org</code> and <code>adr</code> in combination, but has no structure in and of itself. Possibly, every microformat could have a <code>label</code> form where structured data is unavailable.
+</p><p>However in practice, the hCard <code>label</code> property is both little understood and little used. It's not even clear that it ought to be kept for microformats 2 (no known consumers, very few (if any?) real-world non-test publishers). This disuse is likely a good indicator that we should avoid basing anything on its design.
+</p><p>Alternatively, <code>value</code> is used throughout microformats to target a generic value (e.g. in combination with <code>price</code> in hListing.) It has been proposed that when parsing properties that are also themselves microformats, we create native objects of the form:
+</p>
+<pre>   {
+       'value': '1900 12th Street, San Francisco, CA 94'
+     , 'type': ['h-adr']
+     , 'properties': {
+           'street-address': '1900 12th Street'
+         , 'etc': 'etc'
+       }
+   }
+</pre>
+<p>We could apply this same pattern to the root level:
+</p>
+<pre>   { 
+       type: [h-card]
+     , properties: {}
+     , value: 'Ben Ward'
+   }
+</pre>
+<p>In this case, an interpreter or implementation is responsible for using <code>value</code> in place of <code>fn</code>, or restructuring the object. It would be the responsibility of each vocabulary to define its root property. The parsing layer of microformats 2.0 would not impose semantics or naming onto that.
+</p><p>For another example, h-geo would end up like this:
+</p>
+<pre>   {
+       type: [h-geo]
+     , properties: {}
+     , value: '1.3232;-0.543'
+   }
+</pre>
+<ul><li> This is an alternative I've been considering as well:  <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 13:48, 4 October 2011 (UTC)
+<ul><li> 'value' is more generic than 'name' (applies to more vocabularies) with the trade-off that it naturally has less (weaker) semantics.
+<ul><li> +1 I think that having naturally weaker semantics would be appropriate for this parsing functionality. —<a href="http://microformats.org/wiki/User:BenWard" title="User:BenWard">BenWard</a> 07:24, 5 October 2011 (UTC)
+</li></ul>
+</li><li> The interesting thing that this analysis has revealed is that there appear to be two distinct clusters of microformats, the much more commonly used/understood/useful proper-noun microformats which markup things with names (people, events, reviews, recipes), and the less used compound-data microformats which are often used <i>inside</i> other microformats and just have some sort of semi-structured value (adr, geo, measure, and perhaps even things like tel). Perhaps this is implying the possibility and some degree of utility for <i>two</i> microformats root class name prefixes, 'h-' for existing proper-noun microformats, and something else ('m-' for microformat/molecule?, 's-' for structured-value?, 'v-' for value (though historically "v-"/"v." has meant "vendor-specific")?) for unnamed structured data microformats.
+<ul><li> This more and more feels like a good idea, and I'm leaning toward "s-" for struct / structure / structured value. "s-" works just like "h-" except that it doesn't imply any properties at parse time. We can try it and see what happens. There's also no harm if publishers just use "h-" structures, they just (possibly) get a few extra properties if they happen to omit properties.
+</li></ul>
+</li><li> Parallels the same JSON when a property has both a string value <i>and</i> is a structure itself.
+<ul><li> Changed my mind on this. The parallel is not quite there. 'name'/'url'/'photo' are only implied if there are NO properties, where as the JSON string value + structure convention *always* provides a 'value'. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 22:39, 4 October 2011 (UTC)
+</li><li> And due to this difference in behavior ('value' is there when nested properties are present, whereas 'name' is only implied when there are no properties specified), I think it's correct to keep them separate, i.e. stick with implied 'name'. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 14:56, 5 October 2011 (UTC)
+</li></ul>
+</li><li> However, I'm still currently leaning towards the practical convenience of providing a 'name' for the vast majority of microformats uses, rather than diluting this feature for the sake of avoiding implying inapplicable semantics to the few plain structured data microformats, and even then, only when no properties are explicitly specified! I'd rather introduce a new root prefix for those than lose the simplicity and utility of implied 'name'. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 13:48, 4 October 2011 (UTC)
+</li></ul>
+</li></ul>
+<a name="resolved"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/resolved"></a> resolved </span></h2>
+<p>Most recent resolved issues first:
+</p>
+<a name="de-dupe_URLs.3F"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/de-dupe%20URLs%3F"></a> de-dupe URLs? </span></h3>
+<p>2016-06-05. REJECTED. NO SPEC CHANGE.
+</p><p>Currently, Known templates end up linking to the author's url in the h-card twice. This leads to duplicate URLs in the parsed output, which make jf2 conversion insert a children element.
+Should we be deduping URLs? Or is this a GIGO issue?
+</p>
+<div class="discussion">
+<ul><li> -1 <a href="http://microformats.org/wiki/User:Kylewm" title="User:Kylewm">Kylewm</a> I can't necessarily think of a case where two of the same URL values is useful, but it feels like the parser's job to preserve the fidelity of the input. (this has been fixed in Known's markup btw <a class="external autonumber" href="https://github.com/idno/Known/issues/1372" rel="nofollow" title="https://github.com/idno/Known/issues/1372">[2]</a>)
+</li><li> -1 <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> on de-duping for mf2 json. jf2 can do what it prefers, no specific opinion on that.
+</li><li> -1 <a href="http://microformats.org/wiki/User:GlennJones" title="User:GlennJones">Glenn</a> for both the reasons mentioned already
+</li><li> -1 willnorris
+</li></ul>
+</div>
+<a name="img_fallback_in_p-"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/img%20fallback%20in%20p-"></a> img fallback in p- </span></h3>
+<p>2016-06-05. ACCEPTED. SPEC UPDATED.
+</p><p>Trying to make an author h-card without too many extra elements I first did:
+</p>
+<pre>&lt;div class="p-author h-card"&gt;
+&lt;a href="/" class="p-org p-name"&gt;&lt;img class="u-logo" src="/static/logo.jpg" &gt;mention.tech&lt;/a&gt;
+&lt;/div&gt;</pre>
+<p>rather than:
+</p>
+<pre>&lt;div class="p-author h-card"&gt;
+&lt;a href="/" class="p-org p-name"&gt;&lt;img class="u-logo" src="/static/logo.jpg" alt=""&gt;mention.tech&lt;/a&gt;
+&lt;/div&gt;</pre>
+<p>I was surprised that the p-name and p-org  took the src and the plaintext and concatenated them giving <code><a class="external free" href="http://mention-tech.appspot.com/static/logo.jpgmention.tech" rel="nofollow" title="http://mention-tech.appspot.com/static/logo.jpgmention.tech">http://mention-tech.appspot.com/static/logo.jpgmention.tech</a></code>, though that is the current spec (a separate php-mf2 bug ignored the empty alt when I added it).
+</p><p>While this is what the spec says, I can't think of a scenario where concatenating a string to a URL gives a useful result. Instead:
+</p><p>Proposal: 
+</p>
+<ul><li> If we fallback on the src of an img due to it having no alt I propose we put a space on beginning and end. As whitespace is stripped from beginning and end of p- values, this should still give the url in the simplest case, but avoid creating nonsensical URLs in cases like this.
+</li></ul>
+<div class="discussion">
+<ul><li> +1 <a href="http://microformats.org/wiki/User:Kylewm" title="User:Kylewm">Kylewm</a> reasoning given here makes sense
+</li><li> +1 <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> agreed with reasoning
+</li><li> +1 <a class="new" href="http://microformats.org/wiki/index.php?title=User:GRegorLove&amp;action=edit&amp;redlink=1" title="User:GRegorLove (not yet written)">gRegor</a> agreed
+</li><li> +1 totally makes sense to me <a href="http://microformats.org/wiki/User:WillNorris" title="User:WillNorris">WillNorris</a> 21:21, 5 June 2016 (UTC)
+</li><li> ...
+</li></ul>
+</div>
+<a name="namespacing_for_better_integrability"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/namespacing%20for%20better%20integrability"></a> namespacing for better integrability </span></h3>
+<p>2016-06-05. REJECTED.
+</p><p>All the implied class names may conflict with existing stylesheets, because the prefixes used are too short and are not proper namespaces for what follows them ("p-", "u-", "e-", "h-", "dt-", "x-", ...) and too many of these short prefixes are used.
+</p><p>You should add the support for namespacing with arbitrary "MYCARD" name usiong a second class on the same root element that uses class "h-card":
+</p>
+<pre>&lt;div class="p-author h-card h-card-ns-MYCARD"&gt;&lt;!-- this defines the "MYCARD" namespace used below --&gt;
+&lt;a href="/" class="MYCARD-p-org MYCARD-p-name"&gt;&lt;img class="MYCARD-u-logo" src="/static/logo.jpg" alt=""&gt;mention.tech&lt;/a&gt;
+&lt;p class="e-form"&gt;&lt;!-- "e-form" is not recognized, because not in a known namespace --&gt;
+...
+&lt;/p&gt;
+&lt;/div&gt;</pre>
+<p>This is important because tools are autogenerating class names and stylesheets for HTML and associate them with other functions not intended for vCards.
+</p><p>In fact this support should be added in ALL microformats, not just for vCards...
+</p><p>And this will reduces a lot the ambiguities in microformat parsers by allowing them to be more selective (in fact the namespace being used as a common prefix for all properties, parsers could be faster, additionally it would allow easier editing on vcards in HTML, for operations like finds/replace, or even for automated replacements using regexp searches.
+</p><p>It would also allow nested vcards created from different tools using their own private extensions, to not conflict each other on these extensions, if they can be properly namespaced.
+</p><p>Note: these defined namespaces are automatically replacable by parsers if they regenerate a new composite document (they could be removed by tools if there are no conflict, or shortened, or made unique by changing them with another arbitrary name).
+</p><p>The other solution would be to use namespaces on the HTML attribute names themselves, notably class:
+</p>
+<pre>&lt;div class="p-author h-card h-card-ns-MYCARD"&gt;&lt;!-- this defines the "MYCARD" namespace used below --&gt;
+&lt;a href="/" MYCARD:class="p-org p-name"&gt;&lt;img MYCARD:class="u-logo" src="/static/logo.jpg" alt=""&gt;mention.tech&lt;/a&gt;
+&lt;p class="e-form"&gt;&lt;!-- "e-form" is not recognized, because not in a known namespace --&gt;
+...
+&lt;/p&gt;
+&lt;/div&gt;</pre>
+<p>But this solution will not work reliably in strict XHTML or XML parsers if there's no XML namespace definition, or this could invalidate the document on basic DOM parsers for HTML (e.g. in MediaWiki, unknown HTML attributes are discarded so that MYCARD:class="..." would not appear at all in the final HTML, only class="..." is accepted).
+</p><p>Note: this would also cleanly solve problems like the one related in <a href="#ignore_u-camelCase_properties" title="">#ignore u-camelCase properties</a> below !
+</p><p>Finally, it woul allow the coexistence of multiple microformats coexisting in the same document (only the root element is distinctive, but the "p-*", "u-*", "dt-*" elements will collide: which microformat should interpret them? It is easy to solve by assigning to the root ("h-&lt;microformat&gt;" element for each microformat a namespace that will be used in their content, such as "h-card-ns-MYCARD" for assigning the "MYCARD" namespace to the "h-card" microformat, or "h-goog-doc-ns-MYDOC" to assign the "MYDOC" namespace to the "h-goog-doc" microformat that google may want to develop for Google Docs, or "h-x-doubleclick-X78954218" for assigning the "X78954218" namespace that would be used in a "x-doubleclick" custom microformat developed by doubleclick with contents using "X78954218-p-*", "X78954218-u-*", "X78954218-e-*", "X78954218-dt-*").
+</p><p><a class="new" href="http://microformats.org/wiki/index.php?title=User:Verdy_p&amp;action=edit&amp;redlink=1" title="User:Verdy p (not yet written)">Verdy p</a> 03:54, 1 June 2016 (UTC)
+</p>
+<div class="discussion">
+<ul><li> -1 <a class="new" href="http://microformats.org/wiki/index.php?title=User:GRegorLove&amp;action=edit&amp;redlink=1" title="User:GRegorLove (not yet written)">gRegor</a>: see <a href="http://microformats.org/wiki/namespaces-considered-harmful" title="namespaces-considered-harmful">namespaces-considered-harmful</a>; also seems to solve only hypothetical problems. Are there real-world parsing collision examples?
+</li><li> -1 agreed with gRegor above.  I would certainly want to see real world parsing problems before adding just a heavyweight "solution". <a href="http://microformats.org/wiki/User:WillNorris" title="User:WillNorris">WillNorris</a> 21:16, 5 June 2016 (UTC)
+</li><li> -1 <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a>: historically none of these namespace setting/using proposals have actually survived in the wild on the web, they all get co-opted to treating the shorthands/prefixes in a hardcoded way, e.g. og: etc. All evidence to date is against such proposals, plus there's no concrete examples provided to motivate this change, only theory.
+</li></ul>
+</div>
+<a name="consistent_implied_name_url_from_grandchildren_of_root"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/consistent%20implied%20name%20url%20from%20grandchildren%20of%20root"></a> consistent implied name url from grandchildren of root </span></h3>
+<p>2016-06-05. ACCEPTED. SPEC UPDATED.
+</p><p>See <a class="external free" href="https://github.com/microformats/tests/issues/50" rel="nofollow" title="https://github.com/microformats/tests/issues/50">https://github.com/microformats/tests/issues/50</a>
+</p><p>Summary: 
+</p>
+<blockquote>
+Proposal to update spec to include the following at the end of implied url parsing rules:
+<ul><li> else if .h-x&gt;:only-child&gt;a[href]:only-of-type:not[.h-*] then use that [href] for url
+</li><li> else if .h-x&gt;:only-child&gt;area[href]:only-of-type:not[.h-*] then use that [href] for url
+</li></ul>
+these are identical to the existing rules with the addition of the :only-child selector.
+</blockquote>
+<div class="discussion">
+<ul><li> +1 <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a>
+</li><li> +1 <a href="http://microformats.org/wiki/User:WillNorris" title="User:WillNorris">willnorris</a>
+</li><li> +1 gRegor
+</li><li> +1 kylewm
+</li></ul>
+</div>
+<a name="need_more_not_h-.2A_to_avoid_child_root_implying_properties"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/need%20more%20not%20h-%2A%20to%20avoid%20child%20root%20implying%20properties"></a> need more not h-* to avoid child root implying properties </span></h3>
+<p>2016-06-05. ACCEPTED. SPEC UPDATED.
+</p><p>See <a class="external free" href="https://github.com/microformats/tests/issues/52" rel="nofollow" title="https://github.com/microformats/tests/issues/52">https://github.com/microformats/tests/issues/52</a> for an example of this
+</p><p>Proposal:
+</p>
+<ul><li> any element being used to imply a property
+</li><li> any intermediate :only-child to get to a grandchild element to imply a property
+</li></ul>
+<p>Should also be restricted to :not[.h-*]
+</p><p>E.g. <code>&gt;:only-child&gt;</code> should be <code>&gt;:only-child:not[.h-*]&gt;</code>
+</p>
+<div class="discussion">
+<ul><li> +1 <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a>
+</li><li> +1 willnorris
+</li><li> +1 gRegor
+</li><li> +1 kylewm
+</li></ul>
+</div>
+<a name="Standard_datetime_format"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Standard%20datetime%20format"></a> Standard datetime format </span></h3>
+<p>2016-06-04 (before). REJECTED.
+</p><p>2015-07-28
+</p>
+<a class="external free" href="microformats2-parsing.html#parsing_a_dt-_property" rel="nofollow" title="http://microformats.org/wiki/microformats2-parsing#parsing_a_dt-_property">http://microformats.org/wiki/microformats2-parsing#parsing_a_dt-_property</a> does not specify any standard format to use for datetimes. e.g.  <pre>2015-07-28T12:55:33</pre> vs <pre>2015-07-28 12:55:33</pre>
+<p>Would be good to standardize this to compare various parser outputs.
+</p><p>2015-07-29: This subject is (somewhat) covered in <a class="external free" href="http://microformats.org/wiki/iso-8601" rel="nofollow" title="http://microformats.org/wiki/iso-8601">http://microformats.org/wiki/iso-8601</a> As it stands the JavaScript parsers support output in the 3 main profiles, 'W3C Note', '<a class="external" href="http://tools.ietf.org/html/rfc3339" title="http://tools.ietf.org/html/rfc3339">RFC 3339</a>' and 'HTML5' plus 'auto' which keeps authors format. The default date output for the JavaScript parsers is the same format as the date was originally authored in. This can be changes by setting the options.dateFormat switch to any of the other profiles mentioned. It would be good if other parser also had a switch to force output to a common profiles so we could compare various parser outputs, but I think the default should be how a date was authored. All output whatever profile should also keeps the authored level of specificity, i.e. not adding minutes or seconds if they are not in the input date string. This is important if you want to compare parser outputs. 
+</p><p>The only exception to this where date and times are combined such as the implied h-event rule for dt-start and dt-end where I output in the HTML5 style 2015-07-29 12:55:33 as there is no predefined author preference and HTML5 profile is more human readable. <a href="http://microformats.org/wiki/User:GlennJones" title="User:GlennJones">Glenn Jones</a> 11:02, 29 July 2015 (UTC)
+</p>
+<div class="discussion">
+<ul><li> -1 <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> we are maintaining whole properties as authored, with authored level of specificity, i.e. not adding minutes or seconds if they are not in the input date string, and <a class="mw-redirect" href="http://microformats.org/wiki/vcp" title="vcp">vcp</a> cases handled in separate issue.
+<ul><li> Consensus in room at IWC 2016 session also. Resolving accordingly.
+</li></ul>
+</li></ul>
+</div>
+<p><br/>
+</p>
+<a name="implied_date_for_dt_properties_both_mf2_and_backcompat"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/implied%20date%20for%20dt%20properties%20both%20mf2%20and%20backcompat"></a> implied date for dt properties both mf2 and backcompat </span></h3>
+<p>2016-06-04 (before). ACCEPTED. SPEC UPDATED.
+</p><p>The <a href="http://microformats.org/wiki/value-class-pattern#microformats2_parsers" title="value-class-pattern">value class pattern dt-* date proposal</a> should apply to both mf2 dt-* properties, and backcompat classic microformats, to preserve the hAtom / hCalendar optimizations noted on that page, but in a generic way.
+</p>
+<div class="discussion">
+<ul><li> +1 <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 16:12, 18 August 2015 (UTC)
+</li><li> +1 <a class="new" href="http://microformats.org/wiki/index.php?title=User:Glenn_Jones&amp;action=edit&amp;redlink=1" title="User:Glenn Jones (not yet written)">Glenn Jones</a> 20 August 2015
+</li></ul>
+</div>
+<p>2015-08-21: <a class="new" href="http://microformats.org/wiki/index.php?title=User:Glenn_Jones&amp;action=edit&amp;redlink=1" title="User:Glenn Jones (not yet written)">Glenn Jones</a>
+Now implemented in microformat-shiv can be tested at <a class="external free" href="http://microformatshiv.com/editor.html" rel="nofollow" title="http://microformatshiv.com/editor.html">http://microformatshiv.com/editor.html</a>
+</p><p>And <a class="mw-redirect" href="http://microformats.org/wiki/vcp" title="vcp">vcp</a> updated too. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 22:53, 5 June 2016 (UTC)
+</p>
+<a name="implied_name_when_alt.3D.22.22"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/implied%20name%20when%20alt%3D%22%22"></a> implied name when alt="" </span></h3>
+<p>The implied name rule
+</p>
+<ul><li> else if .h-x&gt;img:only-child[alt]:not[.h-*] then use that img alt for name
+</li></ul>
+<p>is slightly under-specified for the case where alt is provided but intentionally blank. The desired behavior is to use the img alt tag only if it is non-empty. For example:
+</p>
+<pre>&lt;a class="h-card" href="https://kylewm.com"&gt;
+  &lt;img src="https://kylewm.com/photo.jpg" alt=""&gt;
+  Kyle
+&lt;/a&gt;
+</pre>
+<p><br/>
+The PHP and JS parsers already seem to return the desired result ("Kyle" in the above example). The Python parser uses the alt text and returns "".
+</p><p>Proposal: modify the spec to explicitly exclude these tags:
+</p>
+<ul><li> else if .h-x&gt;img:only-child[alt]:not([alt=""]):not[.h-*] then use that img alt for name 
+</li></ul>
+<p>And audit the other implied rules for similar cases.
+</p>
+<div class="discussion">
+<ul><li> +1 <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> this makes sense to me, and as far as I can tell, for the other cases too for *implied* properties:
+<ul><li> area[alt], abbr[title], and all other attributes where there is an existence test, there should be a :not[alt=""] empty test, for implied p-name, u-photo, u-url
+</li></ul>
+</li><li> +1 <a class="new" href="http://microformats.org/wiki/index.php?title=User:GRegorLove&amp;action=edit&amp;redlink=1" title="User:GRegorLove (not yet written)">gRegor</a> sounds good to me.
+</li><li> +1 <a href="http://microformats.org/wiki/User:Kylewm" title="User:Kylewm">Kylewm</a> We've added this in mf2py too now, and I'm happy with it.
+</li><li> +1 <a href="http://microformats.org/wiki/User:GlennJones" title="User:GlennJones">Glenn</a> This is often define by the underlying HTML parsing library which will remove attributes that do not have a values.
+</li><li> ...
+</li></ul>
+</div>
+<ul><li> 2016-05-30 Resolved and incorporated into <a href="microformats2-parsing.html" title="microformats2-parsing">microformats2-parsing</a>. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 23:32, 30 May 2016 (UTC)
+</li></ul>
+<a name="parsing_a_dt-_property"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/parsing%20a%20dt-%20property"></a> parsing a dt- property </span></h3>
+<ul><li> Should instruct to replace a "T" separator with a single space.
+</li><li> Value-class-pattern parsing should instruct to use a single space as the separator.
+</li><li> Value-class-pattern should instruct to keep the authored level of specificity, rather than implying 00 seconds when not present. <a class="external free" href="http://microformats.org/wiki/value-class-pattern##If+by+parsing+the+%22value%22" rel="nofollow" title="http://microformats.org/wiki/value-class-pattern##If+by+parsing+the+%22value%22">http://microformats.org/wiki/value-class-pattern##If+by+parsing+the+%22value%22</a>
+</li></ul>
+<p>Log: <a class="external free" href="https://indiewebcamp.com/irc/2016-04-25#t1461606553653" rel="nofollow" title="https://indiewebcamp.com/irc/2016-04-25#t1461606553653">https://indiewebcamp.com/irc/2016-04-25#t1461606553653</a>
+</p>
+<div class="discussion">
+<ul><li> +0 <a href="http://microformats.org/wiki/User:Kylewm" title="User:Kylewm">Kylewm</a> on replacing "T" as the separator. Would you please clarify whether that is only for value class pattern/assembling dates from components, or is it proposing to *always* normalize dt's?
+<ul><li> +1 <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> definitely value class pattern/assembling dates from components should use " " instead of "T" as separator.
+</li><li> +0 <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> slight pref (but unsure) for replace a "T" separator with a single space in other dt-* parsing.
+</li><li> +1 <a href="http://microformats.org/wiki/User:GlennJones" title="User:GlennJones">Glenn</a> happy to move to single space separator for dates built from the value-class pattern. 
+</li><li> -1 <a href="http://microformats.org/wiki/User:GlennJones" title="User:GlennJones">Glenn</a> I think we should pass through the authored format of a date as default output. We should process the content as little as possible, so it is as authored. We can then add parser options to force one of the date formats such as ISO profiles HTML5 or W3C if we need consistency. This is the approach I have taken.
+</li><li> See related specific issue: <a href="microformats2-parsing-issues.html#Standard_datetime_format" title="microformats2-parsing-issues">microformats2-parsing-issues#Standard_datetime_format</a>
+</li></ul>
+</li><li> +1 <a href="http://microformats.org/wiki/User:Kylewm" title="User:Kylewm">Kylewm</a> on not implying seconds
+</li><li> +1 <a href="http://microformats.org/wiki/User:GlennJones" title="User:GlennJones">Glenn</a> on not implying seconds. Authored level of specificity should always be kept in dates.
+</li></ul>
+</div>
+<p>Consensus resolutions:
+</p>
+<ul><li> <b>Drop value-class-pattern implying 00 seconds.</b> Note: keeping/implying 00 minutes due to common human usage of whole hours to specifically mean "on the hour" which is 00 minutes. The same implied precision does not exist for seconds in practice.
+<ul><li> 2016-05-18 <a class="mw-redirect" href="http://microformats.org/wiki/vcp" title="vcp">vcp</a> updated with this resolution.
+</li></ul>
+</li><li> <b>Value-class-pattern parsing should instruct to use a single space as the separator.</b>
+<ul><li> 2016-05-18 <a class="mw-redirect" href="http://microformats.org/wiki/vcp" title="vcp">vcp</a> updated with this resolution.
+</li></ul>
+</li></ul>
+<p>Dropped:
+</p>
+<ul><li> replace a "T" separator (when authored that way) with a single space
+<ul><li> No consensus on this, some opposition. Prefer to "process the content as little as possible, so it is as authored".
+</li></ul>
+</li></ul>
+<a name="When_to_collapse_whitespace_in_properties"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/When%20to%20collapse%20whitespace%20in%20properties"></a> When to collapse whitespace in properties </span></h3>
+<p>The spec doesn’t explicitly require whitespace to be collapsed or not. The official mf2 test suite requires it to be collapsed.
+</p><p>Reasons why whitespace <i>shouldn’t</i> be collapsed:
+</p>
+<ul><li> Plaintext property representations of syntax-highlighted code, poetry and song lyrics require whitespace to be present
+</li><li> Whether or not whitespace is an important part of the content being parsed is determined by css white-space and CANNOT be inferred from HTML markup alone
+</li></ul>
+<p>Resolution 2013-11-12: Agreed, whitespace should not be collapsed (other than normal HTML5 parsing rules). The spec now refers to "textContent" rather than "innertext" to make this explicit.
+</p>
+<a name="How_to_interpret_mf2_classnames_on_form_inputs"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/How%20to%20interpret%20mf2%20classnames%20on%20form%20inputs"></a> How to interpret mf2 classnames on form inputs </span></h3>
+<p>E.G. how to parse:
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;input</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"u-url"</span> <span class="kw3">value</span><span class="sy0">=</span><span class="st0">"https://brennannovak.com/notes/338"</span> <span class="sy0">/</span><span class="kw2">&gt;</span></span></pre></div>
+<p>Examples in the wild: <a class="external free" href="https://brennannovak.com/notes/338" rel="nofollow" title="https://brennannovak.com/notes/338">https://brennannovak.com/notes/338</a>
+</p><p>See proposal:
+</p>
+<ul><li> <a href="http://microformats.org/wiki/hcard-parsing-brainstorming#input_element_handling" title="hcard-parsing-brainstorming">hcard-parsing-brainstorming#input_element_handling</a>
+</li></ul>
+<p>Resolution 2013-11-12: Per that proposal, p- u- dt- properties on input[value] elements now use the value attribute.
+</p>
+<a name="mixture_of_microformats2_and_classic_microformats_classnames_on_different_elements"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/mixture%20of%20microformats2%20and%20classic%20microformats%20classnames%20on%20different%20elements"></a> mixture of microformats2 and classic microformats classnames on different elements </span></h3>
+<p>Some sites in the wild have mistakenly combined classic mf and mf2 markup in ways which misrepresent the content if parsed in BC mode.
+</p><p>Typically this is caused by putting classic and mf2 classnames for the same vocabulary on different elements, e.g:
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;body</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"hentry"</span><span class="kw2">&gt;</span></span>
+ <span class="sc2">&lt;article <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"h-entry"</span><span class="kw2">&gt;</span></span>
+  <span class="sc2"><span class="kw2">&lt;h1</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-name"</span><span class="kw2">&gt;</span></span><span class="sc2"><span class="kw2">&lt;/h1&gt;</span></span>
+ <span class="sc2"><span class="kw2">&lt;</span><span class="sy0">/</span>article&gt;</span>
+<span class="sc2"><span class="kw2">&lt;/body&gt;</span></span></pre></div>
+<p>Sites where this has been observed:
+</p>
+<ul><li> <a class="external free" href="http://acegiak.machinespirit.net/2013/10/17/barnaby-walters-notes-another-thing-i-love-about-the-web-users-have-the-power-to-take-control-of-their-uis-and-improve-their-own-experiences-aside-drm-for-html-would-prevent-this-from-being-possibl/" rel="nofollow" title="http://acegiak.machinespirit.net/2013/10/17/barnaby-walters-notes-another-thing-i-love-about-the-web-users-have-the-power-to-take-control-of-their-uis-and-improve-their-own-experiences-aside-drm-for-html-would-prevent-this-from-being-possibl/">http://acegiak.machinespirit.net/2013/10/17/barnaby-walters-notes-another-thing-i-love-about-the-web-users-have-the-power-to-take-control-of-their-uis-and-improve-their-own-experiences-aside-drm-for-html-would-prevent-this-from-being-possibl/</a>
+</li><li> <a class="external free" href="http://shawfactor.com/2013/08/06/thoughts-on-extending-webmentions/" rel="nofollow" title="http://shawfactor.com/2013/08/06/thoughts-on-extending-webmentions/">http://shawfactor.com/2013/08/06/thoughts-on-extending-webmentions/</a> (fixed)
+</li><li> <a class="external free" href="http://notizblog.org/2013/06/18/the-rise-of-the-indieweb/" rel="nofollow" title="http://notizblog.org/2013/06/18/the-rise-of-the-indieweb/">http://notizblog.org/2013/06/18/the-rise-of-the-indieweb/</a> (fixed)
+</li></ul>
+<p>Discussion:
+</p>
+<ul><li> As far as I can tell, the problems in all of these examples were caused by mf2 markup being injected by a wordpress plugin, but classic mf classnames being present further up the DOM in the themes. When parsed in compatibility mode, the classic mf classnames are transformed into mf2 classnames, making the original mf2 classnames look like children of empty items.
+</li><li> Turns out this isn’t theme-specific, WordPress injects hentry via PHP <a class="external autonumber" href="http://indiewebcamp.com/irc/2013-10-22/line/1382448759" rel="nofollow" title="http://indiewebcamp.com/irc/2013-10-22/line/1382448759">[3]</a>. The bug with the wordpress mf2 plugin is resolved as of <a class="external text" href="http://indiewebcamp.com/irc/2013-10-22/line/1382449035" rel="nofollow" title="http://indiewebcamp.com/irc/2013-10-22/line/1382449035">2013-10-22</a> --<a href="http://microformats.org/wiki/User:Barnabywalters" title="User:Barnabywalters">bw</a> 13:38, 22 October 2013 (UTC)
+</li></ul>
+<a name="e-_and_p-_escaping_levels"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/e-%20and%20p-%20escaping%20levels"></a> e- and p- escaping levels </span></h3>
+<div class="discussion">
+<ul><li> The fact that the parsed value of any element with .e-* is at a different level of escaping to the parsed values of p-*, dt-* etc. without any indication of how the property was parsed in the output is a security problem. For example:
+</li></ul>
+<table style="width: 100%">
+ <tbody><tr>
+  <th>input</th>
+  <th>output</th>
+ </tr>
+ <tr>
+  <td><div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;p</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"h-card"</span><span class="kw2">&gt;</span></span>
+ <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-name"</span><span class="kw2">&gt;</span></span><span class="sc1">&amp;lt;</span>tag<span class="sc1">&amp;gt;</span><span class="sc2"><span class="kw2">&lt;/span&gt;</span></span>
+<span class="sc2"><span class="kw2">&lt;/p&gt;</span></span></pre></div></td>
+  <td><div dir="ltr" style="text-align: left;"><pre class="source-javascript"><span class="br0">{</span>
+    <span class="st0">"items"</span><span class="sy0">:</span> <span class="br0">[</span>
+        <span class="br0">{</span>
+            <span class="st0">"type"</span><span class="sy0">:</span> <span class="br0">[</span>
+                <span class="st0">"h-card"</span>
+            <span class="br0">]</span><span class="sy0">,</span>
+            <span class="st0">"properties"</span><span class="sy0">:</span> <span class="br0">{</span>
+                <span class="st0">"name"</span><span class="sy0">:</span> <span class="br0">[</span>
+                    <span class="st0">"&lt;tag&gt;"</span>
+                <span class="br0">]</span>
+            <span class="br0">}</span>
+        <span class="br0">}</span>
+    <span class="br0">]</span>
+<span class="br0">}</span></pre></div></td>
+ </tr>
+ <tr>
+  <td><div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;p</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"h-card"</span><span class="kw2">&gt;</span></span>
+ <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"e-name"</span><span class="kw2">&gt;</span></span><span class="sc1">&amp;lt;</span>tag<span class="sc1">&amp;gt;</span><span class="sc2"><span class="kw2">&lt;/span&gt;</span></span>
+<span class="sc2"><span class="kw2">&lt;/p&gt;</span></span></pre></div></td>
+  <td><div dir="ltr" style="text-align: left;"><pre class="source-javascript"><span class="br0">{</span>
+    <span class="st0">"items"</span><span class="sy0">:</span> <span class="br0">[</span>
+        <span class="br0">{</span>
+            <span class="st0">"type"</span><span class="sy0">:</span> <span class="br0">[</span>
+                <span class="st0">"h-card"</span>
+            <span class="br0">]</span><span class="sy0">,</span>
+            <span class="st0">"properties"</span><span class="sy0">:</span> <span class="br0">{</span>
+                <span class="st0">"name"</span><span class="sy0">:</span> <span class="br0">[</span>
+                    <span class="st0">"&amp;lt;tag&amp;gt;"</span>
+                <span class="br0">]</span>
+            <span class="br0">}</span>
+        <span class="br0">}</span>
+    <span class="br0">]</span>
+<span class="br0">}</span></pre></div></td>
+ </tr>
+</tbody></table>
+<ul><li> As a parser developer, the most straightforward way I can think of solving this is to add an option (enabled by default) which encodes HTML special characters on all non e-* properties, so the developer knows that all property values are going to be at the same level of escaping. --<a href="http://microformats.org/wiki/User:Barnabywalters" title="User:Barnabywalters">bw</a> 20:00, 15 June 2013 (UTC)
+<ul><li> Your suggestion of auto-HTML-encoding p-*/u-*/dt-* property values is the most sensible I think. I would NOT make it an option, as it makes sense write consistent microformats2 consumers. - <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 07:18, 5 July 2013 (UTC)
+</li><li> Can you think of any existing apps/consumers of microformats2 via the parser that would break? What would indieweb comments parsers do? - <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 07:18, 5 July 2013 (UTC)
+<ul><li> The only breakage which might occur would be over-encoding of non e-* properties, but I’ll release this update as v0.2.0 and warn people about the changes. The worst thing which could happen is that some comments look a bit weird, as opposed to the current worst possible scenario of easy XSS attacks --<a href="http://microformats.org/wiki/User:Barnabywalters" title="User:Barnabywalters">bw</a> 12:55, 5 July 2013 (UTC)
+</li><li> We should also decide exactly which characters get encoded — just angle brackets, or quotes/ampersands as well? --<a href="http://microformats.org/wiki/User:Barnabywalters" title="User:Barnabywalters">bw</a> 12:55, 5 July 2013 (UTC)
+</li><li> I am not sure about this, it seems more like a helper function rather than a core feature of the parser. Personally I would like to store data as text and encode only when I am going to use and I known the format it is going to be use in.  --<a href="http://microformats.org/wiki/User:GlennJones" title="User:GlennJones">Glenn Jones</a> 9:54, 14 July 2013 (UTC) 
+</li><li>After the discussion on the indiewebcamp IRC with Barnaby Walters I now understand the XSS issue that this change is trying to address. A rogue author could include HTML with scripts to execute a XSS attack. These could be masked by switch prefixes i.e. p-* to e-* on a well use property. As the consumer does not see the prefix in the JSON output they have no idea if a property will content HTML or text.  I will update my two parsers and the test suite --<a href="http://microformats.org/wiki/User:GlennJones" title="User:GlennJones">Glenn Jones</a> 8:02, 17 July 2013 (UTC) 
+</li></ul>
+</li><li>So what about an author setting a property to e-* when it would normal be p-*, dt-* or u-* i.e.
+</li></ul>
+</li></ul>
+<div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;div</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"h-card"</span><span class="kw2">&gt;</span></span><span class="sc2"><span class="kw2">&lt;p</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"e-name"</span><span class="kw2">&gt;</span></span><span class="sc2"><span class="kw2">&lt;script&gt;</span></span> alert('xss test') <span class="sc2"><span class="kw2">&lt;/script&gt;</span></span><span class="sc2"><span class="kw2">&lt;/p&gt;</span></span><span class="sc2"><span class="kw2">&lt;/div&gt;</span></span></pre></div>
+<ul><li><ul><li> per <a href="http://microformats.org/wiki/events/2013-09-14-microformats2-parsing" title="events/2013-09-14-microformats2-parsing">microformats2 parsing discussion 2013-09-14</a>, parsers should never automatically attempt to HTML-special-characters encode - as that would provide the client of the parser a false sense of security. It's *always* up to client code to escape any text being output to HTML *at the moment it is output to HTML* and never before, because they can never trust that any text from storage/elsewhere has for sure been escaped or not. - <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 18:07, 17 October 2013 (UTC)
+</li><li> Should we not encode e-* as well and the consumer can decode at their own risk --<a href="http://microformats.org/wiki/User:GlennJones" title="User:GlennJones">Glenn Jones</a> 18:42, 21 July 2013 (UTC) 
+<ul><li> No, never, per above point from <a href="http://microformats.org/wiki/events/2013-09-14-microformats2-parsing" title="events/2013-09-14-microformats2-parsing">microformats2 parsing discussion 2013-09-14</a> - <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 18:07, 17 October 2013 (UTC)
+</li></ul>
+</li><li> See <a href="http://microformats.org/wiki/events/2013-09-14-microformats2-parsing" title="events/2013-09-14-microformats2-parsing">microformats2 parsing discussion 2013-09-14</a> etherpad: <a class="external free" href="https://etherpad.mozilla.org/microformats2parsing" rel="nofollow" title="https://etherpad.mozilla.org/microformats2parsing">https://etherpad.mozilla.org/microformats2parsing</a> for more details on the resolution to this issue - and incorporate here (then move to resolved section below). - <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 18:07, 17 October 2013 (UTC)
+</li></ul>
+</li><li> Resolved by changes to the parsing spec: all properties are plaintext (non-HTML escaped), e-* properties result in a dictionary with <code>value</code> = plaintext version, <code>html</code> = raw HTML version 
+</li></ul>
+<hr/>
+</div>
+<p><br/>
+</p>
+<a name="br_hr_empty_string"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/br%20hr%20empty%20string"></a> br hr empty string </span></h3>
+<div class="discussion">
+<ul><li> The parsing rule 'else if br.p-x or hr.p-x, then return "" (empty string)' for p-* can cause any code consuming the API to become quite bloated. It means that you have test every array value to see if its an empty string. It is also unclear to me what the purpose of this mark-up pattern is for  <a href="http://microformats.org/wiki/User:GlennJones" title="User:GlennJones">Glenn Jones</a>
+<ul><li> Upon reconsidering this, I agree with you, this is an unlikely use case. If a publisher wants to explicitly set an empty property "p-foo" they can simply write <code>&lt;span class="p-foo"&gt;&lt;/span&gt;</code> which looks explicit. Whereas BR and HR tags are often just presentational, so we should both not encourage usage of them for semantics, and anyone that did use them would be subject to likely loss of semantics upon a redesign (that got rid of those particular BR and HR tags). I'm going to remove them from the parsing spec. - <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 15:29, 10 February 2013 (UTC)
+</li></ul>
+</li></ul>
+</div>
+<a name="datetime_examples_without_T_delimiter"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/datetime%20examples%20without%20T%20delimiter"></a> datetime examples without T delimiter </span></h3>
+<div class="discussion">
+<ul><li> The examples in the wiki microformats-2 pages such h-entry and h-entry had datetime without the 'T' delimiter between date and time. ie
+</li></ul>
+<div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2">&lt;time <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"dt-published"</span> <span class="kw3">datetime</span><span class="sy0">=</span><span class="st0">"2013-06-13 12:00:00"</span><span class="kw2">&gt;</span></span>13<span class="sc2"><span class="kw2">&lt;sup&gt;</span></span>th<span class="sc2"><span class="kw2">&lt;/sup&gt;</span></span> June 2013<span class="sc2"><span class="kw2">&lt;</span><span class="sy0">/</span>time&gt;</span></pre></div>
+<p>I have updated the pages. As far as I known this is a new pattern for dates. Was it a mistake in the examples or is it a new datetime pattern.
+</p>
+<ul><li><ul><li> The <a class="mw-redirect" href="http://microformats.org/wiki/HTML5" title="HTML5">HTML5</a> "time" element, and "datetime" attribute allow for space <span style="white-space:nowrap">" "</span> as a separator between date and time as well as "T", thus we allow it for microformats as well. The  <span style="white-space:nowrap">" "</span> separator is preferred as the date and time are more readable when separated by a space. The examples noted in those specs deliberately use this. - <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 18:48, 15 July 2013 (UTC)
+</li></ul>
+</li></ul>
+</div>
+<a name="rel-alternate_absent_optional_attributes"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/rel-alternate%20absent%20optional%20attributes"></a> rel-alternate absent optional attributes </span></h3>
+<div class="discussion">
+<ul><li> What should rel-alternate parsing do when one of the optional attributes specified (<kbd>hreflang</kbd> or <kbd>media</kbd> or both) is not there? The options seem to be:
+<ol><li> leave the corresponding key out of the alternate JSON object
+<ul><li> This one. Leave the corresponding key out.
+</li></ul>
+</li><li> include the corresponding key in the alternate JSON object, but set the value to the JSON null object
+</li><li> include the corresponding key in the alternate JSON object, but set the value to a blank string
+</li><li> something I haven't thought of
+</li></ol>
+</li></ul>
+<p>I haven't checked the existing implementations, but Barnaby said he's not sure what the appropriate way to deal with it is either. —<a href="http://microformats.org/wiki/User:TomMorris" title="User:TomMorris">Tom Morris</a> 15:41, 9 August 2013 (UTC)
+</p>
+</div>
+<a name="rel-alternate_and_type_attribute"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/rel-alternate%20and%20type%20attribute"></a> rel-alternate and type attribute </span></h3>
+<p>Status: incorporated into <a href="microformats2-parsing.html" title="microformats2-parsing">microformats2-parsing</a>
+</p>
+<div class="discussion">
+<ul><li> Should rel-alternate parsing also pick up the <code>type</code> attribute? It’s fairly widely used, e.g. for ATOM feeds.
+<ul><li> Numerous existing sites/pages have various <a href="http://microformats.org/wiki/rel-alternate" title="rel-alternate">rel-alternate</a> uses with a type attribute for feeds/APIs so that's good enough to add this for help with discovery in general. Rel parsing updated. - <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 00:47, 15 September 2013 (UTC)
+</li></ul>
+</li></ul>
+</div>
+<a name="Extraction_vs_Interpretation"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Extraction%20vs%20Interpretation"></a> Extraction vs Interpretation </span></h3>
+<p>Issue raised by: <a href="http://microformats.org/wiki/User:BenWard" title="User:BenWard">Ben Ward</a>
+</p><p>A microformats ‘1.0’ parser performs the following function:
+</p>
+<ul><li> Given a piece of HTML content, discover a known microformat, extract it, apply various extraction patterns based upon the HTML mark-up used (e.g. include pattern, <code>abbr</code> patterns, date-time patterns, value-title pattern), apply various content optimisations where applicable, and return the result in an object native to the programming language.
+</li></ul>
+<p>This is performing two types of function: Extraction of data from an HTML document or fragment, <i>and</i> interpretation and optimisation of that content to match the rules set out by a vocabulary specification.
+</p><p>It is only possible to write a generic parser that covers the first half of this task: Extraction, and application of global rules based on HTML elements and patterns common to all formats.
+</p><p>The purpose of a generic parser (as supported by use cases such as search engines, and other crawlers) is: 
+</p><p>To provide a way for tools to extract rich data from a page for native storage, such that the data may be interpreted later by applications. This allows microformats to be crawled, and indexed, and removes the need to include complex HTML parsing within every implementation of microformat data.
+</p><p>Microformats will continue to define various vocabulary-specific optimisations. as part of the design to be optimised for authors. For example: The <code>fn</code> pattern in <a href="http://microformats.org/wiki/hcard" title="hcard">hcard</a>, or the <code>lat;long</code> pattern in <a href="http://microformats.org/wiki/geo" title="geo">geo</a>, as well as default values for properties, such as the maximum rating in an <a href="http://microformats.org/wiki/hreview" title="hreview">hreview</a>.
+</p>
+<ul><li> Actually, no, as it is defined currently, microformats 2 <i>drops</i> vocabulary-specific optimizations. Such optimizations have often been too inapplicable, error prone or i18n-unsafe (e.g. fn to given-name + family-name fails for both numerous cases where middlenames/initials are used, and in general in numerous Asian languages where given/family name order is the reverse of Western English conventions, or languages with multiple family-names, e.g. Spanish - see <a href="http://microformats.org/wiki/hcard-issues-resolved" title="hcard-issues-resolved">hcard-issues-resolved</a> for more). This is a deliberate cutting of a "feature" from microformats 1, it is a deliberate model simplification design decision. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 12:43, 4 October 2011 (UTC)
+</li></ul>
+<a name="Extraction_resolution"></a><h4> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Extraction%20resolution"></a> Extraction resolution </span></h4>
+<p>Proposed resolution:
+</p><p>Microformats2 should refer only to <i>extraction</i> of microformats. Vocabularies should in turn document their appropriate optimisations, which will need to be applied by implementations, or a companion to an extractor, which I'll refer to here as an ‘interpreter’.
+</p>
+<ul><li> Vocabularies will no longer have optimizations, this is again deliberately, as they've been shown to be more error prone than helpful. Thus there should be no need for any vocabulary-specific 'interpreters'. However, due to design quirks in various legacy/interchange formats, <i>export conversions algorithms</i> to those legacy/interchange formats will require some additional legacy-format-specific rules (e.g. odd "required" rules in <a class="mw-redirect" href="http://microformats.org/wiki/Atom" title="Atom">Atom</a> or <a class="mw-redirect" href="http://microformats.org/wiki/vCard" title="vCard">vCard</a> will require specific synthesis rules, limitations in said formats will require filtering of some values, e.g. <a class="new" href="http://microformats.org/wiki/index.php?title=vcard3&amp;action=edit&amp;redlink=1" title="vcard3 (not yet written)">vcard3</a> BDAY disallows vague birthdays like year-month and --month-day - subsequently allowed in <a class="mw-redirect" href="http://microformats.org/wiki/vcard4" title="vcard4">vcard4</a>). <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 12:43, 4 October 2011 (UTC)
+</li></ul>
+<p>A microformats2 ‘extractor’, in combination with the functionality of a domain and format-aware ‘interpreter’ (either another shared component, or part of the implementation itself) would be equivalent to a microformats 1.0 ‘parser.’
+</p>
+<ul><li> A microformats2 parser is both generic (no knowledge of specific vocabularies), and lacks any/all such vocabulary-specific rules as compared to a microformats 1.0 <a href="http://microformats.org/wiki/hcard-parsing" title="hcard-parsing">parser</a> with the exception of a 1) a limited list of well-established/interoperable backward compat root class names (of current <a href="http://microformats.org/wiki/microformats" title="microformats">microformats</a> that are or can be soon shown to be specifications/standards per the <a href="http://microformats.org/wiki/process" title="process">process</a>), 2) flat sets of backward compat property names (some with prefix/name specific conversion) for each of those backward compat root class names.  This is a deliberate design decision that makes microformats 2 more "micro", and yes this means that even with such backward compat support, this simple form of backward compat may mean that some existing microformats 1 content breaks. We'll assess those and iterate on a documented case-by-case basis rather than attempt to maintain theoretical 100% backward compatibility (since many current microformats format-specific-features are either unused, or may have caused more problems than solutions). <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 12:43, 4 October 2011 (UTC)
+</li></ul>
+<p>N.B. I'll rewrite some of these as <a href="microformats2-parsing-faq.html" title="microformats2-parsing-faq">microformats2-parsing-faq</a> to help better clarify. The reasoning that led to most of these design decisions is documented in the <a class="mw-redirect" href="http://microformats.org/wiki/microformats-2#About_This_Brainstorm" title="microformats-2">microformats 2: About This Brainstorm</a> section and following sections. I'll recheck those sections to see if/where reasoning for some of the above noted design decisions may have been missed, and back-fill accordingly. This is necessary because <a href="microformats2.html" title="microformats2">microformats2</a> is a evolutionary result of simultaneously addressing both numerous generic <a href="http://microformats.org/wiki/issues" title="issues">issues</a> as well as various common <a href="http://microformats.org/wiki/hcard-issues-resolved" title="hcard-issues-resolved">format</a>-<a href="http://microformats.org/wiki/hcalendar-issues-resolved" title="hcalendar-issues-resolved">specific</a> <a class="mw-redirect" href="http://microformats.org/wiki/mfo" title="mfo">problems</a> in microformats1 syntax and vocabularies. The very number of changes may make it more challenging (from a microformats1 perspective) to see why any particular design change has been made. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 12:43, 4 October 2011 (UTC)
+</p><p>This issue can be moved from resolved to closed once the above-mentioned write-ups have occurred.
+</p><p><br/>
+</p>
+<a name="Parsing_properties_from_rel_attributes"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Parsing%20properties%20from%20rel%20attributes"></a>Parsing properties from rel attributes</span></h3>
+<p>tl;dr resolution: As of 2013, <a href="microformats2-parsing.html" title="microformats2-parsing">microformats2-parsing</a> handles parsing all link and a href rel values at document scope level, and producing canonical JSON accordingly. - <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a>
+</p><p>Issue raised by <a href="http://microformats.org/wiki/User:BenWard" title="User:BenWard">BenWard</a> 07:24, 5 October 2011 (UTC):
+</p>
+<ul><li> Currently, hAtom parses `bookmark` as a permalink
+</li><li> Various microformats parse `rel=tag` as tags
+</li><li> The current proposal for parsing does not allow parsing properties from rel attributes.
+</li></ul>
+<p>Microformats parsers could instead extract <i>all</i> link relationships from rel attributes within an microformat object, parsing them as if a u- prefixed property.
+</p>
+<ul><li> Minor nit: Rather than same as a u- prefixed property, I think such "rel" properties should be parsed purely from the <code>href</code> attribute on <code>&lt;a&gt;</code> and <code>&lt;area&gt;</code> elements and nothing more. I would strongly disagree to extending rel to apply to other elements with URLs like img src, object data, or to apply to elements in general like div. That's the path that RDFa has taken and caused much confusion as a result. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 07:39, 5 October 2011 (UTC)
+<ul><li> Agree: That seems like a perfectly reasonable restriction. --<a href="http://microformats.org/wiki/User:BenWard" title="User:BenWard">BenWard</a> 08:29, 5 October 2011 (UTC)
+</li></ul>
+</li></ul>
+<p>This results in:
+</p>
+<ul><li> Continuing use of the <code>rel</code> attribute in HTML, thereby building on HTML semantics rather than bypassing them or ignoring them in favour of something less meaningful.
+</li><li> Parsing hAtom objects contain a property named <code>bookmark</code>, in place of <code>permalink</code>.
+</li><li> All microformats that use <code>rel-tag</code> would contain a property named… <code>tag</code>. Perfect.
+</li></ul>
+<p>Since <code>rel</code> attributes are not overloaded for other functionality like class is, and other uses of <code>rel</code> within content are low (and non-semantic uses are nil, to the best of my knowledge) the risk of property pollution would be extremely low.
+</p><p>Note, with regard to this last point, that a generic microformats parser <i>will</i> parse false-positive properties, and <i>will</i> parse objects in combined chunks, rather than individually by format. Extracted objects will often not represent a vocabulary without further processing.
+</p>
+<div class="discussion">
+<ul><li> This sounds like it might be workable. Let's try it and see how well authors "get it". - <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a>
+</li><li> Possible issue: do we have any collisions between class property names and rel names? (I don't think so offhand, but useful to ask the question). - <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a>
+<ul><li> None that I can think of in microformats. There is the case of Google's <code>rel=author</code> and <code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-author"></a>p-author</code> in hAtom. However, the next point, about mfo scoping, would cover it in most situations (rel-author on a hyperlink within an hcard wouldn't be applied to the hentry.) The one situation in a parse tree where it's ambiguous would be this: 
+</li></ul>
+</li></ul>
+<div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;a</span> <span class="kw3">href</span><span class="sy0">=</span><span class="st0">"p-author h-card"</span> 
+   <span class="kw3">rel</span><span class="sy0">=</span><span class="st0">"author"</span> 
+   <span class="kw3">href</span><span class="sy0">=</span><span class="st0">"http://benward.me"</span><span class="kw2">&gt;</span></span>
+   Ben Ward
+<span class="sc2"><span class="kw2">&lt;/a&gt;</span></span></pre></div>
+<ul><li><ul><li> I can think of two quite reasonable solutions: 
+<ul><li> 1. Declare that class properties take precedence over rel properties of the same name, discarding rel values if a class is also found, or 
+</li><li> 2. Since all properties are now multi-value anyway, the hAtom object could be parsed as:
+</li></ul>
+</li></ul>
+</li></ul>
+<div dir="ltr" style="text-align: left;"><pre class="source-javascript"><span class="br0">{</span>
+   <span class="st0">'type'</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">'h-entry'</span><span class="br0">]</span><span class="sy0">,</span>
+   <span class="st0">'properties'</span><span class="sy0">:</span> <span class="br0">{</span>
+     …
+     <span class="st0">'author'</span><span class="sy0">:</span> <span class="br0">[</span>
+        <span class="br0">{</span>
+          <span class="st0">'value'</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">'Ben Ward'</span><span class="br0">]</span><span class="sy0">,</span> <span class="co2">/* from the p-author     */</span>
+          <span class="st0">'type'</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">'h-card'</span><span class="br0">]</span><span class="sy0">,</span>    <span class="co2">/* from the h-card ...   */</span>
+          <span class="st0">'properties'</span><span class="sy0">:</span> <span class="br0">{</span> 
+            <span class="st0">'name'</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">'Ben Ward'</span><span class="br0">]</span><span class="sy0">,</span> 
+            <span class="st0">'url'</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">'http://benward.me'</span><span class="br0">]</span>
+        <span class="br0">}</span><span class="sy0">,</span>
+        <span class="st0">'http://benward.me'</span>      <span class="co2">/* from the rel="author" */</span>
+     <span class="br0">]</span><span class="sy0">,</span>
+     …
+   <span class="br0">}</span>
+ <span class="br0">}</span></pre></div>
+<ul><li><ul><li> —<a href="http://microformats.org/wiki/User:BenWard" title="User:BenWard">BenWard</a> 08:29, 5 October 2011 (UTC)
+<ul><li> Option 2 makes sense and is consistent with the rest of the multi-value parsing/handling. - <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 14:56, 5 October 2011 (UTC)
+</li><li> What about without the 'p-author'?
+</li></ul>
+</li></ul>
+</li></ul>
+<div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;a</span> <span class="kw3">href</span><span class="sy0">=</span><span class="st0">"h-card"</span> 
+   <span class="kw3">rel</span><span class="sy0">=</span><span class="st0">"author"</span> 
+   <span class="kw3">href</span><span class="sy0">=</span><span class="st0">"http://benward.me"</span><span class="kw2">&gt;</span></span>
+   Ben Ward
+<span class="sc2"><span class="kw2">&lt;/a&gt;</span></span></pre></div>
+<p>Should that be parsed as:
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-javascript"><span class="br0">{</span>
+   <span class="st0">'type'</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">'h-entry'</span><span class="br0">]</span><span class="sy0">,</span>
+   <span class="st0">'properties'</span><span class="sy0">:</span> <span class="br0">{</span>
+     …
+     <span class="st0">'author'</span><span class="sy0">:</span> <span class="br0">[</span>
+        <span class="br0">{</span>
+          <span class="st0">'type'</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">'h-card'</span><span class="br0">]</span><span class="sy0">,</span>    <span class="co2">/* from the h-card ...   */</span>
+          <span class="st0">'properties'</span><span class="sy0">:</span> <span class="br0">{</span> 
+            <span class="st0">'name'</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">'Ben Ward'</span><span class="br0">]</span><span class="sy0">,</span> 
+            <span class="st0">'url'</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">'http://benward.me'</span><span class="br0">]</span>
+        <span class="br0">}</span><span class="sy0">,</span>
+        <span class="st0">'http://benward.me'</span>      <span class="co2">/* from the rel="author" */</span>
+     <span class="br0">]</span><span class="sy0">,</span>
+     …
+   <span class="br0">}</span>
+ <span class="br0">}</span></pre></div>
+<p>Or
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-javascript"><span class="br0">{</span>
+   <span class="st0">'type'</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">'h-entry'</span><span class="br0">]</span><span class="sy0">,</span>
+   <span class="st0">'properties'</span><span class="sy0">:</span> <span class="br0">{</span>
+     …
+     <span class="st0">'author'</span><span class="sy0">:</span> <span class="br0">[</span>
+        <span class="br0">{</span>
+          <span class="st0">'value'</span><span class="sy0">:</span> <span class="st0">'http://benward.me'</span> <span class="co2">/* from the rel="author" */</span>
+          <span class="st0">'type'</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">'h-card'</span><span class="br0">]</span><span class="sy0">,</span>          <span class="co2">/* from the h-card ...   */</span>
+          <span class="st0">'properties'</span><span class="sy0">:</span> <span class="br0">{</span> 
+            <span class="st0">'name'</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">'Ben Ward'</span><span class="br0">]</span><span class="sy0">,</span> 
+            <span class="st0">'url'</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">'http://benward.me'</span><span class="br0">]</span>
+        <span class="br0">}</span><span class="sy0">,</span>
+ 
+     <span class="br0">]</span><span class="sy0">,</span>
+     …
+   <span class="br0">}</span>
+ <span class="br0">}</span></pre></div>
+<ul><li><ul><li><ul><li> And if the former, then we're presumably saying that the value parsed due to the presence of a rel is always its own value, and does not combine with any other structures. I am fine with this, but I wanted to make sure we are ok with that explicitly. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 14:56, 5 October 2011 (UTC)
+<ul><li> +1 I think that since the rel attribute is specifically concerned with the relation to an href attribute, it should not be combined with other structures that are rightly declared uses classes.
+<ul><li> The more I've thought about this and how consuming applications may want to treat rel semantics, the more it seems correct to keep rel semantics distinct from class semantics. Class semantics are quite general/flexible, whereas rel is quite specific, naming something else in terms of a relationship from the current page/microformat's perspective. I think we should consider putting rel values in their own 'rel' collection, separate from the 'properties' collection. E.g. the original rel-author p-author h-card markup example would be parsed into this:
+</li></ul>
+</li></ul>
+</li></ul>
+</li></ul>
+</li></ul>
+<div dir="ltr" style="text-align: left;"><pre class="source-javascript"><span class="br0">{</span>
+   <span class="st0">'type'</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">'h-entry'</span><span class="br0">]</span><span class="sy0">,</span>
+   <span class="st0">'properties'</span><span class="sy0">:</span> <span class="br0">{</span>
+     …
+     <span class="st0">'author'</span><span class="sy0">:</span> <span class="br0">[</span>
+        <span class="br0">{</span>
+          <span class="st0">'value'</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">'Ben Ward'</span><span class="br0">]</span><span class="sy0">,</span> <span class="co2">/* from the p-author     */</span>
+          <span class="st0">'type'</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">'h-card'</span><span class="br0">]</span><span class="sy0">,</span>    <span class="co2">/* from the h-card ...   */</span>
+          <span class="st0">'properties'</span><span class="sy0">:</span> <span class="br0">{</span> 
+            <span class="st0">'name'</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">'Ben Ward'</span><span class="br0">]</span><span class="sy0">,</span> 
+            <span class="st0">'url'</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">'http://benward.me'</span><span class="br0">]</span>
+        <span class="br0">}</span>
+     <span class="br0">]</span><span class="sy0">,</span>
+     …
+   <span class="br0">}</span>
+   <span class="st0">'rel'</span><span class="sy0">:</span> <span class="br0">{</span>
+     <span class="st0">'author'</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">'http://benward.me'</span><span class="br0">]</span> <span class="co2">/* from the rel="author" */</span>
+   <span class="br0">}</span>
+ <span class="br0">}</span></pre></div>
+<ul><li><ul><li><ul><li><ul><li><ul><li> and if a post had multiple authors:
+</li></ul>
+</li></ul>
+</li></ul>
+</li></ul>
+</li></ul>
+<div dir="ltr" style="text-align: left;"><pre class="source-javascript"><span class="br0">{</span>
+   <span class="st0">'type'</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">'h-entry'</span><span class="br0">]</span><span class="sy0">,</span>
+   <span class="st0">'properties'</span><span class="sy0">:</span> <span class="br0">{</span>
+     …
+     <span class="st0">'author'</span><span class="sy0">:</span> <span class="br0">[</span>
+        <span class="br0">{</span>
+          <span class="st0">'value'</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">'Ben Ward'</span><span class="br0">]</span><span class="sy0">,</span> <span class="co2">/* from p-author     */</span>
+          <span class="st0">'type'</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">'h-card'</span><span class="br0">]</span><span class="sy0">,</span>    <span class="co2">/* from h-card ...   */</span>
+          <span class="st0">'properties'</span><span class="sy0">:</span> <span class="br0">{</span> 
+            <span class="st0">'name'</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">'Ben Ward'</span><span class="br0">]</span><span class="sy0">,</span> 
+            <span class="st0">'url'</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">'http://benward.me'</span><span class="br0">]</span>
+        <span class="br0">}</span><span class="sy0">,</span>
+        <span class="br0">{</span>
+          <span class="st0">'value'</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">'Tantek Çelik'</span><span class="br0">]</span><span class="sy0">,</span> <span class="co2">/* from 2nd p-author     */</span>
+          <span class="st0">'type'</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">'h-card'</span><span class="br0">]</span><span class="sy0">,</span>        <span class="co2">/* from 2nd h-card ...   */</span>
+          <span class="st0">'properties'</span><span class="sy0">:</span> <span class="br0">{</span> 
+            <span class="st0">'name'</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">'Tantek Çelik'</span><span class="br0">]</span><span class="sy0">,</span> 
+            <span class="st0">'url'</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">'http://tantek.com'</span><span class="br0">]</span>
+        <span class="br0">}</span><span class="sy0">,</span>
+     <span class="br0">]</span><span class="sy0">,</span>
+     …
+   <span class="br0">}</span>
+   <span class="st0">'rel'</span><span class="sy0">:</span> <span class="br0">{</span>
+     <span class="st0">'author'</span><span class="sy0">:</span> <span class="br0">[</span>
+       <span class="st0">'http://benward.me'</span><span class="sy0">,</span>      <span class="co2">/* from rel="author" */</span>
+       <span class="st0">'http://tantek.com'</span>       <span class="co2">/* from 2nd rel="author" */</span>
+     <span class="br0">]</span>
+   <span class="br0">}</span>
+ <span class="br0">}</span></pre></div>
+<ul><li><ul><li><ul><li><ul><li><ul><li> This preserves the semantic distinction between rel and properties in general, and leaves it up to a higher-level application to implement any logic around showing "more info" about a rel-author, e.g. by correlating the rel-author URL with the 'url' of an hCard it found in the same entry. However, note that even in the earlier JSON data model, the rel-author value just shows up as another property value, and any higher level application would still have to do some correlation logic. At least with this JSON data model, applications that may be looking for a rel value in particular, or a property value in particular can do so without having one unintentionally pollute the other. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 17:33, 6 October 2011 (UTC)
+</li></ul>
+</li></ul>
+</li></ul>
+</li></ul>
+</li></ul>
+<p><br/>
+</p>
+<ul><li> Presumably we'd apply all the same property scoping rules to rel scoping as well. E.g. a rel hyperlink inside a microformat won't be seen by any containing microformat. - <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a>
+<ul><li> Correct, it should be parsed in the same scope as all other class properties in the object.
+<ul><li> Update: all rel microformats are now parsed at page-scope. Per-microformat scoping of rel has been found to be too confusing in practice (and against the general semantic of rel expressed in the HTML/HTML5 specs) <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 01:00, 10 July 2014 (UTC)
+</li></ul>
+</li></ul>
+</li></ul>
+<p><br/>
+This issue can be moved from resolved to closed once we've verified that all the above-mentioned and implied needs to write things up have occurred.
+</p>
+</div>
+<a name="deduping_of_rels"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/deduping%20of%20rels"></a> deduping of rels </span></h3>
+<p>Status: incorporated into <a href="microformats2-parsing.html" title="microformats2-parsing">microformats2-parsing</a>
+</p><p>2015-06-02 by <a href="http://microformats.org/wiki/User:Kevin_Marks" title="User:Kevin Marks">Kevin Marks</a> 
+</p>
+<ul><li> 2015-06-05 resolved by consensus and one real world implementation proof of implementability and verification of expected results. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 03:42, 6 June 2015 (UTC)
+</li></ul>
+<p>Many sites have multiple duplicate rel links to the same url - a very common case is WordPress home pages eg <a class="external text" href="http://ma.tt/" rel="nofollow" title="http://ma.tt">ma.tt</a> 
+</p><p>Each post on the page has a block like
+</p>
+<code><pre>&lt;div class="entry-meta"&gt;
+&lt;span class="date"&gt;
+&lt;a href="http://ma.tt/2015/05/beethoven-mozart-bach/" 
+    title="Permalink to Beethoven, Mozart, Bach" rel="bookmark"&gt;
+&lt;time class="entry-date" datetime="2015-05-31T22:42:00+00:00"&gt;May 31, 2015&lt;/time&gt;&lt;/a&gt;&lt;/span&gt;
+&lt;span class="categories-links"&gt;
+&lt;a href="http://ma.tt/category/asides/" rel="category tag"&gt;Asides&lt;/a&gt;&lt;/span&gt;
+&lt;span class="author vcard"&gt;
+&lt;a class="url fn n" href="http://ma.tt/author/saxmatt/" 
+    title="View all posts by Matt" rel="author"&gt;Matt&lt;/a&gt;&lt;/span&gt;
+&lt;/div&gt;&lt;!-- .entry-meta --&gt;</pre></code>
+<p>As currently defined, the parser will create duplicate entries in <code>rels</code> for each post:
+</p>
+<code><pre>    "rels": {
+        "category": [
+            "https://ma.tt/category/asides/", 
+            "https://ma.tt/category/asides/", 
+            "https://ma.tt/category/asides/", 
+            "https://ma.tt/category/asides/"
+        ], 
+        "author": [
+            "https://ma.tt/author/saxmatt/", 
+            "https://ma.tt/author/saxmatt/", 
+            "https://ma.tt/author/saxmatt/", 
+            "https://ma.tt/author/saxmatt/"
+        ], 
+        "tag": [
+            "https://ma.tt/category/asides/", 
+            "https://ma.tt/category/asides/", 
+            "https://ma.tt/category/asides/", 
+            "https://ma.tt/category/asides/"
+        ], 
+        "home": [
+            "https://ma.tt/", 
+            "https://ma.tt/"
+        ], 
+}
+</pre></code>
+<p>and in the <code>rel-urls</code> we will also see:
+</p>
+<code><pre>    "rel-urls": {
+        "https://ma.tt/author/saxmatt/": {
+            "rels": [
+                "author", 
+                "author", 
+                "author", 
+                "author"
+            ], 
+            "text": "Matt", 
+            "title": "View all posts by Matt"
+        }, 
+…
+        "https://ma.tt/": {
+            "rels": [
+                "home", 
+                "home"
+            ], 
+            "text": "Matt Mullenweg", 
+            "title": "Matt Mullenweg"
+        }, 
+…
+        "https://ma.tt/category/asides/": {
+            "rels": [
+                "category", 
+                "tag", 
+                "category", 
+                "tag", 
+                "category", 
+                "tag", 
+                "category", 
+                "tag"
+            ], 
+            "text": "Asides"
+        }
+</pre></code>
+<p>These duplicates are unhelpful for parser consumers. We should:
+</p>
+<ul><li> make them both sets - only listing distinct values. This will remove ordering information, but order is irrelevant for rel in html.
+</li></ul>
+<code><pre>    "rels": {
+        "category": [
+            "https://ma.tt/category/asides/"
+        ], 
+        "author": [
+            "https://ma.tt/author/saxmatt/"
+        ], 
+        "tag": [
+            "https://ma.tt/category/asides/"
+        ], 
+        "home": [
+            "https://ma.tt/"
+        ], 
+}
+…
+    "rel-urls": {
+        "https://ma.tt/author/saxmatt/": {
+            "rels": [
+                "author"
+            ], 
+            "text": "Matt", 
+            "title": "View all posts by Matt"
+        }, 
+…
+        "https://ma.tt/": {
+            "rels": [
+                "home"
+            ], 
+            "text": "Matt Mullenweg", 
+            "title": "Matt Mullenweg"
+        }, 
+…
+        "https://ma.tt/category/asides/": {
+            "rels": [
+                "category", 
+                "tag"
+            ], 
+            "text": "Asides"
+        }
+</pre></code>
+<p><br/>
+</p>
+<ul><li> possibly we could also make <code>title</code> <code>text</code> <code>type</code> sets too. That would solve the information loss issue with the current parsers
+<ul><li> Resolution: in the case of duplicate other attributes, first one set wins. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 03:42, 6 June 2015 (UTC)
+</li></ul>
+</li></ul>
+<div class="discussion">
+<ul><li> +1 as the proposer. A version of mf2py that does this is running at unmung,com. see <a class="external text" href="http://www.unmung.com/mf2?url=https%3A%2F%2Fma.tt&amp;html=&amp;pretty=on" rel="nofollow" title="http://www.unmung.com/mf2?url=https%3A%2F%2Fma.tt&amp;html=&amp;pretty=on">fro ma.tt</a> or <a class="external text" href="http://www.unmung.com/?html=%3Ca+href%3D%22http%3A%2F%2Fma.tt%2Fcategory%2Fasides%2F%22+rel%3D%22category+tag%22%3EAsides%3C%2Fa%3E%0D%0A%3Ca+href%3D%22http%3A%2F%2Fma.tt%2Fcategory%2Fasides%2F%22+rel%3D%22category+tag%22%3EAsides%3C%2Fa%3E%0D%0A%3Ca+href%3D%22http%3A%2F%2Fma.tt%2Fcategory%2Fasides%2F%22+rel%3D%22category+tag%22%3EAsides%3C%2Fa%3E&amp;pretty=on" rel="nofollow" title="http://www.unmung.com/?html=%3Ca+href%3D%22http%3A%2F%2Fma.tt%2Fcategory%2Fasides%2F%22+rel%3D%22category+tag%22%3EAsides%3C%2Fa%3E%0D%0A%3Ca+href%3D%22http%3A%2F%2Fma.tt%2Fcategory%2Fasides%2F%22+rel%3D%22category+tag%22%3EAsides%3C%2Fa%3E%0D%0A%3Ca+href%3D%22http%3A%2F%2Fma.tt%2Fcategory%2Fasides%2F%22+rel%3D%22category+tag%22%3EAsides%3C%2Fa%3E&amp;pretty=on">a simple test</a> <a href="http://microformats.org/wiki/User:Kevin_Marks" title="User:Kevin Marks">Kevin Marks</a> 23:49, 2 June 2015 (UTC)
+</li><li> +1 makes sense to me, and not having them be sets in the current spec is likely an oversight on my part. Thanks for noting this issue. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 05:28, 3 June 2015 (UTC)
+</li></ul>
+</div>
+<a name="include_alternates_in_rels"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/include%20alternates%20in%20rels"></a> include alternates in rels </span></h3>
+<p>Status: incorporated into <a href="microformats2-parsing.html" title="microformats2-parsing">microformats2-parsing</a>
+</p><p>2015-06-01 by <a class="mw-redirect" href="http://microformats.org/wiki/Tantek" title="Tantek">Tantek</a>, per inconsistency noted by Kevin Marks.
+</p>
+<ul><li> 2015-06-05 resolved per consensus and one real world implementation proof of implementability. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 03:42, 6 June 2015 (UTC)
+</li></ul>
+<p>As fallout from the adoption and implementation of 'rel-urls' per <a href="microformats2-parsing-brainstorming.html#more_information_for_rel-based_formats" title="microformats2-parsing-brainstorming">microformats2-parsing-brainstorming#more_information_for_rel-based_formats</a>, we should:
+</p>
+<ul><li> add "alternate" rels to the "rels" collection to make them easier to look-up in "rel-urls" - that is, all rel values end up in "rels" collections. No exceptions.
+</li></ul>
+<div class="discussion">
+<ul><li> +1 <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> as the documenter of this issue, and attempting to represent what I think KevinMarks intended with "rels" and "rel-urls".
+</li><li> +1 This makes sense to me, as the <code>rels</code> and <code>rel-urls</code> should match so you can lookup in rels first, then get details about urls from rel-urls. We can drop "alternates" independently from this change. <a href="http://microformats.org/wiki/User:Kevin_Marks" title="User:Kevin Marks">Kevin Marks</a> 00:23, 2 June 2015 (UTC)
+<ul><li> +1 drop "alternates" independently now made a separate issue. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 03:42, 6 June 2015 (UTC)
+</li></ul>
+</li><li> +1 Makes sense. And I agree with Kevin; I think parsers should deprecate "alternates" for now and drop it after a version cycle or two. <a href="http://microformats.org/wiki/User:Kylewm" title="User:Kylewm">Kylewm</a> 00:30, 2 June 2015 (UTC)
+</li><li> implemented in <a class="external text" href="https://github.com/kevinmarks/mf2py/commit/4dba45200eef11da811f64817d02044ab9e98b77" rel="nofollow" title="https://github.com/kevinmarks/mf2py/commit/4dba45200eef11da811f64817d02044ab9e98b77">my fork of mf2py</a> and running on <a class="external text" href="http://www.unmung.com/?html=%3Ca+rel%3D%22author%22+href%3D%22http%3A%2F%2Fexample.com%2Fa%22%3Eauthor+a%3C%2Fa%3E%0D%0A%3Ca+rel%3D%22author%22+href%3D%22http%3A%2F%2Fexample.com%2Fb%22%3Eauthor+b%3C%2Fa%3E%0D%0A%3Ca+rel%3D%22in-reply-to%22+href%3D%22http%3A%2F%2Fexample.com%2F1%22%3Epost+1%3C%2Fa%3E%0D%0A%3Ca+rel%3D%22in-reply-to%22+href%3D%22http%3A%2F%2Fexample.com%2F2%22%3Epost+2%3C%2Fa%3E%0D%0A%3Ca+rel%3D%22alternate+home%22%0D%0A+++href%3D%22http%3A%2F%2Fexample.com%2Ffr%22%0D%0A+++media%3D%22handheld%22%0D%0A+++hreflang%3D%22fr%22%3EFrench+mobile+homepage%3C%2Fa%3E&amp;pretty=on" rel="nofollow" title="http://www.unmung.com/?html=%3Ca+rel%3D%22author%22+href%3D%22http%3A%2F%2Fexample.com%2Fa%22%3Eauthor+a%3C%2Fa%3E%0D%0A%3Ca+rel%3D%22author%22+href%3D%22http%3A%2F%2Fexample.com%2Fb%22%3Eauthor+b%3C%2Fa%3E%0D%0A%3Ca+rel%3D%22in-reply-to%22+href%3D%22http%3A%2F%2Fexample.com%2F1%22%3Epost+1%3C%2Fa%3E%0D%0A%3Ca+rel%3D%22in-reply-to%22+href%3D%22http%3A%2F%2Fexample.com%2F2%22%3Epost+2%3C%2Fa%3E%0D%0A%3Ca+rel%3D%22alternate+home%22%0D%0A+++href%3D%22http%3A%2F%2Fexample.com%2Ffr%22%0D%0A+++media%3D%22handheld%22%0D%0A+++hreflang%3D%22fr%22%3EFrench+mobile+homepage%3C%2Fa%3E&amp;pretty=on">unmung</a> <a href="http://microformats.org/wiki/User:Kevin_Marks" title="User:Kevin Marks">Kevin Marks</a> 01:29, 2 June 2015 (UTC)
+</li></ul>
+</div>
+<a name="Empty_properties_overridden_by_implied_rules_against_user_expectation"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Empty%20properties%20overridden%20by%20implied%20rules%20against%20user%20expectation"></a> Empty properties overridden by implied rules against user expectation </span></h3>
+<p>Status: resolved, existing behavior correct, no changes to parsing spec.
+</p><p>2015-07-03: raised by <a class="new" href="http://microformats.org/wiki/index.php?title=User:Glenn_Jones&amp;action=edit&amp;redlink=1" title="User:Glenn Jones (not yet written)">Glenn Jones</a>
+</p><p>Emma Kuo brought up an issue (<a class="external free" href="https://github.com/glennjones/microformat-node/issues/22" rel="nofollow" title="https://github.com/glennjones/microformat-node/issues/22">https://github.com/glennjones/microformat-node/issues/22</a>) based on following the indieweb note pattern, where the content of a note is given both the e-content and p-name classes. If the element containing the notes only has none text content like image the p-name can have unexpected value. Here is the example she gave:
+</p>
+<code><pre>&lt;div class="h-entry"&gt;
+        &lt;a href="http://this.site/photo" class="u-url"&gt;&lt;/a&gt;
+        &lt;div class="e-content p-name"&gt;&lt;img src="photo.jpg" class="u-photo"/&gt;&lt;/div&gt;
+        Some extraneous text
+        &lt;div class="h-cite"&gt;
+            &lt;a href="http://someother.site/like" class="u-url"&gt;&lt;/a&gt;
+            &lt;a href="http://this.site/photo" class="u-like-of"&gt;&lt;/a&gt;
+            &lt;div class="e-content p-name"&gt;liked this&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+</pre></code>
+<p>At the moment I parser this as follows: - if a property (p-name) is empty do not add it to the output. In this case "empty" is classed as not containing any non-whitespace text. As far as I known there is no guidance on how to handle "empty" properties in microformats paring rules, so I followed the conventions of JSON API's not to return "empty" properties.
+</p><p>The side effect of the above is that p-name also has a number of "implied rules". The "implied rules" try to automatically fill properties like p-name if there is no defined value. In the example above it uses the textContent of the parent h-entry, so value of the h-entry&gt;p-name is the text content of the h-cite i.e. "likes this".
+</p><p>Options:
+</p><p>1. We should not allow the "implied name rule" to get textContent from within a child h-* 
+</p>
+<div class="discussion">
+<ul><li> <strike>+1 I believe this is inline with how we parse properties and will meet user/author expectations  <a class="new" href="http://microformats.org/wiki/index.php?title=User:Glenn_Jones&amp;action=edit&amp;redlink=1" title="User:Glenn Jones (not yet written)">Glenn Jones</a> 9:22, 3 July 2015 (UTC)</strike>
+</li><li> -1 A nested h-* is still part of the content of the parent h-*, I don't quite understand the rationale for excluding it. For example, I may include lots of h-cards in the body of a post that references people and wouldn't want them to be excluded from the implied name generation. <a href="http://microformats.org/wiki/User:Kylewm" title="User:Kylewm">Kylewm</a> 14:40, 3 July 2015 (UTC)
+</li><li> -1 I'm not sure this would solve the problem because auto-filled text could come from the parent h-* ("some extraneous text" in the example above) <a class="new" href="http://microformats.org/wiki/index.php?title=User:emmak&amp;action=edit&amp;redlink=1" title="User:emmak (not yet written)">Emma Kuo</a> 20:50, 4 July 2015 (UTC)
+</li><li> -1 I agree with the other -1s. This would break some of the simplicity of the model. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 05:12, 14 July 2015 (UTC)
+</li></ul>
+</div>
+<p>2.  We should not execute the "implied rules" where there is an author defined "empty" property.
+</p>
+<div class="discussion">
+<ul><li> <strike>-1 Although the output would meet author expectations it is complex for parsers as they will have to keep state for each property through the whole series of parsing rules.  <a class="new" href="http://microformats.org/wiki/index.php?title=User:Glenn_Jones&amp;action=edit&amp;redlink=1" title="User:Glenn Jones (not yet written)">Glenn Jones</a> 9:22, 3 July 2015 (UTC)</strike>
+</li><li> +1 An explicit, empty, p-name property should prevent an implicit p-name from being generated. For example tantek.com includes &lt;span class="p-name"&gt;&lt;/span&gt; at the start of the h-feed to prevent a giant name from being auto-generated. From my reading of the parsing spec, I don't see any reason that blank strings should be excluded from parsing. (mf2py and php-mf2 will both happily include empty strings in their output) <a href="http://microformats.org/wiki/User:Kylewm" title="User:Kylewm">Kylewm</a> 14:40, 3 July 2015 (UTC)
+</li><li> +1 We already have interop on this between mf2py and phpmf2, as well as people depending on it to explicitly set empty property values. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 05:12, 14 July 2015 (UTC)
+</li><li> +1 As we already have interop with two parsers and solid user issue from Emma we should take this approach. <a href="http://microformats.org/wiki/User:GlennJones" title="User:GlennJones">Glenn Jones</a> 11:51, 29 July 2015 (UTC)</li></ul></div>
+
+<p>2015-08-21: <a class="new" href="http://microformats.org/wiki/index.php?title=User:Glenn_Jones&amp;action=edit&amp;redlink=1" title="User:Glenn Jones (not yet written)">Glenn Jones</a>
+Now implemented in microformat-shiv can be tested at <a class="external free" href="http://microformatshiv.com/editor.html" rel="nofollow" title="http://microformatshiv.com/editor.html">http://microformatshiv.com/editor.html</a>
+</p>
+<a name="uf2_children_inside_a_classic_microformats_root_class_name"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/uf2%20children%20inside%20a%20classic%20microformats%20root%20class%20name"></a> uf2 children inside a classic microformats root class name </span></h3>
+<p>Status: incorporated into <a href="microformats2-parsing.html" title="microformats2-parsing">microformats2-parsing</a>
+</p><p>2015-020: (raised by kylewm) What should microformats2 children inside a classic microformats root class name do?
+</p><p>Options:
+</p><p>1. Nothing. Any unattached uf2 children inside a classic microformats root are ignored. Problems:
+</p>
+<div class="discussion">
+<ul><li> However then there's a possible surprise if/when the author upgrades the classic microformats root to uf2, then all of a sudden all the new uf2 children show-up.
+</li><li> Another downside: author adds uf2 markup, can't figure out why nothing is happening (because somewhere up the tree in code they didn't touch is classic microformats that are hiding these unattached uf2 children.
+</li></ul>
+</div>
+<p>2. Show up in the children collection of the classic microformats root
+</p>
+<div class="discussion">
+<ul><li> Feels most predictable. When you add uf2 root class names anywhere, they will show up in the JSON output hierarchy.
+</li><li> When you convert ancestor class microformats root class names to uf2 root class names, no surprise in terms of which microformats show up. Same children collection.
+</li><li> +1 Thus I'm leaning towards this one, despite the fact that classic microformats never had a concept of generic unattached children. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 04:55, 21 January 2015 (UTC)
+</li><li> +1 I think this is the best option I will implement it and update the wiki once its in the JavaScript parser. <a href="http://microformats.org/wiki/User:GlennJones" title="User:GlennJones">Glenn Jones</a> 11:55, 29 July 2015 (UTC)
+</li><li> ++ Consensus at <a class="mw-redirect" href="http://microformats.org/wiki/2015-01-20" title="2015-01-20">2015-01-20</a> - option that presents the least surprises in the most cases.
+</li></ul>
+</div>
+<p>3. Show up as peers to the classic microformats root. Issue(s)
+</p>
+<div class="discussion">
+<ul><li> Has ths surprise aspect of if/when you convert the classic root class name to a uf2 root class name, the former peers become unattached children.
+</li></ul>
+</div>
+<p>2015-08-21: <a class="new" href="http://microformats.org/wiki/index.php?title=User:Glenn_Jones&amp;action=edit&amp;redlink=1" title="User:Glenn Jones (not yet written)">Glenn Jones</a>
+Now implemented in microformat-shiv can be tested at <a class="external free" href="http://microformatshiv.com/editor.html" rel="nofollow" title="http://microformatshiv.com/editor.html">http://microformatshiv.com/editor.html</a>
+</p>
+<a name="any_h-_root_class_name_overrides_and_stops_backcompat_root"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/any%20h-%20root%20class%20name%20overrides%20and%20stops%20backcompat%20root"></a> any h- root class name overrides and stops backcompat root </span></h3>
+<p>Status: resolved, awaiting implementation attempt/experience. 
+</p><p>2015-020: The presence of any h-* root class name overrides and stop any backcompat parsing of classic microformats root class names on that same element. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 04:55, 21 January 2015 (UTC)
+</p><p>Thoughts?
+</p>
+<div class="discussion">
+<ul><li> Tom &amp; Kyle - implementable with the same backcompat root flag as needed for restricting backcompat root class name to only seeing backcompat property class names
+</li><li> ++ Consensus at <a class="mw-redirect" href="http://microformats.org/wiki/2015-01-20" title="2015-01-20">2015-01-20</a> - option that presents the least surprises in the most cases.
+</li><li> I don't think I understand this rule. If I was stop all parsing of of classic microformats in the presence of any h-* root in a document then some of the other rules such as "uf2 children inside a classic microformats root class name" do not make sense. Could this item be expanded and explained a bit more? <a href="http://microformats.org/wiki/User:GlennJones" title="User:GlennJones">Glenn Jones</a> 12:13, 29 July 2015 (UTC)
+<ul><li> added "on that same element" as that was what we were discussing/implying in this issue. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 22:49, 18 September 2015 (UTC)
+</li></ul>
+</li></ul>
+</div>
+<a name="backcompat_classic_microformats_should_only_see_backcompat_properties"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/backcompat%20classic%20microformats%20should%20only%20see%20backcompat%20properties"></a> backcompat classic microformats should only see backcompat properties </span></h3>
+<p>Status: incorporated into <a href="microformats2-parsing.html" title="microformats2-parsing">microformats2-parsing</a>
+</p><p>2015-020: When parsing a microformats vocabulary that indicates a backcompat root class name (and thus an absence of the microformats2 equivalent on the same element), parsers must only look for the backcompat properties that are specified explicitly for that backcompat root class.
+<a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 04:04, 21 January 2015 (UTC)
+</p><p>Reasoning: such behaviour was never expected by authors, and crossing a classic microformats root class name with microformats2 property names were never explicitly expected nor specified to work.
+</p><p>Thoughts?
+</p>
+<div class="discussion">
+<ul><li> Tom &amp; Kyle - implementable with the same backcompat root flag as needed for
+</li><li> +1 I think this will help backcompat parsing, I will implement it and update the wiki once its in the JavaScript parser. The test suite will also need updating. <a href="http://microformats.org/wiki/User:GlennJones" title="User:GlennJones">Glenn Jones</a> 11:55, 29 July 2015 (UTC) 
+</li><li> ++ Consensus at <a class="mw-redirect" href="http://microformats.org/wiki/2015-01-20" title="2015-01-20">2015-01-20</a> - option that presents the least surprises in the most cases.
+</li></ul>
+</div>
+<p>2015-08-21: <a class="new" href="http://microformats.org/wiki/index.php?title=User:Glenn_Jones&amp;action=edit&amp;redlink=1" title="User:Glenn Jones (not yet written)">Glenn Jones</a>
+Now implemented in microformat-shiv can be tested at <a class="external free" href="http://microformatshiv.com/editor.html" rel="nofollow" title="http://microformatshiv.com/editor.html">http://microformatshiv.com/editor.html</a> Currently you need to switch on the option "Block overlapping properties from different microformat versions"
+</p>
+<a name="microformats2_root_class_names_should_only_see_microformats2_properties"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/microformats2%20root%20class%20names%20should%20only%20see%20microformats2%20properties"></a> microformats2 root class names should only see microformats2 properties </span></h3>
+<p>Status: incorporated into <a href="microformats2-parsing.html" title="microformats2-parsing">microformats2-parsing</a>
+</p><p>2015-020: When parsing a microformats2 root class name, only explicit microformats2 properties should be parsed. Any backcompat property names must be ignored.
+<a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 04:04, 21 January 2015 (UTC)
+</p><p>Reasoning: such microformats2 authors should be expected to do all their microformats markup with microformats2 class names - this is a deliberate expectation so that their microformats aren't polluted with other (classic microformats) coincidentally named generic class names.
+</p><p>Thoughts?
+</p>
+<div class="discussion">
+<ul><li> +1 I think this will help backcompat parsing, I will implement it and update the wiki once its in the JavaScript parser. The test suite will also need updating. <a href="http://microformats.org/wiki/User:GlennJones" title="User:GlennJones">Glenn Jones</a> 11:55, 29 July 2015 (UTC) 
+</li><li> ++ Consensus at <a class="mw-redirect" href="http://microformats.org/wiki/2015-01-20" title="2015-01-20">2015-01-20</a> - option that presents the least surprises in the most cases.
+</li></ul>
+</div>
+<p>2015-08-21: <a class="new" href="http://microformats.org/wiki/index.php?title=User:Glenn_Jones&amp;action=edit&amp;redlink=1" title="User:Glenn Jones (not yet written)">Glenn Jones</a>
+Now implemented in microformat-shiv can be tested at <a class="external free" href="http://microformatshiv.com/editor.html" rel="nofollow" title="http://microformatshiv.com/editor.html">http://microformatshiv.com/editor.html</a> Currently you need to switch on the option "Block overlapping properties from different microformat versions"
+</p>
+<a name="implied_properties_on_backcompat_parsing_unlikely_to_be_intended"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/implied%20properties%20on%20backcompat%20parsing%20unlikely%20to%20be%20intended"></a> implied properties on backcompat parsing unlikely to be intended </span></h3>
+<p>Status: incorporated into <a href="microformats2-parsing.html" title="microformats2-parsing">microformats2-parsing</a>
+</p>
+<div class="discussion">
+<p>Since classic microformats had no notion of implied properties, when implied property parsing occurs on backward compat classic microformats root class names, it is unlikely that any implied property (p-name u-url u-photo) was ever intended by the author of the classic microformat. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 02:43, 30 December 2014 (UTC)
+Examples:
+</p>
+<ul><li> see <a class="external free" href="https://indiewebcamp.com/h-entry#bad_hentry_properties" rel="nofollow" title="https://indiewebcamp.com/h-entry#bad_hentry_properties">https://indiewebcamp.com/h-entry#bad_hentry_properties</a> for a growing list
+</li></ul>
+<p><b>Proposed resolution:</b>
+</p>
+<ul><li> Be explicit in implied property parsing that it must only be done for explicit 'h-*' root class name microformats, not for any (back)compat parsing of microformats. Please comment on this proposal with "** comment" on new lines below. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 02:43, 30 December 2014 (UTC)
+<ul><li> +1 This makes a lot of sense to me. We should strive to parse mf1 as it was intended by the author, and I think you're right that implied rules are unlikely to be what was intended <a href="http://microformats.org/wiki/User:Kylewm" title="User:Kylewm">Kylewm</a> 03:22, 30 December 2014 (UTC)
+</li><li> +1 I think this will help backcompat parsing, but there are two major things to consider. It may well break some consumer code as the output for a microformats currently always has the name property, there may not be the defences code to check this is true when we remove the implied name rule for classic microformats.  The test suite will also need major updating as all the test output for classic microformats will have. I will look into implementing this and report back to the wiki. <a href="http://microformats.org/wiki/User:GlennJones" title="User:GlennJones">Glenn Jones</a> 12:13, 29 July 2015 (UTC) 
+</li><li> Also it should be made clear that we are only removing the implied rules from classic microformats parsing and not the value property? <a href="http://microformats.org/wiki/User:GlennJones" title="User:GlennJones">Glenn Jones</a> 12:13, 29 July 2015 (UTC)
+<ul><li> The "parsing for implied properties" section only references name, photo, url properties. Where (in the spec) is the confusion about "value" coming from? <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a>
+</li></ul>
+</li><li> RESOLVED at <a class="mw-redirect" href="http://microformats.org/wiki/2015-01-20" title="2015-01-20">2015-01-20</a> meetup. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 04:09, 21 January 2015 (UTC)
+</li></ul>
+</li></ul>
+</div>
+<p>2015-08-21: <a class="new" href="http://microformats.org/wiki/index.php?title=User:Glenn_Jones&amp;action=edit&amp;redlink=1" title="User:Glenn Jones (not yet written)">Glenn Jones</a>
+Now implemented in microformat-shiv can be tested at <a class="external free" href="http://microformatshiv.com/editor.html" rel="nofollow" title="http://microformatshiv.com/editor.html">http://microformatshiv.com/editor.html</a> Currently you need to switch on the option "Set implied properties by microformat version"
+</p>
+<a name="link_elements_and_u-_parsing"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/link%20elements%20and%20u-%20parsing"></a> link elements and u- parsing </span></h3>
+<p>Status: incorporated into <a href="microformats2-parsing.html" title="microformats2-parsing">microformats2-parsing</a>
+</p>
+<div class="discussion">
+<ul><li> Raised by tantek on 2014-07-08 on <a class="external text" href="http://logs.glob.uno/?c=freenode%23microformats&amp;s=8+Jul+2014&amp;e=9+Jul+2014#c72916" rel="nofollow" title="http://logs.glob.uno/?c=freenode%23microformats&amp;s=8+Jul+2014&amp;e=9+Jul+2014#c72916">irc</a>: should the parsing specification for handling u- properties be modified to include the <code>link</code> element? The potential downside is that <a class="mw-redirect" href="http://microformats.org/wiki/invisible-metadata-is-considered-harmful" title="invisible-metadata-is-considered-harmful">invisible-metadata-is-considered-harmful</a>, however all known real world examples of <code>link</code> are <em>semi-</em>visible data (not fully hidden).
+</li></ul>
+<p>There are potential cases for wanting to use link as an alternative to <code>a</code> (and <code>area</code>), such as a whole page where the root <code>html</code> element is an <code><a class="dashAnchor" name="//apple_ref/cpp/Object/h-card"></a>h-card</code> and the properties are included across the page: some in visible data in the <code>body</code> while others are in the <code>head</code> as <code>link</code> elements. Example:
+</p><p>One specific use-case is the semi-visible <code>link rel="shortcut icon" href="..."</code> - which is visible sometimes in browser UI, and also when a user chooses "Add to Home Screen" on a mobile device. Such page level icons may be used as a <code><a class="dashAnchor" name="//apple_ref/cpp/Property/u-photo"></a>u-photo</code> or <code><a class="dashAnchor" name="//apple_ref/cpp/Property/u-logo"></a>u-logo</code> of the containing <code>h-*</code> object on the <code>html</code> element.
+</p>
+<ul><li> <a class="external free" href="http://adactio.com/about/myself/" rel="nofollow" title="http://adactio.com/about/myself/">http://adactio.com/about/myself/</a> on 2014-190
+<ul><li> <em>could</em> use <code>&lt;html class=h-card&gt;</code> - page is all about Jeremy Keith the person
+</li><li> <em>icon / logo is only</em> on <code>&lt;link&gt;</code> tag which <em>could</em> use <code>class=u-logo</code>: <br/><code>&lt;link rel="shortcut icon apple-touch-icon" type="image/png" href="/icon.png" /&gt;</code>
+</li></ul>
+</li></ul>
+<p>Another specific use-case is a post permalink page, e.g. with <code>&lt;html class=h-entry&gt;</code>
+</p>
+<ul><li> <a class="external free" href="http://waterpigs.co.uk/notes/4WjHpC/" rel="nofollow" title="http://waterpigs.co.uk/notes/4WjHpC/">http://waterpigs.co.uk/notes/4WjHpC/</a>
+<ul><li> <em>has</em> <code>&lt;html class="no-js h-entry hentry h-as-note" lang="en"&gt;</code>
+</li></ul>
+</li></ul>
+<p>Another use-case is publishing links to PGP/GPG keys linked from the head which is currently handled by <code>&lt;link rel=pgpkey&gt;</code> which is already supported in existing <a href="microformats2-parsing.html#parse_a_hyperlink_element_for_rel_microformats" title="microformats2-parsing">microformats2 rel parsing</a> of <code>link rel</code> elements. Thus there is a (admittedly weak) argument for consistently parsing <em>both</em> <code>&lt;link rel&gt;</code> <em>and</em> <code>&lt;link class="u-*"&gt;</code>. 
+</p><p>E.g. inside that aforementioned real world <code>&lt;html class=h-entry&gt;</code> post permalink page example, 
+</p>
+<ul><li> why should <code>&lt;link rel="in-reply-to"&gt;</code> work 
+</li><li> but not <code>&lt;link class="u-in-reply-to"&gt;</code> ?
+</li></ul>
+<p>The slightly stronger argument for consistency of link handling is that it <strong><a class="mw-redirect" href="http://microformats.org/wiki/simpler" title="simpler">simplifies</a></strong> the publisher (and parser) model: 
+</p>
+<ul><li> <code>&lt;a&gt;</code> and <code>&lt;area&gt;</code> work for both <code>rel</code> and <code>class</code>
+</li><li> why does <code>&lt;link&gt;</code> only work for <code>rel</code> ?
+</li><li> it would be <em>simpler</em> if all three tags just worked (in the same way) for both <code>rel</code> and <code>class</code>
+</li></ul>
+<p><b>Should the parsing spec be modified to handle these cases?</b> —<a href="http://microformats.org/wiki/User:TomMorris" title="User:TomMorris">Tom Morris</a> 09:25, 9 July 2014 (UTC)
+</p>
+<ul><li><ul><li> I'm generally in favour. It'd be good to see what other parser developers think. —<a href="http://microformats.org/wiki/User:TomMorris" title="User:TomMorris">Tom Morris</a> 10:16, 9 July 2014 (UTC)
+</li><li> adding this to the parsers won't be an issue. <del datetime="2014-07-09T18:45">The question is should the door be opened to hidden mf data?</del> <ins datetime="2014-07-09T18:45">Up on further reflection, there seems to be no need to distinguish between <code>rel=property</code> and <code>class=u-property</code> on link elements. So I am in favour for consistency.</ins> <a class="new" href="http://microformats.org/wiki/index.php?title=User:KP&amp;action=edit&amp;redlink=1" title="User:KP (not yet written)">Kartik</a> 18:30, 2014-07-09 (EST)
+</li><li> RESOLVED at <a class="mw-redirect" href="http://microformats.org/wiki/2015-01-20" title="2015-01-20">2015-01-20</a> meetup. Make link consistent with a.
+</li></ul>
+</li></ul>
+</div>
+<a name="drop_alternates_collection"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/drop%20alternates%20collection"></a> drop alternates collection </span></h3>
+<p>Status: incorporated into <a href="microformats2-parsing.html" title="microformats2-parsing">microformats2-parsing</a>
+</p><p>2015-06-01 by <a class="mw-redirect" href="http://microformats.org/wiki/Tantek" title="Tantek">Tantek</a>, per inconsistency noted by Kevin Marks.
+</p>
+<ul><li> 2015-06-05 split into separate issue from include alternates in rels per implementation feedback from Kevin Marks. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 03:42, 6 June 2015 (UTC)
+</li></ul>
+<p>As fallout from the adoption and implementation of 'rel-urls' per <a href="microformats2-parsing-brainstorming.html#more_information_for_rel-based_formats" title="microformats2-parsing-brainstorming">microformats2-parsing-brainstorming#more_information_for_rel-based_formats</a>, we should:
+</p>
+<ul><li> drop "alternates" as its no longer needed, and all current consuming code clients like rel-urls better anyway.
+</li></ul>
+<div class="discussion">
+<ul><li> +1 <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> as the documenter of this issue, and attempting to represent what I think KevinMarks intended with "rels" and "rel-urls" in original issue now "include alternates in rels", we no longer need "alternates", and those with client consuming code have universally indicated that they would rather use rel-urls anyway. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 03:42, 6 June 2015 (UTC)
+</li></ul>
+</div>
+<a name="see_also"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/see%20also"></a> see also </span></h2>
+<ul><li> <a href="microformats2-parsing.html" title="microformats2-parsing">microformats2-parsing</a>
+</li><li> <a href="microformats2.html" title="microformats2">microformats2</a>
+</li></ul>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 372/1000000
+Post-expand include size: 120/2097152 bytes
+Template argument size: 50/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key microformats_wiki_v3:pcache:idhash:15230-0!1!0!!en!2!edit=0 and timestamp 20160622083129 -->
+<div class="printfooter">
+Retrieved from "<a href="microformats2-parsing-issues.html">http://microformats.org/wiki/microformats2-parsing-issues</a>"</div>
+		</div>	
+		
+				
+                    
+        
+        
+
+	</div>
+	
+<!-- end of the sidebar -->
+
+<div id="footer">
+
+
+    <address class="vcard">
+        The content of this wiki is the combined effort of the
+        <a class="fn org url" href="http://microformats.org/">
+            microformats community
+        </a>.
+    </address>
+
+	<ul>
+    				<li id="about"><a href="http://microformats.org/wiki/Microformats_Wiki:About" title="Microformats Wiki:About">About Microformats Wiki</a></li>
+				<li id="disclaimer"><a href="http://microformats.org/wiki/Microformats_Wiki:General_disclaimer" title="Microformats Wiki:General disclaimer">Disclaimers</a></li>
+        <li>Powered by <a href="http://mediawiki.org/">MediaWiki</a> | <a href="http://mediatemple.net/">(mt) media temple</a></li>
+	</ul>
+</div>
+
+		
+<!-- Served in 0.177 secs. -->
+
+
+
+
+
+
+</body><!-- Mirrored from microformats.org/wiki/microformats2-parsing-issues by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 Jun 2016 19:41:11 GMT --></html>

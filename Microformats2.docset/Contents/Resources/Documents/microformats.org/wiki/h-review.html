@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/h-review by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 Jun 2015 11:00:05 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/h-review by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 Jun 2016 19:41:10 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
 
 	<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 	
@@ -48,12 +48,7 @@
 <hr/>
 <p><dfn style="font-style:normal;font-weight:bold">h-review</dfn> is a simple, open format for publishing reviews on the web. h-review is one of several open <a href="http://microformats.org/wiki/microformats" title="microformats">microformat</a> draft standards suitable for embedding data in HTML/HTML5 on the web.
 </p><p>h-review is the <a href="microformats2.html" title="microformats2">microformats2</a> update to <a class="mw-redirect" href="http://microformats.org/wiki/hReview" title="hReview">hReview</a>.
-</p><p><small>Per <a class="external text" href="http://creativecommons.org/publicdomain/zero/1.0/" rel="nofollow" title="http://creativecommons.org/publicdomain/zero/1.0/">CC0</a>,
-to the extent possible under law, the editors have waived 
-all copyright and related or neighboring rights to this work. 
-In addition, as of 2015-06-23, 
-the editors have made this specification available under the
-<a class="external text" href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="nofollow" title="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0">Open Web Foundation Agreement Version 1.0</a>.</small>
+</p><p><small>Per <a class="external text" href="http://creativecommons.org/publicdomain/zero/1.0/" rel="nofollow" title="http://creativecommons.org/publicdomain/zero/1.0/">CC0</a>, to the extent possible under law, the editors have waived all copyright and related or neighboring rights to this work. In addition, as of 2016-06-22, the editors have made this specification available under the <a class="external text" href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="nofollow" title="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0">Open Web Foundation Agreement Version 1.0</a>.</small>
 </p>
 
 <a name="Example"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Example"></a> Example </span></h2>
@@ -68,11 +63,11 @@ the editors have made this specification available under the
  
   <span class="sc2"><span class="kw2">&lt;p&gt;</span></span>
     <span class="sc2">&lt;data <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-rating"</span> <span class="kw3">value</span><span class="sy0">=</span><span class="st0">"5"</span><span class="kw2">&gt;</span></span>★★★★★<span class="sc2"><span class="kw2">&lt;</span><span class="sy0">/</span>data&gt;</span>
-    Published <span class="sc2">&lt;time <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"dt-reviewed"</span> <span class="kw3">datetime</span><span class="sy0">=</span><span class="st0">"2013-06-12 12:00:00"</span><span class="kw2">&gt;</span></span>12<span class="sc2"><span class="kw2">&lt;sup&gt;</span></span>th<span class="sc2"><span class="kw2">&lt;/sup&gt;</span></span> June 2013<span class="sc2"><span class="kw2">&lt;</span><span class="sy0">/</span>time&gt;</span>
-    by <span class="sc2"><span class="kw2">&lt;a</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-reviewer h-card"</span> <span class="kw3">href</span><span class="sy0">=</span><span class="st0">"http://example.com"</span><span class="kw2">&gt;</span></span>Joe Bloggs<span class="sc2"><span class="kw2">&lt;/a&gt;</span></span>.
+    Published <span class="sc2">&lt;time <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"dt-published"</span> <span class="kw3">datetime</span><span class="sy0">=</span><span class="st0">"2013-06-12 12:00:00"</span><span class="kw2">&gt;</span></span>12<span class="sc2"><span class="kw2">&lt;sup&gt;</span></span>th<span class="sc2"><span class="kw2">&lt;/sup&gt;</span></span> June 2013<span class="sc2"><span class="kw2">&lt;</span><span class="sy0">/</span>time&gt;</span>
+    by <span class="sc2"><span class="kw2">&lt;a</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-author h-card"</span> <span class="kw3">href</span><span class="sy0">=</span><span class="st0">"http://example.com"</span><span class="kw2">&gt;</span></span>Joe Bloggs<span class="sc2"><span class="kw2">&lt;/a&gt;</span></span>.
   <span class="sc2"><span class="kw2">&lt;/p&gt;</span></span>
  
-  <span class="sc2"><span class="kw2">&lt;div</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"e-description"</span><span class="kw2">&gt;</span></span>
+  <span class="sc2"><span class="kw2">&lt;div</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"e-content"</span><span class="kw2">&gt;</span></span>
     <span class="sc2"><span class="kw2">&lt;p&gt;</span></span>Yes, microformats are undoubtedly great. They are the simplest way to markup structured data in HTML and reap the benefits thereof, including using your web page as your API by automatic conversion to JSON. The alternatives of microdata/schema and RDFa are much more work, require more markup, and are more complicated (harder to get right, more likely to break).<span class="sc2"><span class="kw2">&lt;/p&gt;</span></span>
   <span class="sc2"><span class="kw2">&lt;/div&gt;</span></span>
 <span class="sc2"><span class="kw2">&lt;/div&gt;</span></span></pre></div>
@@ -107,10 +102,10 @@ the editors have made this specification available under the
         <span class="st0">"rating"</span><span class="sy0">:</span> <span class="br0">[</span>
           <span class="st0">"5"</span>
         <span class="br0">]</span><span class="sy0">,</span>
-        <span class="st0">"reviewed"</span><span class="sy0">:</span> <span class="br0">[</span>
+        <span class="st0">"published"</span><span class="sy0">:</span> <span class="br0">[</span>
           <span class="st0">"2013-06-12 12:00:00"</span>
         <span class="br0">]</span><span class="sy0">,</span>
-        <span class="st0">"reviewer"</span><span class="sy0">:</span> <span class="br0">[</span>
+        <span class="st0">"author"</span><span class="sy0">:</span> <span class="br0">[</span>
           <span class="br0">{</span>
             <span class="st0">"value"</span><span class="sy0">:</span> <span class="st0">"Joe Bloggs"</span><span class="sy0">,</span>
             <span class="st0">"type"</span><span class="sy0">:</span> <span class="br0">[</span>
@@ -126,7 +121,7 @@ the editors have made this specification available under the
             <span class="br0">}</span>
           <span class="br0">}</span>
         <span class="br0">]</span><span class="sy0">,</span>
-        <span class="st0">"description"</span><span class="sy0">:</span> <span class="br0">[</span>
+        <span class="st0">"content"</span><span class="sy0">:</span> <span class="br0">[</span>
           <span class="br0">{</span>
             <span class="st0">"value"</span><span class="sy0">:</span> <span class="st0">"Yes, microformats are undoubtedly great. They are the simplest way to markup structured data in HTML and reap the benefits thereof, including using your web page as your API by automatic conversion to JSON. The alternatives of microdata/schema and RDFa are much more work, require more markup, and are more complicated (harder to get right, more likely to break)."</span><span class="sy0">,</span>
             <span class="st0">"html"</span><span class="sy0">:</span> <span class="st0">"&lt;p&gt;Yes, microformats are undoubtedly great. They are the simplest way to markup structured data in HTML and reap the benefits thereof, including using your web page as your API by automatic conversion to JSON. The alternatives of microdata/schema and RDFa are much more work, require more markup, and are more complicated (harder to get right, more likely to break).&lt;/p&gt;"</span>
@@ -138,9 +133,9 @@ the editors have made this specification available under the
 <span class="br0">}</span></pre></div>
 <a name="Get_started"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Get%20started"></a> Get started </span></h3>
 <p>The class <b><code><a class="dashAnchor" name="//apple_ref/cpp/Object/h-review"></a>h-review</code></b> is a <i>root class name</i> that indicates the presence of an h-review.
-</p><p><b>p-name</b>, <b>p-item</b>, <b>p-rating</b>, <b>dt-reviewed</b>, <b>p-reviewer</b>, <b>e-description</b> and the other property class names listed below defined elements as <i>properties</i> of the h-review.
+</p><p><b>p-name</b>, <b>p-item</b>, <b>p-rating</b>, <b>dt-published</b>, <b>p-author</b>, <b>e-content</b> and the other property class names listed below defined elements as <i>properties</i> of the h-review.
 </p><p>The class <b><code><a class="dashAnchor" name="//apple_ref/cpp/Object/h-item"></a>h-item</code></b> is a <i>root class name</i> that indicates an embedded <b><a href="h-item.html" title="h-item">h-item</a></b> for the p-item property.
-</p><p>The class <b><code><a class="dashAnchor" name="//apple_ref/cpp/Object/h-card"></a>h-card</code></b> is a <i>root class name</i> that indicates an embedded <b><a href="h-card.html" title="h-card">h-card</a></b> for the p-reviewer property.
+</p><p>The class <b><code><a class="dashAnchor" name="//apple_ref/cpp/Object/h-card"></a>h-card</code></b> is a <i>root class name</i> that indicates an embedded <b><a href="h-card.html" title="h-card">h-card</a></b> for the p-author property.
 </p><p>See <a href="microformats2-parsing.html" title="microformats2-parsing">microformats2-parsing</a> to learn more about property class names.
 </p>
 <a name="Properties"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Properties"></a> Properties </span></h2>
@@ -148,12 +143,12 @@ the editors have made this specification available under the
 </p>
 <ul><li> <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-name"></a>p-name</code></b> - name of the review
 </li><li> <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-item"></a>p-item</code></b> - thing been reviewed, including embedded microformat for e.g. business or person (<a href="h-card.html" title="h-card">h-card</a>), event (<a href="h-event.html" title="h-event">h-event</a>), place (<a href="h-adr.html" title="h-adr">h-adr</a> or <a href="h-geo.html" title="h-geo">h-geo</a>), product (<a href="h-product.html" title="h-product">h-product</a>), website, url, or other item (<a href="h-item.html" title="h-item">h-item</a>).
-</li><li> <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-reviewer"></a>p-reviewer</code></b> - person who authored the review, optionally with an embedded <a href="h-card.html" title="h-card">h-card</a>
-</li><li> <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/dt-reviewed"></a>dt-reviewed</code></b> - date time of when the review was written
+</li><li> <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-author"></a>p-author</code></b> - person who authored the review, optionally with an embedded <a href="h-card.html" title="h-card">h-card</a>
+</li><li> <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/dt-published"></a>dt-published</code></b> - date time of when the review was written and published
 </li><li> <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-rating"></a>p-rating</code></b> - value from 1-5 indicating a rating for the item (5 best).
 </li><li> <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-best"></a>p-best</code></b>  - define best rating value. can be numerically lower than worst.
 </li><li> <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-worst"></a>p-worst</code></b>  - define worst rating value. can be numerically higher than best. 
-</li><li> <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/e-description"></a>e-description</code></b> - the full text written evaluation and opinion of the reviewer
+</li><li> <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/e-content"></a>e-content</code></b> - the full text written evaluation and opinion of the reviewer
 </li><li> <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-category"></a>p-category</code></b> - freeform categories or tags applied to the item by the reviewer 
 </li><li> <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/u-url"></a>u-url</code></b> - review permalink URL
 </li></ul>
@@ -161,13 +156,19 @@ the editors have made this specification available under the
 </p>
 <a name="Status"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Status"></a> Status </span></h2>
 <p><b>h-review</b> is a microformats.org draft specification. Public discussion on h-review takes place on <a href="http://microformats.org/wiki/h-review-feedback" title="h-review-feedback">h-review-feedback</a> and the #microformats <a href="http://microformats.org/wiki/irc" title="irc">irc</a> channel on irc.freenode.net.
-</p><p>h-review is ready to use and implemented in the wild.
+</p><p>h-review is ready to use.
 </p>
 <a name="Property_Details"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Property%20Details"></a> Property Details </span></h2>
 <p>(stub, add any property explanations here)
 </p>
 <a name="Examples_in_the_Wild"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Examples%20in%20the%20Wild"></a> Examples in the Wild </span></h2>
 <ul><li> … add any h-review examples you find in the wild
+</li><li> <a class="external free" href="https://cleverdevil.io/2015/blood-rites-book-six-of-the-dresden-files" rel="nofollow" title="https://cleverdevil.io/2015/blood-rites-book-six-of-the-dresden-files">https://cleverdevil.io/2015/blood-rites-book-six-of-the-dresden-files</a>
+</li></ul>
+<a name="Implementations"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Implementations"></a> Implementations </span></h2>
+<ul><li> <a class="external text" href="https://github.com/cleverdevil/Known-Reviews" rel="nofollow" title="https://github.com/cleverdevil/Known-Reviews">Reviews plugin for Known CMS</a> by <a class="external text" href="https://cleverdevil.io/" rel="nofollow" title="https://cleverdevil.io">Jonathan LaCour</a>.
+<ul><li> <a class="external text" href="https://github.com/cleverdevil/Known-Reviews/pull/4" rel="nofollow" title="https://github.com/cleverdevil/Known-Reviews/pull/4">pending pull request to sync with spec update 2016-05-29</a> -t
+</li></ul>
 </li></ul>
 <a name="Validating"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Validating"></a> Validating </span></h2>
 <div style="text-indent:2em;font-style:italic">Main article: <a href="http://microformats.org/wiki/validators" title="validators">validators</a></div>
@@ -178,7 +179,7 @@ the editors have made this specification available under the
 </li></ul>
 <a name="Backward_Compatiblity"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Backward%20Compatiblity"></a> Backward Compatiblity </span></h2>
 <a name="Publisher_Compatibility"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Publisher%20Compatibility"></a> Publisher Compatibility </span></h3>
-<p>For backward compatibility, you may wish to use classic <a class="mw-redirect" href="http://microformats.org/wiki/hReview" title="hReview">hReview</a> classnames in addition to the more future-proof h-review properties, for example:
+<p>For backward compatibility, you may wish to use classic <a class="mw-redirect" href="http://microformats.org/wiki/hReview" title="hReview">hReview</a> classnames on an h-review permalink page in addition to the more future-proof h-review properties, for example:
 </p>
 <div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;div</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"h-review hreview"</span><span class="kw2">&gt;</span></span>
   <span class="sc2"><span class="kw2">&lt;h1</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-name fn"</span><span class="kw2">&gt;</span></span>My great review<span class="sc2"><span class="kw2">&lt;/h1&gt;</span></span>
@@ -200,17 +201,24 @@ the editors have made this specification available under the
 </li><li> <code>item vcard</code> - parse as <b>p-item h-card</b> including backcompat <a class="mw-redirect" href="http://microformats.org/wiki/hCard" title="hCard">hCard</a> parsing
 </li><li> <code>item vevent</code> - parse as <b>p-item h-event</b> including backcompat <a class="mw-redirect" href="http://microformats.org/wiki/hCalendar" title="hCalendar">hCalendar</a> vevent property parsing
 </li><li> <code>item hproduct</code> - parse as <b>p-item h-product</b> including backcompat <a class="mw-redirect" href="http://microformats.org/wiki/hProduct" title="hProduct">hProduct</a> parsing
-</li><li> <code>reviewer</code>  - including compat root vcard in the absence of h-card
-</li><li> <code>dtreviewed</code> - parse as <b>dt-</b>
+</li><li> <code>reviewer</code>  - parse as <b>p-author</b>, including compat root vcard in the absence of h-card
+</li><li> <code>dtreviewed</code> - parse as <b>dt-published</b>
 </li><li> <code>rating</code>
 </li><li> <code>best</code>
 </li><li> <code>worst</code>
-</li><li> <code>description</code> - parse as <b>e-</b>
+</li><li> <code>description</code> - parse as <b>e-content</b>
 </li><li> <code>rel=tag</code> - parse as <b>p-category</b>
 </li><li> <code>rel="self bookmark"</code> - parse as <b>u-url</b>. note that <code>rel</code> attribute value is treated as a space separated set, thus any presence of "self" and "bookmark" within such a set in a rel value is accepted.
 </li></ul>
 <p>Note: The <a class="mw-redirect" href="http://microformats.org/wiki/hReview" title="hReview">hReview</a> format has three properties which make use of <code>rel</code> attribute, these are <code>tag</code>, permalink (via the <code>self</code> and <code>bookmark</code> values) and <code>license</code>. Microformats 2 parsers <em class="RFC2119" style="text-transform: lowercase; font-style: italic;" title="SHOULD in RFC 2119 context">SHOULD</em> map these URLs into the page scoped rel collection.
 </p>
+<a name="prior_property_names"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/prior%20property%20names"></a> prior property names </span></h3>
+<p>There may be a handful of h-reviews out there (only one known so far) that use prior h-review property names. Parsers encountering these *may* interpret them as follows:
+</p>
+<ul><li> <code><a class="dashAnchor" name="//apple_ref/cpp/Property/dt-reviewed"></a>dt-reviewed</code> treat as a fallback for <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/dt-published"></a>dt-published</code></b>
+</li><li> <code><a class="dashAnchor" name="//apple_ref/cpp/Property/e-description"></a>e-description</code> treat as a fallback for <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/e-content"></a>e-content</code></b>
+</li><li> <code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-reviewer"></a>p-reviewer</code> treat as a fallback for <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-author"></a>p-author</code></b>
+</li></ul>
 <a name="Background"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Background"></a> Background </span></h2>
 <p>h-review is based on the existing <a class="mw-redirect" href="http://microformats.org/wiki/hReview" title="hReview">hReview</a> specification.
 </p>
@@ -226,8 +234,8 @@ the editors have made this specification available under the
 
 <!-- 
 NewPP limit report
-Preprocessor node count: 87/1000000
-Post-expand include size: 925/2097152 bytes
+Preprocessor node count: 95/1000000
+Post-expand include size: 922/2097152 bytes
 Template argument size: 10/2097152 bytes
 Expensive parser function count: 0/100
 -->
@@ -269,11 +277,11 @@ Retrieved from "<a href="h-review.html">http://microformats.org/wiki/h-review</a
 </div>
 
 		
-<!-- Served in 0.332 secs. -->
+<!-- Served in 0.432 secs. -->
 
 
 
 
 
 
-</body><!-- Mirrored from microformats.org/wiki/h-review by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 Jun 2015 11:00:05 GMT --></html>
+</body><!-- Mirrored from microformats.org/wiki/h-review by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 Jun 2016 19:41:10 GMT --></html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/microformats2-mime-type by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 Jun 2016 19:41:11 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+	
+	<meta content="MediaWiki 1.13.2" name="generator"/>
+		<meta content="microformats2-mime-type,microformats2,microformats2-parsing,content negotiation" name="keywords"/>
+		
+		
+		
+		
+	<link href="skins/common/shared.css" rel="stylesheet" type="text/css"/>		
+	<link href="skins/Microformats/microformats.css" rel="stylesheet" type="text/css"/>
+
+	
+
+
+    
+    		
+        
+        	
+	<title>microformats2-mime-type · Microformats Wiki</title>
+	
+<style id="dash-style" type="text/css">.content { width: 100%; }</style></head>
+	<!-- TODO: Template-dervied body class: spec and draft -->
+<body class="page-microformats2-mime-type ">
+    
+    
+
+    <div class="content hentry">
+    
+	
+
+	    <h1 class="entry-title">microformats2-mime-type</h1>
+
+		<p class="sub-title"></p>
+
+								    <!-- TODO: Jump nav -->
+		    <div id="jump-to-nav">Jump to:		        <a href="#sidebar">navigation</a>, 
+		        <a href="#search">search</a>
+		    </div>
+		        
+        <div class="entry-content">
+		<p>This page is for discussing the potential benefits and disadvantages of registering a MIME type for <a href="microformats2.html" title="microformats2">microformats2</a>.
+</p>
+
+<a name="Potential_MIME_types"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Potential%20MIME%20types"></a> Potential MIME types </span></h2>
+<p><b>Note</b>: None of these are officially registered MIME types. Until the IETF registers the MIME type, it is not official.
+</p>
+<ul><li> application/microformats+json
+</li><li> application/microformats2+json
+</li><li> application/mf2+json
+</li><li> application/uf2+json
+</li></ul>
+<p><br/>
+</p>
+<a name="Advantages"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Advantages"></a> Advantages </span></h2>
+<ul><li> if a user is using <a class="new" href="http://microformats.org/wiki/index.php?title=content_negotiation&amp;action=edit&amp;redlink=1" title="content negotiation (not yet written)">content negotiation</a>, one URL can have both a microformats2 JSON representation (which is simply the parsed content of what the text/html or application/xhtml+xml view contains) and a site or domain specific JSON representation of their own (commonly used for APIs)
+</li><li> it provides a naming structure for other future formats that have (close to) bidirectional conversion support with the semantics of JSON (e.g. YAML, BSON, Apache Avro, Thrift) - we cannot assume that JSON will be around forever or that it will suit all use cases even if it seems like it currently is the best choice
+</li></ul>
+<a name="Disadvantages"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Disadvantages"></a> Disadvantages </span></h2>
+<ul><li> some HTTP libraries (e.g. <a class="external text" href="http://docs.python-requests.org/en/latest/" rel="nofollow" title="http://docs.python-requests.org/en/latest/">Python's requests</a> library) will use application/json to auto-parse JSON, but the routine that auto-parses JSON will not be activated on custom MIME types
+</li></ul>
+<a name="Discussion"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Discussion"></a> Discussion </span></h2>
+<a name="See_also"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/See%20also"></a> See also </span></h2>
+<ul><li> <a href="microformats2.html" title="microformats2">microformats2</a>
+</li><li> <a href="microformats2-parsing.html" title="microformats2-parsing">microformats2-parsing</a>
+</li></ul>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 6/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key microformats_wiki_v3:pcache:idhash:19603-0!1!0!!en!2!edit=0 and timestamp 20160621222533 -->
+<div class="printfooter">
+Retrieved from "<a href="microformats2-mime-type.html">http://microformats.org/wiki/microformats2-mime-type</a>"</div>
+		</div>	
+		
+				
+                    
+        
+        
+
+	</div>
+	
+<!-- end of the sidebar -->
+
+<div id="footer">
+
+
+    <address class="vcard">
+        The content of this wiki is the combined effort of the
+        <a class="fn org url" href="http://microformats.org/">
+            microformats community
+        </a>.
+    </address>
+
+	<ul>
+    				<li id="about"><a href="http://microformats.org/wiki/Microformats_Wiki:About" title="Microformats Wiki:About">About Microformats Wiki</a></li>
+				<li id="disclaimer"><a href="http://microformats.org/wiki/Microformats_Wiki:General_disclaimer" title="Microformats Wiki:General disclaimer">Disclaimers</a></li>
+        <li>Powered by <a href="http://mediawiki.org/">MediaWiki</a> | <a href="http://mediatemple.net/">(mt) media temple</a></li>
+	</ul>
+</div>
+
+		
+<!-- Served in 0.151 secs. -->
+
+
+
+
+
+
+</body><!-- Mirrored from microformats.org/wiki/microformats2-mime-type by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 Jun 2016 19:41:11 GMT --></html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/microformats2-brainstorming by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 Jun 2016 19:41:10 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+	
+	<meta content="MediaWiki 1.13.2" name="generator"/>
+		<meta content="microformats2-brainstorming,HTML5,hreview-examples-in-wild,html-stripping-examples,include-pattern,microdata,microformats-2,microformats-2-implied-properties,microformats2,microformats2-experimental-properties,microformats2-faq" name="keywords"/>
+		
+		
+		
+		
+	<link href="skins/common/shared.css" rel="stylesheet" type="text/css"/>		
+	<link href="skins/Microformats/microformats.css" rel="stylesheet" type="text/css"/>
+
+	
+
+
+    
+    		
+
+
+        
+        	
+	<title>microformats2-brainstorming · Microformats Wiki</title>
+	
+<style id="dash-style" type="text/css">.content { width: 100%; }</style></head>
+	<!-- TODO: Template-dervied body class: spec and draft -->
+<body class="page-microformats2-brainstorming ">
+    
+    
+
+    <div class="content hentry">
+    
+	
+
+	    <h1 class="entry-title">microformats2-brainstorming</h1>
+
+		<p class="sub-title"></p>
+
+								    <!-- TODO: Jump nav -->
+		    <div id="jump-to-nav">Jump to:		        <a href="#sidebar">navigation</a>, 
+		        <a href="#search">search</a>
+		    </div>
+		        
+        <div class="entry-content">
+		<p>Brainstorming experimental / undeveloped / rejected ideas for <a class="mw-redirect" href="http://microformats.org/wiki/microformats-2" title="microformats-2">microformats-2</a>.
+</p>
+
+<a name="further_simplifications"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/further%20simplifications"></a> further simplifications </span></h2>
+<a name="more_on_allow_root_class_name_only"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/more%20on%20allow%20root%20class%20name%20only"></a> more on allow root class name only </span></h3>
+<p>This has been stable for a while, see:
+</p>
+<ul><li> <a class="mw-redirect" href="http://microformats.org/wiki/microformats-2-implied-properties" title="microformats-2-implied-properties">microformats-2-implied-properties</a>
+</li></ul>
+<a name="incorporate_rel"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/incorporate%20rel"></a> incorporate rel </span></h2>
+<p>Many microformats use 'rel' attribute values, e.g. <a href="http://microformats.org/wiki/rel-tag" title="rel-tag">rel-tag</a>, <a href="http://microformats.org/wiki/rel-license" title="rel-license">rel-license</a>, <a href="http://microformats.org/wiki/rel-me" title="rel-me">rel-me</a>. It would be good to continue supporting 'rel' values explicitly in the microformats2 model. Here are some existing use-cases and ways we would support them.
+</p>
+<a name="profile_h-card_rel-me"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/profile%20h-card%20rel-me"></a> profile h-card rel-me </span></h3>
+<p>Many sites have profile pages (personal home pages, and social networks), marked up with hCard, and permitting one or more rel-me values to other profiles, e.g. if this content were on http://tantek.com/ :
+</p><p>Tantek Çelik (<a class="external text" href="https://twitter.com/t" rel="nofollow" title="https://twitter.com/t">@t</a>, <a class="external text" href="http://github.com/tantek" rel="nofollow" title="http://github.com/tantek">github.com/tantek</a>)
+</p><p>with source:
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"h-card"</span><span class="kw2">&gt;</span></span>
+  <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-name"</span><span class="kw2">&gt;</span></span>Tantek Çelik<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span>
+ (<span class="sc2"><span class="kw2">&lt;a</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"u-url"</span> <span class="kw3">rel</span><span class="sy0">=</span><span class="st0">"me"</span>
+     <span class="kw3">href</span><span class="sy0">=</span><span class="st0">"https://twitter.com/t"</span>
+     <span class="kw2">&gt;</span></span>@t<span class="sc2"><span class="kw2">&lt;/a&gt;</span></span>, 
+  <span class="sc2"><span class="kw2">&lt;a</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"u-url"</span> <span class="kw3">rel</span><span class="sy0">=</span><span class="st0">"me"</span>
+     <span class="kw3">href</span><span class="sy0">=</span><span class="st0">"http://github.com/tantek"</span>
+     <span class="kw2">&gt;</span></span>github.com/tantek<span class="sc2"><span class="kw2">&lt;/a&gt;</span></span>)
+<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span></pre></div>
+<p>Parsed JSON per microformats2 properties:
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-javascript"><span class="br0">{</span>
+  <span class="st0">"items"</span><span class="sy0">:</span> <span class="br0">[</span><span class="br0">{</span> 
+    <span class="st0">"type"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"h-card"</span><span class="br0">]</span><span class="sy0">,</span>
+    <span class="st0">"properties"</span><span class="sy0">:</span> <span class="br0">{</span>
+      <span class="st0">"name"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"Tantek Çelik"</span><span class="br0">]</span><span class="sy0">,</span>
+      <span class="st0">"url"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"https://twitter.com/t"</span><span class="sy0">,</span> 
+              <span class="st0">"http://github.com/tantek"</span><span class="br0">]</span>
+    <span class="br0">}</span>
+  <span class="br0">}</span><span class="br0">]</span>
+<span class="br0">}</span></pre></div>
+<p>We could incorporate rel property parsing either as just another property (like a 'u-' property) scoped to the microformat:
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-javascript"><span class="br0">{</span>
+  <span class="st0">"items"</span><span class="sy0">:</span> <span class="br0">[</span><span class="br0">{</span> 
+    <span class="st0">"type"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"h-card"</span><span class="br0">]</span><span class="sy0">,</span>
+    <span class="st0">"properties"</span><span class="sy0">:</span> <span class="br0">{</span>
+      <span class="st0">"name"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"Tantek Çelik"</span><span class="br0">]</span><span class="sy0">,</span>
+      <span class="st0">"url"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"https://twitter.com/t"</span><span class="sy0">,</span> 
+              <span class="st0">"http://github.com/tantek"</span><span class="br0">]</span><span class="sy0">,</span>
+      <span class="st0">"rel-me"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"https://twitter.com/t"</span><span class="sy0">,</span> 
+              <span class="st0">"http://github.com/tantek"</span><span class="br0">]</span>
+    <span class="br0">}</span>
+  <span class="br0">}</span><span class="br0">]</span>
+<span class="br0">}</span></pre></div>
+<p>Or as always within global scope (closer to HTML5's currently defined scoping for 'rel' attributed links in a document):
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-javascript"><span class="br0">{</span>
+  <span class="st0">"items"</span><span class="sy0">:</span> <span class="br0">[</span><span class="br0">{</span>
+    <span class="st0">"url"</span><span class="sy0">:</span> <span class="st0">"http://tantek.com/"</span><span class="sy0">,</span>
+    <span class="st0">"rel-stylesheet"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"..."</span><span class="sy0">,</span> <span class="st0">"..."</span><span class="br0">]</span><span class="sy0">,</span>
+    <span class="st0">"rel-me"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"https://twitter.com/t"</span><span class="sy0">,</span> 
+               <span class="st0">"http://github.com/tantek"</span><span class="br0">]</span>
+    <span class="br0">}</span><span class="sy0">,</span>
+    <span class="br0">{</span> 
+    <span class="st0">"type"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"h-card"</span><span class="br0">]</span><span class="sy0">,</span>
+    <span class="st0">"properties"</span><span class="sy0">:</span> <span class="br0">{</span>
+      <span class="st0">"name"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"Tantek Çelik"</span><span class="br0">]</span><span class="sy0">,</span>
+      <span class="st0">"url"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"https://twitter.com/t"</span><span class="sy0">,</span> 
+              <span class="st0">"http://github.com/tantek"</span><span class="br0">]</span><span class="sy0">,</span>
+    <span class="br0">}</span>
+  <span class="br0">}</span><span class="br0">]</span>
+<span class="br0">}</span></pre></div>
+<p>Note: "url" in that root level object is the URL of the document itself, which is necessary for:
+</p>
+<ul><li> 'rel' semantics: which URL from to which other URL the rels apply to.
+</li><li> vCard .vcf export "SOURCE:" property (URL that the vCards were derived from).
+</li></ul>
+<a name="document_url"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/document%20url"></a> document url </span></h2>
+<p>As described above in the rel section, it's useful to have a root context object which provides the URL of the document itself.
+</p>
+<a name="adopt_itemref"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/adopt%20itemref"></a> adopt itemref </span></h2>
+<p>There many existing real-world use-cases where either:
+</p>
+<ul><li> several microformats in a page want to share some common data without repeating it.
+<ul><li> e.g. a page about a product with multiple reviews of that product (very common, products sites, Amazon/CNET et al, review aggregators, Yelp et al)
+</li><li> e.g. representing the author of multiple hAtom entries on a page. Currently this is possible with the <code>&lt;address class="hcard"&gt;</code> optimisation, which would be rendered obsolete by the proposed new generic parsing rules.
+</li></ul>
+</li><li> a microformat in a page needs to incorporate information spread across different parts of a page, without assigning the entire page to that microformat
+</li></ul>
+<p>The <a href="http://microformats.org/wiki/include-pattern" title="include-pattern">include-pattern</a> provides the necessary functionality for existing microformats (1.0).
+</p><p>For 2.0 it may be reasonable to simply re-use the nice <code>itemref</code> attribute from microdata, with identical/analogous functionality.
+</p><p>That is, when present on the root element of a microformat, the <code>itemref</code> attribute provides a space separated list of ids of elements in the document which are then incorporated as children of the microformat, before its actual children in the document. This is a simple coarse summary of course, and the actual itemref inclusion algorithm should be followed.
+</p><p>Questions and possible issues:
+</p>
+<div class="discussion">
+<ul><li> Does use of 'itemref' mean requiring <a class="mw-redirect" href="http://microformats.org/wiki/HTML5" title="HTML5">HTML5</a>? 
+<ul><li> No, <code>itemref</code> is not part of the HTML5 specification, it is currently only part of the <a href="http://microformats.org/wiki/microdata" title="microdata">microdata</a> <i>last call</i> working draft. Thus we would be adding a "new" attribute to HTML above and beyond HTML5, though one that is already specified, and validated by current HTML validators.
+</li></ul>
+</li><li> Is 'itemref' documented as a stable draft?
+<ul><li> 'itemref' is defined in the Last Call Working Draft of microdata. Being "last call" it has some amount of stability, but could still change before it goes to candidate recommendation (CR).
+</li></ul>
+</li><li> Doesn't microformats try to avoid introducing new attributes? (e.g. from RDFa in the past).
+<ul><li> Yes, in general microformats try to avoid introducing new attributes. It may be ok for the set of use-cases that need "itemref". That is, they *are* a minority of actual use-cases, and thus making them use a new attribute is probably ok.
+</li></ul>
+</li><li> Wouldn't it be dangerous to adopt features of separate technologies that are unstable, may change, or may disappear?
+<ul><li> Indeed any time we consider adopting anything from technologies in working drafts we should consider their stability and dependability on a case-by-case basis. When we do decide to re-use such technologies, we should be sure to <i>copy</i> their definition/functionality and provide a non-normative reference to the source, rather than normatively depend on anything that could change or disappear. In the case of 'itemref', it's been stable for a while, and if we believe the <a href="http://microformats.org/wiki/schema.org" title="schema.org">schema.org</a> implementation announcements, there are multiple real-world implementations that surface it in common (<a class="mw-redirect" href="http://microformats.org/wiki/search" title="search">search</a>) user interfaces.
+</li></ul>
+</li><li> Wasn't RDFa a <i>stable</i> augmentation of HTML, and yet we resisted incorporated attributes from it?
+<ul><li> In practice, no, RDFa has continued to change evolve (which is good) in response to market feedback about its complexity. There was very little real world use (and thus exercising) of RDFa until Google provided it as a Rich Snippets alternative syntax in 2009. At this point, it may be reasonable to also consider attributes from RDFa (e.g. 'vocab' instead of 'profile'), however for this particular purpose (providing inclusion functionality), the 'itemref' attribute/feature makes the most sense.
+</li></ul>
+</li></ul>
+</div>
+<a name="hReview_item_backward_compatibility"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/hReview%20item%20backward%20compatibility"></a> hReview item backward compatibility </span></h2>
+<p>It maybe necessary (pending research/evidence) to add backward compatible parsing for the class name "item" inside the backward compatible parsing for the root class name "hreview". If so, here are some notes on how to add that to the <a href="microformats2.html" title="microformats2">microformats2</a> spec on v2 vocabularies.
+</p>
+<a name="h-item"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/h-item"></a> h-item </span></h3>
+<p>...
+</p><p>For backward compatibility, microformats 2 parsers <em class="RFC2119" style="text-transform: lowercase; font-style: italic;" title="SHOULD in RFC 2119 context">SHOULD</em>, when parsing an "hreview" for backwards compatibility, detect the following root class name and property names. A microformats 2 parser may use existing microformats <a href="http://microformats.org/wiki/parsers" title="parsers">parsers</a> to extract these properties. If an "h-item" is found, don't look for an "item" on the same element.
+</p><p>compat root class name: <code id="item">item</code><br/>
+properties: (parsed as <b>p-</b> plain text unless otherwise specified)
+</p>
+<ul><li> <code>fn</code> - parse as <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-name"></a>p-name</code></b>
+</li><li> <code>photo</code> - parse as <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/u-photo"></a>u-photo</code></b>
+</li><li> <code>url</code> - parse as <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/u-url"></a>u-url</code></b>
+</li></ul>
+<p>Note: we should analyze <a href="http://microformats.org/wiki/hreview-examples-in-wild" title="hreview-examples-in-wild">hreview-examples-in-wild</a> to see if there are any that actually depend on parsing for "item", or if simply looking for "fn", "photo", and "url" directly inside a root class name of "hreview" is sufficient. If so, we should <b>DROP</b> this backward-compat parsing for the class name "item" as it may otherwise produce too many false positives ("item" is a fairly common term).
+</p>
+<a name="h-review"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/h-review"></a> h-review </span></h3>
+<p>...
+</p>
+<ul><li> <code>item</code> - including compat root vcard|vevent in the absence of h-card|h-event
+</li></ul>
+<p>...
+</p><p>Note: we should analyze <a href="http://microformats.org/wiki/hreview-examples-in-wild" title="hreview-examples-in-wild">hreview-examples-in-wild</a> to see if there are any that actually depend on parsing for "item", or if simply looking for "fn", "photo", and "url" directly inside a root class name of "hreview" is sufficient. If so, we should <b>DROP</b> the backward-compat parsing for the class name "item" as it may otherwise produce too many false positives ("item" is a fairly common term).
+</p>
+<a name="register_a_mime_type.3F"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/register%20a%20mime%20type%3F"></a> register a mime type? </span></h3>
+<p>See <a href="microformats2-mime-type.html" title="microformats2-mime-type">microformats2-mime-type</a>.
+</p>
+<a name="rejected_ideas"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/rejected%20ideas"></a> rejected ideas </span></h2>
+<a name="n_prefix_for_multiple_numbers"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/n%20prefix%20for%20multiple%20numbers"></a> n prefix for multiple numbers </span></h3>
+<p>Idea:
+</p>
+<ul><li> <b>"n-*" for (one or more) numbers</b>, e.g. "n-rating", "n-geo", leaving the semantics of more than one number up to specific format. e.g. for an "n-rating" inside an "h-review", the first number would presumably be the rating value, when only two numbers the second would be the "best" value (e.g. rated <code>&lt;span class="n-rating"&gt;3 out of 4&lt;/span&gt;</code>), when three numbers the second would be the "worst" and the third would be the "best" (e.g. <code>&lt;span class="n-rating"&gt;7.5 out of 1 to 10&lt;/span&gt;</code>).  similarly "n-geo" would specify the first number to be the latitude and the second to be the longitude.
+</li></ul>
+<p>Rejected because while this *might* work for some properties in *English* it will NOT localize/internationalize well (orders of numbers in phrases change in different languages), and it will also limit the human expressivity of the plain text.  Thanks to Ben Ward for this feedback at the 2011-06-02 microformats dinner. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 14:25, 9 June 2011 (UTC)
+</p>
+<a name="see_also"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/see%20also"></a> see also </span></h2>
+<ul><li> <a href="microformats2.html" title="microformats2">microformats2</a>
+</li><li> <strong class="selflink">microformats2-brainstorming</strong>
+</li><li> <a href="microformats2-experimental-properties.html" title="microformats2-experimental-properties">microformats2-experimental-properties</a>
+</li><li> <a href="microformats2-prefixes.html" title="microformats2-prefixes">microformats2-prefixes</a>
+</li><li> <a href="microformats2-implied-properties.html" title="microformats2-implied-properties">microformats2-implied-properties</a>
+</li><li> <a href="microformats2-faq.html" title="microformats2-faq">microformats2-faq</a>
+</li><li> <a href="http://microformats.org/wiki/html-stripping-examples" title="html-stripping-examples">html-stripping-examples</a>
+</li></ul>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 48/1000000
+Post-expand include size: 137/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key microformats_wiki_v3:pcache:idhash:6947-0!1!0!!en!2!edit=0 and timestamp 20160622050517 -->
+<div class="printfooter">
+Retrieved from "<a href="microformats2-brainstorming.html">http://microformats.org/wiki/microformats2-brainstorming</a>"</div>
+		</div>	
+		
+				
+                    
+        
+        
+
+	</div>
+	
+<!-- end of the sidebar -->
+
+<div id="footer">
+
+
+    <address class="vcard">
+        The content of this wiki is the combined effort of the
+        <a class="fn org url" href="http://microformats.org/">
+            microformats community
+        </a>.
+    </address>
+
+	<ul>
+    				<li id="about"><a href="http://microformats.org/wiki/Microformats_Wiki:About" title="Microformats Wiki:About">About Microformats Wiki</a></li>
+				<li id="disclaimer"><a href="http://microformats.org/wiki/Microformats_Wiki:General_disclaimer" title="Microformats Wiki:General disclaimer">Disclaimers</a></li>
+        <li>Powered by <a href="http://mediawiki.org/">MediaWiki</a> | <a href="http://mediatemple.net/">(mt) media temple</a></li>
+	</ul>
+</div>
+
+		
+<!-- Served in 0.150 secs. -->
+
+
+
+
+
+
+</body><!-- Mirrored from microformats.org/wiki/microformats2-brainstorming by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 Jun 2016 19:41:11 GMT --></html>

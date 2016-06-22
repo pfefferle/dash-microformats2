@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/h-recipe by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 Jun 2015 11:00:05 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/h-recipe by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 Jun 2016 19:41:10 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
 
 	<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 	
@@ -48,12 +48,7 @@
 <hr/>
 <p><dfn style="font-style:normal;font-weight:bold">h-recipe</dfn> is a simple, open format for publishing recipes on the web. h-recipe is one of several open <a href="http://microformats.org/wiki/microformats" title="microformats">microformat</a> draft standards suitable for embedding data in HTML/HTML5.
 </p><p>h-recipe is the <a href="microformats2.html" title="microformats2">microformats2</a> update to <a class="mw-redirect" href="http://microformats.org/wiki/hRecipe" title="hRecipe">hRecipe</a>.
-</p><p><small>Per <a class="external text" href="http://creativecommons.org/publicdomain/zero/1.0/" rel="nofollow" title="http://creativecommons.org/publicdomain/zero/1.0/">CC0</a>,
-to the extent possible under law, the editors have waived 
-all copyright and related or neighboring rights to this work. 
-In addition, as of 2015-06-23, 
-the editors have made this specification available under the
-<a class="external text" href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="nofollow" title="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0">Open Web Foundation Agreement Version 1.0</a>.</small>
+</p><p><small>Per <a class="external text" href="http://creativecommons.org/publicdomain/zero/1.0/" rel="nofollow" title="http://creativecommons.org/publicdomain/zero/1.0/">CC0</a>, to the extent possible under law, the editors have waived all copyright and related or neighboring rights to this work. In addition, as of 2016-06-22, the editors have made this specification available under the <a class="external text" href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="nofollow" title="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0">Open Web Foundation Agreement Version 1.0</a>.</small>
 </p>
 
 <a name="Example"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Example"></a> Example </span></h2>
@@ -128,6 +123,7 @@ the editors have made this specification available under the
 </li><li> <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-author"></a>p-author</code></b> - person who wrote the recipe, optionally embedded with <code><a class="dashAnchor" name="//apple_ref/cpp/Object/h-card"></a>h-card</code> <div style="text-indent:2em;font-style:italic">Main article: <a href="h-card.html" title="h-card">h-card</a></div>
 </li><li> <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/dt-published"></a>dt-published</code></b> - the date the recipe was published
 </li><li> <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-nutrition"></a>p-nutrition</code></b> - nutritional information like calories, fat, dietary fiber etc.
+</li><li> <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-category"></a>p-category</code></b> - recipe categories/tags
 </li><li> ...
 </li></ul>
 <p><br/>
@@ -149,7 +145,9 @@ the editors have made this specification available under the
 </li><li> <a class="external free" href="http://www.eliduke.com/recipes/vegan-mac-and-cheese" rel="nofollow" title="http://www.eliduke.com/recipes/vegan-mac-and-cheese">http://www.eliduke.com/recipes/vegan-mac-and-cheese</a>
 </li></ul>
 </li></ul>
-<ul><li> … add any h-recipe examples you find in the wild
+<ul><li> <a class="external text" href="https://cleverdevil.io/" rel="nofollow" title="https://cleverdevil.io">Jonathan LaCour</a> has created several h-<a class="external text" href="http://cleverdevil.io/content/recipes" rel="nofollow" title="http://cleverdevil.io/content/recipes">recipes</a> using his Known plugin on his site:
+<ul><li> <a class="external free" href="https://cleverdevil.io/2015/kentucky-maid-cocktail" rel="nofollow" title="https://cleverdevil.io/2015/kentucky-maid-cocktail">https://cleverdevil.io/2015/kentucky-maid-cocktail</a>
+</li></ul>
 </li></ul>
 <a name="Validating"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Validating"></a> Validating </span></h2>
 <div style="text-indent:2em;font-style:italic">Main article: <a href="http://microformats.org/wiki/validators" title="validators">validators</a></div>
@@ -157,6 +155,21 @@ the editors have made this specification available under the
 </p>
 <ul><li> <a class="external free" href="http://waterpigs.co.uk/php-mf2/" rel="nofollow" title="http://waterpigs.co.uk/php-mf2/">http://waterpigs.co.uk/php-mf2/</a> - enter your markup directly
 </li><li> <a class="external free" href="http://pin13.net/" rel="nofollow" title="http://pin13.net/">http://pin13.net/</a> - enter a URL to a page to test where it says "Microformats Parser"
+</li></ul>
+<a name="Implementations"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Implementations"></a> Implementations </span></h2>
+<p>This section is <b>informative</b>. 
+</p><p>Tools for generating and consuming h-recipe. When it gets too big we can move it to a separate page like <a class="new" href="http://microformats.org/wiki/index.php?title=h-recipe-implementations&amp;action=edit&amp;redlink=1" title="h-recipe-implementations (not yet written)">h-recipe-implementations</a>.
+</p><p>Consuming h-recipe (sites and tools that consume and do something with h-recipe)
+</p>
+<ul><li> ... (stub)
+</li></ul>
+<p>Generating h-recipe (sites and tools that help produce and publish h-recipe)
+</p>
+<ul><li> <a class="external text" href="https://github.com/cleverdevil/Known-Recipes" rel="nofollow" title="https://github.com/cleverdevil/Known-Recipes">Recipe post generator for Known CMS</a> by <a class="external text" href="https://cleverdevil.io/" rel="nofollow" title="https://cleverdevil.io">Jonathan LaCour</a>.
+</li></ul>
+<p>Advocacy - open source and other implementations which would benefit from h-recipe support or some degree of support has been requested - feel free to help implement these.
+</p>
+<ul><li> OpenRecipes <a class="external text" href="https://github.com/fictivekin/openrecipes/issues/198" rel="nofollow" title="https://github.com/fictivekin/openrecipes/issues/198">issue 198</a> feature request: update spider to parse for the original hRecipe microformat, and the new h-recipe microformats2 update
 </li></ul>
 <a name="Backward_Compatibility"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Backward%20Compatibility"></a> Backward Compatibility </span></h2>
 <a name="Publisher_Compatibility"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Publisher%20Compatibility"></a> Publisher Compatibility </span></h3>
@@ -177,6 +190,8 @@ properties: (parsed as <b>p-</b> plain text unless otherwise specified)
 </li><li> <code>summary</code>
 </li><li> <code>author</code> - including compat root <code>vcard</code> in the absence of <code><a class="dashAnchor" name="//apple_ref/cpp/Object/h-card"></a>h-card</code>
 </li><li> <code>nutrition</code>
+</li><li> <code>category</code>
+</li><li> <code>rel=tag</code> - parse as <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-category"></a>p-category</code></b>. While not a class name nor typical microformats property, rel=tag was the typical way to tag an hrecipe. Thus parsers should look for rel=tag hyperlinks inside an hrecipe, and take the last path segment of their "href" value as a value for a <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-category"></a>p-category</code></b> property.
 </li></ul>
 <a name="Background"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Background"></a> Background </span></h2>
 <p>h-recipe is based on the existing <a class="mw-redirect" href="http://microformats.org/wiki/hRecipe" title="hRecipe">hRecipe</a> specification.
@@ -190,8 +205,8 @@ properties: (parsed as <b>p-</b> plain text unless otherwise specified)
 
 <!-- 
 NewPP limit report
-Preprocessor node count: 76/1000000
-Post-expand include size: 1002/2097152 bytes
+Preprocessor node count: 82/1000000
+Post-expand include size: 999/2097152 bytes
 Template argument size: 16/2097152 bytes
 Expensive parser function count: 0/100
 -->
@@ -233,11 +248,11 @@ Retrieved from "<a href="h-recipe.html">http://microformats.org/wiki/h-recipe</a
 </div>
 
 		
-<!-- Served in 0.408 secs. -->
+<!-- Served in 0.322 secs. -->
 
 
 
 
 
 
-</body><!-- Mirrored from microformats.org/wiki/h-recipe by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 Jun 2015 11:00:05 GMT --></html>
+</body><!-- Mirrored from microformats.org/wiki/h-recipe by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 Jun 2016 19:41:10 GMT --></html>

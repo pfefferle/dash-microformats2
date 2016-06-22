@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/microformats2 by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 Jun 2015 10:59:44 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/microformats2 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 Jun 2016 19:41:08 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
 
 	<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 	
@@ -21,7 +21,7 @@
 
         
         	
-	<title>microformats 2 · Microformats Wiki</title>
+	<title>microformats2 · Microformats Wiki</title>
 	
 <style id="dash-style" type="text/css">.content { width: 100%; }</style></head>
 	<!-- TODO: Template-dervied body class: spec and draft -->
@@ -33,7 +33,7 @@
     
 	
 
-	    <h1 class="entry-title">microformats 2</h1>
+	    <h1 class="entry-title">microformats2</h1>
 
 		<p class="sub-title"></p>
 
@@ -48,7 +48,7 @@
 
 <a name="Summary"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Summary"></a> Summary </span></h2>
 <p>Microformats2 is the simplest way to markup structured information in HTML. Microformats2 improves ease of use and implementation for <em>both</em> authors (publishers) and developers (<a href="microformats2-parsing.html" title="microformats2-parsing">parser</a> implementers).
-</p><p>Microformats2 replaces and supersedes both classic microformats, as well as <a href="http://microformats.org/wiki/microdata" title="microdata">microdata</a>, and <a class="mw-redirect" href="http://microformats.org/wiki/RDFa" title="RDFa">RDFa</a>.
+</p><p>Microformats2 replaces and supersedes both classic microformats, as well as incorporates lessons learned from <a href="http://microformats.org/wiki/microdata" title="microdata">microdata</a> and <a class="mw-redirect" href="http://microformats.org/wiki/RDFa" title="RDFa">RDFa</a>.
 </p>
 <a name="simple_microformats_2_examples"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/simple%20microformats%202%20examples"></a> simple microformats 2 examples </span></h3>
 <p>Here are a few simple microformats2 examples along with canonical <a class="mw-redirect" href="http://microformats.org/wiki/JSON" title="JSON">JSON</a>.
@@ -102,7 +102,7 @@
     <span class="st0">"type"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"h-card"</span><span class="br0">]</span><span class="sy0">,</span>
     <span class="st0">"properties"</span><span class="sy0">:</span> <span class="br0">{</span>
       <span class="st0">"name"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"Rohit Khare"</span><span class="br0">]</span><span class="sy0">,</span>
-      <span class="st0">"url"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"http://rohit.khare.org"</span><span class="br0">]</span><span class="sy0">,</span>
+      <span class="st0">"url"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"http://rohit.khare.org/"</span><span class="br0">]</span><span class="sy0">,</span>
       <span class="st0">"photo"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"https://s3.amazonaws.com/twitter_production/profile_images/53307499/180px-Rohit-sq_bigger.jpg"</span><span class="br0">]</span>
     <span class="br0">}</span>
   <span class="br0">}</span><span class="br0">]</span>
@@ -167,15 +167,17 @@
 </li><li> 'p-*' for simple (text) properties, e.g. 'p-name'
 </li><li> 'u-*' for URL properties, e.g. 'u-photo'
 </li><li> 'dt-*' for date/time properties, e.g. 'dt-bday'
-</li><li> 'e-*' for embedded markup properties, e.g. 'e-note'. See <a href="microformats2.html#naming_conventions_for_generic_parsing" title="microformats2">prefix naming conventions</a> for more details.
+</li><li> 'e-*' for embedded markup properties, e.g. 'e-note'.<br/>See <a href="microformats2.html#naming_conventions_for_generic_parsing" title="microformats2">prefix naming conventions</a> for more details.
 </li></ul>
 </li><li> <b>Flat sets of optional properties.</b> All microformats consist of a root, and a collection of properties. Hierarchical data is represented with nested microformats, typically as property values themselves. Properties are all optional and potentially multivalued (applications needing a singular semantic may use first instance).
 </li><li> <b>Single class markup for common uses.</b> Common simple markup patterns require only a single microformat root class name, which parsers use to find a few generic properties: <code>name, url, photo</code>. The simple microformats2 examples above demonstrate these.
 </li></ol>
-<p>Parsing details for each of these (including how to generate canonical JSON) are specified step-by-step in the:
+<p>Parsing details for each of these prefixes (including how to generate canonical JSON) are specified step-by-step in the:
 </p>
 <ul><li> <b><a href="microformats2-parsing.html" title="microformats2-parsing">microformats2 parsing specification</a></b>
 </li></ul>
+<p>Note: most properties are specified and used with a single specific prefix (or occasionally two or three) that is self-evident from context. However any parsing prefix can be used with any property, especially if you find a good reason to do so!
+</p>
 <a name="v2_vocabularies"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/v2%20vocabularies"></a> v2 vocabularies </span></h2>
 <p>Status: <b><span id="draft_v2_vocabularies">draft</span></b>. Please review and provide feedback in <a class="mw-redirect" href="http://microformats.org/wiki/IRC" title="IRC">IRC</a>.
 </p>
@@ -691,7 +693,7 @@ properties: (parsed as <b>p-</b> plain text unless otherwise specified)
       <span class="st0">"start"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"2012-06-30"</span><span class="br0">]</span><span class="sy0">,</span>
       <span class="st0">"end"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"2012-07-01"</span><span class="br0">]</span><span class="sy0">,</span>
       <span class="st0">"location"</span><span class="sy0">:</span> <span class="br0">[</span><span class="br0">{</span>
-        <span class="st0">"value"</span><span class="sy0">:</span> <span class="st0">"Geoloqi, 920 SW 3rd Ave. Suite 400, Portland, OR"</span><span class="sy0">,</span>
+        <span class="st0">"value"</span><span class="sy0">:</span> <span class="st0">"Geoloqi"</span><span class="sy0">,</span>
         <span class="st0">"type"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"h-card"</span><span class="br0">]</span><span class="sy0">,</span>
         <span class="st0">"properties"</span><span class="sy0">:</span> <span class="br0">{</span>
           <span class="st0">"name"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"Geoloqi"</span><span class="br0">]</span><span class="sy0">,</span>
@@ -954,7 +956,7 @@ Tips:
 <ul><li> ...
 </li><li> David John Mead marks up his profile, blog posts and comments with h-card, h-entry and h-cite on <a class="external text" href="http://davidjohnmead.com/" rel="nofollow" title="http://davidjohnmead.com">davidjohnmead.com</a>
 </li><li> <a href="http://microformats.org/wiki/User:Brian" title="User:Brian">Brian Suda</a> marks up his blog posts up with h-entry and h-card on <a class="external text" href="http://optional.is/required/" rel="nofollow" title="http://optional.is/required/">optional.is</a>
-</li><li> Ashton McAllen marks up his blog posts, reposts, comments and likes with h-entry, h-card and h-cite on <a class="external text" href="http://acegiak.net/" rel="nofollow" title="http://acegiak.net/">acegiak.net</a>
+</li><li> Ashton McAllan marks up her blog posts, reposts, comments and likes with h-entry, h-card and h-cite on <a class="external text" href="https://acegiak.net/" rel="nofollow" title="https://acegiak.net/">acegiak.net</a>
 </li><li> Emma Kuo marks up her blog posts and notes with h-entry and h-card on <a class="external text" href="http://notenoughneon.com/" rel="nofollow" title="http://notenoughneon.com/">notenoughneon.com</a>
 </li><li> Scott Jenson marks up his blog posts with h-entry and h-card on <a class="external text" href="http://jenson.org/" rel="nofollow" title="http://jenson.org/">jenson.org</a>
 </li><li> Emily McAllen marks up her blog posts with h-entry and h-card on <a class="external text" href="http://blackwoolholiday.com/" rel="nofollow" title="http://blackwoolholiday.com/">blackwoolholiday.com</a>
@@ -1007,31 +1009,30 @@ Tips:
 <a name="Implementations"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Implementations"></a> Implementations </span></h2>
 <p><span style="padding:2px;background:#AEE219;border:1px solid #679906;color:#000;font-size:0.8em;">new!</span> Test your microformatted web page with: 
 </p>
-<ul><li> <a class="external free" href="https://pin13.net/mf2/" rel="nofollow" title="https://pin13.net/mf2/">https://pin13.net/mf2/</a> (where it says "Microformats Parser")
+<a name="Live_Textarea_Input"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Live%20Textarea%20Input"></a> Live Textarea Input </span></h3>
+<p>Use any of these to enter HTML+microformats2 markup and see the parsed result!
+</p>
+<ul><li> <a class="external free" href="http://glennjones.net/tools/microformats/" rel="nofollow" title="http://glennjones.net/tools/microformats/">http://glennjones.net/tools/microformats/</a>
+</li><li> <a class="external free" href="https://pin13.net/mf2/" rel="nofollow" title="https://pin13.net/mf2/">https://pin13.net/mf2/</a> (where it says "Microformats Parser")
+</li><li> <a class="external free" href="https://kylewm.com/services/mf2" rel="nofollow" title="https://kylewm.com/services/mf2">https://kylewm.com/services/mf2</a>
 </li></ul>
 <a name="Blogging_tools"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Blogging%20tools"></a> Blogging tools </span></h3>
 <ul><li> <b>Storytlr</b> parses the 'target' from <a class="external text" href="http://indiewebcamp.com/pingback" rel="nofollow" title="http://indiewebcamp.com/pingback">pingbacks</a> for <a class="external text" href="https://github.com/storytlr/storytlr/blob/master/protected/application/public/controllers/PingbackController.php#L63" rel="nofollow" title="https://github.com/storytlr/storytlr/blob/master/protected/application/public/controllers/PingbackController.php#L63">h-entry with properties and nested h-card</a> for information to automatically display in the <a class="external text" href="http://eschnou.com/entry/testing-indieweb-federation-with-waterpigscouk-aaronpareckicom-and--62-24908.html" rel="nofollow" title="http://eschnou.com/entry/testing-indieweb-federation-with-waterpigscouk-aaronpareckicom-and--62-24908.html">comments section on a post</a>.
 </li></ul>
 <a name="Converters"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Converters"></a> Converters </span></h3>
-<ul><li> <b><a class="external text" href="https://github.com/snarfed/activitystreams-unofficial" rel="nofollow" title="https://github.com/snarfed/activitystreams-unofficial">activitystreams-unofficial</a></b> is a library and REST API that converts between silo APIs, <a class="new" href="http://microformats.org/wiki/index.php?title=ActivityStreams&amp;action=edit&amp;redlink=1" title="ActivityStreams (not yet written)">ActivityStreams</a> and <strong class="selflink">microformats2</strong> (all directions). Supported silos include Facebook, Twitter, Instagram and Google+. Users include <a class="external text" href="http://brid.gy/" rel="nofollow" title="http://brid.gy/">Bridgy</a>, <a class="external text" href="http://reader.kylewm.com/" rel="nofollow" title="http://reader.kylewm.com/">Woodwind</a>, and <a class="external text" href="https://facebook-atom.appspot.com/" rel="nofollow" title="https://facebook-atom.appspot.com/">facebook-atom</a> and <a class="external text" href="https://twitter-atom.appspot.com/" rel="nofollow" title="https://twitter-atom.appspot.com/">twitter-atom</a>, among others.
+<ul><li> <b><a class="external text" href="https://github.com/snarfed/granary" rel="nofollow" title="https://github.com/snarfed/granary">granary</a></b> is a library and REST API that converts between silo APIs, <a class="new" href="http://microformats.org/wiki/index.php?title=ActivityStreams&amp;action=edit&amp;redlink=1" title="ActivityStreams (not yet written)">ActivityStreams</a>, <strong class="selflink">microformats2</strong>, and Atom (all directions). Supported silos include Facebook, Twitter, Instagram, Google+, and Flickr. Users include <a class="external text" href="http://brid.gy/" rel="nofollow" title="http://brid.gy/">Bridgy</a>, <a class="external text" href="http://reader.kylewm.com/" rel="nofollow" title="http://reader.kylewm.com/">Woodwind</a>, and <a class="external text" href="https://facebook-atom.appspot.com/" rel="nofollow" title="https://facebook-atom.appspot.com/">facebook-atom</a> and <a class="external text" href="https://twitter-atom.appspot.com/" rel="nofollow" title="https://twitter-atom.appspot.com/">twitter-atom</a>, among others.
 </li></ul>
 <ul><li> <b><a class="external text" href="http://pipes.yahoo.com/pipes/pipe.info?_id=afc5568b4e8643bfb05436b1caaf91bc" rel="nofollow" title="http://pipes.yahoo.com/pipes/pipe.info?_id=afc5568b4e8643bfb05436b1caaf91bc">microformats to RSS</a></b> - a Yahoo! pipe that converts a URL containing an <a href="h-feed.html" title="h-feed">h-feed</a> containing h-entries, into an <a class="mw-redirect" href="http://microformats.org/wiki/RSS" title="RSS">RSS</a> feed (<a class="external text" href="http://waterpigs.co.uk/notes/4SeNi5/" rel="nofollow" title="http://waterpigs.co.uk/notes/4SeNi5/">2013-10-21 blog post announcing</a>)
 </li></ul>
+<ul><li> <b><a class="external text" href="https://xray.p3k.io/" rel="nofollow" title="https://xray.p3k.io">XRay</a></b> (<a class="external text" href="https://github.com/aaronpk/XRay" rel="nofollow" title="https://github.com/aaronpk/XRay">source code</a>) - Returns a normalized representation of the microformats data at a URL
+</li></ul>
 <a name="Parsers"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Parsers"></a> Parsers </span></h3>
-<p>Parsers, open source libraries:
+<p>Parsers, open source libraries, in alphabetical order by programming language:
 </p>
-<a name="Go"></a><h4> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Go"></a> Go </span></h4>
-<ul><li> <b>andyleap/microformats</b> Golang microformats2 parser
-<ul><li> github open source: <a class="external free" href="https://github.com/andyleap/microformats" rel="nofollow" title="https://github.com/andyleap/microformats">https://github.com/andyleap/microformats</a>
-</li><li> live textarea entry: <a class="external free" href="http://mf2.vendaria.net/" rel="nofollow" title="http://mf2.vendaria.net">http://mf2.vendaria.net</a>
-</li></ul>
-</li></ul>
-<a name="Java"></a><h4> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Java"></a> Java </span></h4>
-<ul><li> <b>mf2j</b> An early-stage Java microformats2 parser
-</li><li> github open source: <a class="external free" href="https://github.com/kylewm/mf2j" rel="nofollow" title="https://github.com/kylewm/mf2j">https://github.com/kylewm/mf2j</a>
-</li><li> live: <a class="external free" href="https://mf2j.herokuapp.com/?url={http://example.com}" rel="nofollow" title="https://mf2j.herokuapp.com/?url={http://example.com}">https://mf2j.herokuapp.com/?url={http://example.com}</a>
-</li></ul>
-<a name="Javascript"></a><h4> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Javascript"></a> Javascript </span></h4>
+<a name="Parsers_in_production"></a><h4> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Parsers%20in%20production"></a> Parsers in production </span></h4>
+<p>The following parsers are of very high quality, in active development, and use on live sites on the web in production.
+</p>
+<a name="Javascript"></a><h5> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Javascript"></a> Javascript </span></h5>
 <ul><li> <b>microformat-node</b> Node.js microformats2 parser
 <ul><li> github open source: <a class="external free" href="https://github.com/glennjones/microformat-node" rel="nofollow" title="https://github.com/glennjones/microformat-node">https://github.com/glennjones/microformat-node</a>
 </li><li> test suite: <a class="external free" href="https://github.com/microformats/tests" rel="nofollow" title="https://github.com/microformats/tests">https://github.com/microformats/tests</a>
@@ -1043,18 +1044,19 @@ Tips:
 </li><li> github open source: <a class="external free" href="https://github.com/glennjones/microformat-shiv" rel="nofollow" title="https://github.com/glennjones/microformat-shiv">https://github.com/glennjones/microformat-shiv</a>
 </li></ul>
 </li></ul>
-<a name="PHP"></a><h4> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/PHP"></a> PHP </span></h4>
+<a name="PHP"></a><h5> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/PHP"></a> PHP </span></h5>
 <ul><li> <b><span id="php-mf2">php-mf2</span></b> - PHP microformats2 parser
 <ul><li> github open source: <a class="external free" href="https://github.com/indieweb/php-mf2" rel="nofollow" title="https://github.com/indieweb/php-mf2">https://github.com/indieweb/php-mf2</a>
 </li><li> Packagist: <a class="external free" href="https://packagist.org/packages/mf2/mf2" rel="nofollow" title="https://packagist.org/packages/mf2/mf2">https://packagist.org/packages/mf2/mf2</a>
 </li><li> live: 
 <ul><li> textarea entry: <a class="external free" href="http://waterpigs.co.uk/php-mf2/" rel="nofollow" title="http://waterpigs.co.uk/php-mf2/">http://waterpigs.co.uk/php-mf2/</a>
-</li><li> URL entry: <a class="external free" href="https://pin13.net/mf2/" rel="nofollow" title="https://pin13.net/mf2/">https://pin13.net/mf2/</a>
+</li><li> URL and textarea entry: <a class="external free" href="https://pin13.net/mf2/" rel="nofollow" title="https://pin13.net/mf2/">https://pin13.net/mf2/</a>
+</li></ul>
+</li><li> <a class="external text" href="https://github.com/barnabywalters/php-mf-cleaner" rel="nofollow" title="https://github.com/barnabywalters/php-mf-cleaner">mf-cleaner</a>: functions for working with the raw mf2 data structure
 </li></ul>
 </li></ul>
-</li></ul>
-<a name="Python"></a><h4> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Python"></a> Python </span></h4>
-<ul><li> <i>mf2py</i> Python microformats2 parser
+<a name="Python"></a><h5> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Python"></a> Python </span></h5>
+<ul><li> <b>mf2py</b> Python microformats2 parser
 <ul><li> main entry: <a href="http://microformats.org/wiki/mf2py" title="mf2py">mf2py</a>
 </li><li> github open source: <a class="external free" href="https://github.com/tommorris/mf2py" rel="nofollow" title="https://github.com/tommorris/mf2py">https://github.com/tommorris/mf2py</a>
 </li><li> live: 
@@ -1065,7 +1067,38 @@ Tips:
 </li></ul>
 </li></ul>
 </li></ul>
-<a name="Ruby"></a><h4> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Ruby"></a> Ruby </span></h4>
+<a name="Development_parsers"></a><h4> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Development%20parsers"></a> Development parsers </span></h4>
+<p>The following parsers are in-development and have key microformats2 functionality yet are incomplete, not fully tested, or have other limitations. Contributions welcome!
+</p>
+<a name="Elixir"></a><h5> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Elixir"></a> Elixir </span></h5>
+<ul><li> <b>ckruse/microformats-elixir</b> Elixir microformats2 parser
+<ul><li> github open source: <a class="external free" href="https://github.com/ckruse/microformats2-elixir" rel="nofollow" title="https://github.com/ckruse/microformats2-elixir">https://github.com/ckruse/microformats2-elixir</a>
+</li></ul>
+</li></ul>
+<a name="Go"></a><h5> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Go"></a> Go </span></h5>
+<ul><li> <b>andyleap/microformats</b> Golang microformats2 parser
+<ul><li> github open source: <a class="external free" href="https://github.com/andyleap/microformats" rel="nofollow" title="https://github.com/andyleap/microformats">https://github.com/andyleap/microformats</a>
+</li><li> live textarea entry: <a class="external free" href="http://mf2.vendaria.net/" rel="nofollow" title="http://mf2.vendaria.net">http://mf2.vendaria.net</a>
+</li></ul>
+</li></ul>
+<a name="Haskell"></a><h5> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Haskell"></a> Haskell </span></h5>
+<ul><li> <b>myfreeweb/microformats2-parser</b> Haskell microformats2 parser
+<ul><li> github open source: <a class="external free" href="https://github.com/myfreeweb/microformats2-parser" rel="nofollow" title="https://github.com/myfreeweb/microformats2-parser">https://github.com/myfreeweb/microformats2-parser</a>
+</li><li> live textarea entry: <a class="external free" href="https://unrelenting.technology/mf2/" rel="nofollow" title="https://unrelenting.technology/mf2/">https://unrelenting.technology/mf2/</a>
+</li></ul>
+</li></ul>
+<a name="Java"></a><h5> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Java"></a> Java </span></h5>
+<ul><li> <b>Apache Any23</b> a library, a web service and a command line tool that extracts structured data in RDF format from a variety of Web documents. Supports Microformats1 and 2.
+<ul><li> Download recent release: <a class="external free" href="http://any23.apache.org/download.html" rel="nofollow" title="http://any23.apache.org/download.html">http://any23.apache.org/download.html</a>
+</li><li> live: <a class="external free" href="http://any23-vm.apache.org/" rel="nofollow" title="http://any23-vm.apache.org/">http://any23-vm.apache.org/</a>
+</li><li> source: <a class="external free" href="http://any23.apache.org/build-src.html" rel="nofollow" title="http://any23.apache.org/build-src.html">http://any23.apache.org/build-src.html</a>
+</li></ul>
+</li><li> <b>mf2j</b> An early-stage Java microformats2 parser
+<ul><li> github open source: <a class="external free" href="https://github.com/kylewm/mf2j" rel="nofollow" title="https://github.com/kylewm/mf2j">https://github.com/kylewm/mf2j</a>
+</li><li> live: <a class="external free" href="https://mf2j.herokuapp.com/?url={http://example.com}" rel="nofollow" title="https://mf2j.herokuapp.com/?url={http://example.com}">https://mf2j.herokuapp.com/?url={http://example.com}</a>
+</li></ul>
+</li></ul>
+<a name="Ruby"></a><h5> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Ruby"></a> Ruby </span></h5>
 <ul><li> <b>G5/microformats2</b> Ruby microformats2 parser
 <ul><li> github open source: <a class="external free" href="https://github.com/G5/microformats2" rel="nofollow" title="https://github.com/G5/microformats2">https://github.com/G5/microformats2</a>
 </li></ul>
@@ -1386,7 +1419,8 @@ Tips:
 </p>
 <a name="SEE_ALSO"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/SEE%20ALSO"></a> SEE ALSO </span></h3>
 <ul><li> <strong class="selflink">microformats2</strong>
-</li><li> <a href="http://microformats.org/wiki/microformats2-brainstorming" title="microformats2-brainstorming">microformats2-brainstorming</a> - moving more experimental / undeveloped / and rejected thoughts ideas here to simplify/progress *this* page further.
+</li><li> <a href="microformats2-brainstorming.html" title="microformats2-brainstorming">microformats2-brainstorming</a> - moving more experimental / undeveloped / and rejected thoughts ideas here to simplify/progress *this* page further.
+</li><li> <a href="microformats2-experimental-properties.html" title="microformats2-experimental-properties">microformats2-experimental-properties</a> - listing experimental (-x- prefixed) properties and their use
 </li><li> <a href="microformats2-prefixes.html" title="microformats2-prefixes">microformats2-prefixes</a>
 </li><li> <a href="microformats2-faq.html" title="microformats2-faq">microformats2-faq</a>
 </li><li> <a href="microformats2-parsing.html" title="microformats2-parsing">microformats2-parsing</a>
@@ -1395,7 +1429,7 @@ Tips:
 
 <!-- 
 NewPP limit report
-Preprocessor node count: 702/1000000
+Preprocessor node count: 708/1000000
 Post-expand include size: 3131/2097152 bytes
 Template argument size: 87/2097152 bytes
 Expensive parser function count: 0/100
@@ -1431,11 +1465,11 @@ Retrieved from "<a href="microformats2.html">http://microformats.org/wiki/microf
 </div>
 
 		
-<!-- Served in 1.717 secs. -->
+<!-- Served in 1.494 secs. -->
 
 
 
 
 
 
-</body><!-- Mirrored from microformats.org/wiki/microformats2 by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 Jun 2015 10:59:56 GMT --></html>
+</body><!-- Mirrored from microformats.org/wiki/microformats2 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 Jun 2016 19:41:09 GMT --></html>

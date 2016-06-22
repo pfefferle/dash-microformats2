@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/h-cite by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 Jun 2015 11:00:06 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/h-cite by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 Jun 2016 19:41:11 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
 
 	<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 	
@@ -45,7 +45,7 @@
 		<p><span class="h-card vcard"><span class="p-name fn"><a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek Çelik</a></span> (<span class="p-role role">Editor</span>)</span>
 </p>
 <hr/>
-<p><dfn style="font-style:normal;font-weight:bold">h-cite</dfn> is a simple, open format for publishing citations and references to online publications. h-cite is one of several open <a href="http://microformats.org/wiki/microformats" title="microformats">microformat</a> draft standards suitable for embedding data in HTML/HTML5.
+<p><dfn style="font-style:normal;font-weight:bold">h-cite</dfn> is a simple, open format for publishing citations and references to online and other publications. h-cite is one of several open <a href="http://microformats.org/wiki/microformats" title="microformats">microformat</a> draft standards suitable for embedding data in HTML/HTML5.
 </p>
 
 <a name="Example"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Example"></a> Example </span></h2>
@@ -74,7 +74,7 @@
 </li><li> <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-content"></a>p-content</code></b> for when the citation includes the content itself, like when citing short text notes (e.g. tweets).
 </li></ul>
 <a name="Status"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Status"></a> Status </span></h2>
-<p><b>h-cite</b> is a microformats.org draft specification. Public discussion on h-cite takes place on <a class="new" href="http://microformats.org/wiki/index.php?title=h-cite-feedback&amp;action=edit&amp;redlink=1" title="h-cite-feedback (not yet written)">h-cite-feedback</a>, the #microformats <a href="http://microformats.org/wiki/irc" title="irc">irc</a> channel on irc.freenode.net, and <a class="external text" href="http://microformats.org/discuss/mail/microformats-new/" rel="nofollow" title="http://microformats.org/discuss/mail/microformats-new/">microformats-new mailing list</a>.
+<p><b>h-cite</b> is a microformats.org draft specification. Public discussion on h-cite takes place on <a class="new" href="http://microformats.org/wiki/index.php?title=h-cite-feedback&amp;action=edit&amp;redlink=1" title="h-cite-feedback (not yet written)">h-cite-feedback</a> and the #microformats <a href="http://microformats.org/wiki/irc" title="irc">irc</a> channel on irc.freenode.net.
 </p>
 <a name="Property_Details"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Property%20Details"></a> Property Details </span></h2>
 <p>(stub, to be expanded)
@@ -90,14 +90,15 @@
 </li></ul>
 </li></ul>
 <a name="Offline_Citations"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Offline%20Citations"></a> Offline Citations </span></h2>
-<p>The web citation proposal can be used for simple web-to-off-web citation use cases. As suggested by Ed Summers, dropping the hyperlink to the cited web article provides a simple off-web citation:
+<p>The web citation proposal can be used for simple web-to-off-web citation use cases. As suggested by Ed Summers, dropping the hyperlink to the cited web article provides a simple off-web citation, e.g. a citation of a physical book:
 </p>
 <div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"h-cite"</span><span class="kw2">&gt;</span></span>
   <span class="sc2">&lt;time <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"dt-published"</span><span class="kw2">&gt;</span></span>YYYY-MM-DD<span class="sc2"><span class="kw2">&lt;</span><span class="sy0">/</span>time&gt;</span> 
   <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-author h-card"</span><span class="kw2">&gt;</span></span>AUTHOR<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span>: 
   <span class="sc2"><span class="kw2">&lt;cite</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-name"</span><span class="kw2">&gt;</span></span>TITLE<span class="sc2"><span class="kw2">&lt;/cite&gt;</span></span>
 <span class="sc2"><span class="kw2">&lt;/span&gt;</span></span></pre></div>
-<p>Next steps: 
+<p>Note: physical books typically only provide the YYYY (year) published, not the precise date.
+</p><p>Next steps: 
 </p>
 <ul><li> Try such markup with actual content being published on the web (perhaps a bibliography, list of papers in a resume, etc.)
 </li><li> See how it works/feels there
@@ -121,6 +122,10 @@ retypable, e.g. from print: tantek.com/w/ShortURLPrintExample #UX
     <span class="sc2">&lt;time <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"dt-published"</span><span class="kw2">&gt;</span></span>2013-04-14<span class="sc2"><span class="kw2">&lt;</span><span class="sy0">/</span>time&gt;</span>)
   <span class="sc2"><span class="kw2">&lt;/cite&gt;</span></span>
 <span class="sc2"><span class="kw2">&lt;/p&gt;</span></span><span class="sc2"><span class="kw2">&lt;/blockquote&gt;</span></span></pre></div>
+<p>See also examples documented here:
+</p>
+<ul><li> <a class="external free" href="https://indiewebcamp.com/h-cite#Indieweb_examples" rel="nofollow" title="https://indiewebcamp.com/h-cite#Indieweb_examples">https://indiewebcamp.com/h-cite#Indieweb_examples</a>
+</li></ul>
 <p>Real but not quite wild (used by the specification author)
 </p>
 <ul><li> Every blog post on <a class="external free" href="http://tantek.com/" rel="nofollow" title="http://tantek.com">http://tantek.com</a> has a text field for copying h-cite markup for that blog post.
@@ -217,11 +222,11 @@ Retrieved from "<a href="h-cite.html">http://microformats.org/wiki/h-cite</a>"</
 </div>
 
 		
-<!-- Served in 0.318 secs. -->
+<!-- Served in 0.396 secs. -->
 
 
 
 
 
 
-</body><!-- Mirrored from microformats.org/wiki/h-cite by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 Jun 2015 11:00:06 GMT --></html>
+</body><!-- Mirrored from microformats.org/wiki/h-cite by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 Jun 2016 19:41:11 GMT --></html>

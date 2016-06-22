@@ -8,4 +8,4 @@ httrack http://microformats.org/wiki/microformats2 \
   --user-agent '$(httrack --version); dash-microformats2 ()' \
   "-*" "+http://microformats.org/wiki/h-*" "-http://microformats.org/wiki/h-*feedback*" "-http://microformats.org/wiki/h-*issues*" "-http://microformats.org/wiki/h-*brainstorming*" "-http://microformats.org/wiki/h-*draft*"  "-http://microformats.org/wiki/h-*-to-do*" \
   "+http://microformats.org/wiki/skins/**.css" "+http://microformats.org/wiki/skins/**.gif" "+http://microformats.org/wiki/skins/**.png" \
-  "+http://microformats.org/wiki/microformats2-*" "-http://microformats.org/wiki/microformats2-*brainstorming*" "-http://microformats.org/wiki/microformats2-*issues*"
+  "+http://microformats.org/wiki/microformats2-*"

@@ -1,0 +1,650 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/microformats2-parsing-brainstorming by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 Jun 2016 19:41:11 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+	
+	<meta content="MediaWiki 1.13.2" name="generator"/>
+		<meta content="microformats2-parsing-brainstorming,2015-01-20,HTML5,XFN,existing-rel-values,hAtom,hReview,include-pattern,microformats-2,microformats-2-brainstorming,microformats-2-faq" name="keywords"/>
+		
+		
+		
+		
+	<link href="skins/common/shared.css" rel="stylesheet" type="text/css"/>		
+	<link href="skins/Microformats/microformats.css" rel="stylesheet" type="text/css"/>
+
+	
+
+
+    
+    		
+
+
+        
+        	
+	<title>microformats2 parsing brainstorming · Microformats Wiki</title>
+	
+<style id="dash-style" type="text/css">.content { width: 100%; }</style></head>
+	<!-- TODO: Template-dervied body class: spec and draft -->
+<body class="page-microformats2-parsing-brainstorming ">
+    
+    
+
+    <div class="content hentry">
+    
+	
+
+	    <h1 class="entry-title">microformats2 parsing brainstorming</h1>
+
+		<p class="sub-title"></p>
+
+								    <!-- TODO: Jump nav -->
+		    <div id="jump-to-nav">Jump to:		        <a href="#sidebar">navigation</a>, 
+		        <a href="#search">search</a>
+		    </div>
+		        
+        <div class="entry-content">
+		<p><br/>
+This page is for brainstorming, discussion, and other questions and explorations about <a href="microformats2.html" title="microformats2">microformats2</a> parsing.
+</p><p>For the microformats2 parsing algorithm, see:
+</p>
+<ul><li> <a href="microformats2-parsing.html" title="microformats2-parsing">microformats2-parsing</a>
+</li></ul>
+<p>For filing issues / problems with microformats2-parsing, see:
+</p>
+<ul><li> <a href="microformats2-parsing-issues.html" title="microformats2-parsing-issues">microformats2-parsing-issues</a>
+</li></ul>
+
+<p><br/>
+</p>
+<a name="Parse_language_information"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Parse%20language%20information"></a> Parse language information </span></h2>
+<p>Raised by <a class="new" href="http://microformats.org/wiki/index.php?title=User:VoxPelli&amp;action=edit&amp;redlink=1" title="User:VoxPelli (not yet written)">VoxPelli</a> 18:04, 23 July 2015 (UTC)
+</p>
+<ul><li> 2016-060: Update: and parse "id" attribute. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 16:39, 29 February 2016 (UTC) (see Additionally below)
+</li></ul>
+<p>Currently there’s no way to tell the language of parsed microformats even if those microformats has been marked up with HTML "lang"-attributes.
+</p><p>There are examples in the wild of people marking up pages in such a way:
+</p>
+<ul><li> <a class="external text" href="http://voxpelli.com/" rel="nofollow" title="http://voxpelli.com/">VoxPelli.com</a> has a "lang"-attribute on the h-entry of his <a class="external text" href="http://voxpelli.com/2011/03/sista-dagen-p-good-old/" rel="nofollow" title="http://voxpelli.com/2011/03/sista-dagen-p-good-old/">swedish articles</a> to signify that the article is swedish even though the rest of the site is english.
+</li><li> Stephanie <a class="external text" href="http://climbtothestars.org/archives/2013/09/17/basic-bilingual-1-0-plugin-for-wordpress-blog-in-more-than-one-language/" rel="nofollow" title="http://climbtothestars.org/archives/2013/09/17/basic-bilingual-1-0-plugin-for-wordpress-blog-in-more-than-one-language/">uses a WordPress plugin</a> that adds summaries of other languages at the start of her content.
+</li></ul>
+<p>Proposal is to add a new "lang" keyword to h-* and e-* objects so that the following example:
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;div</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"h-entry"</span> <span class="kw3">lang</span><span class="sy0">=</span><span class="st0">"sv"</span><span class="kw2">&gt;</span></span>
+  <span class="sc2"><span class="kw2">&lt;h1</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-name"</span><span class="kw2">&gt;</span></span>En svensk titel<span class="sc2"><span class="kw2">&lt;/h1&gt;</span></span>
+  <span class="sc2"><span class="kw2">&lt;div</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"e-content"</span> <span class="kw3">lang</span><span class="sy0">=</span><span class="st0">"en"</span><span class="kw2">&gt;</span></span>With an <span class="sc2"><span class="kw2">&lt;em&gt;</span></span>english<span class="sc2"><span class="kw2">&lt;/em&gt;</span></span> summary<span class="sc2"><span class="kw2">&lt;/div&gt;</span></span>
+  <span class="sc2"><span class="kw2">&lt;div</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"e-content"</span><span class="kw2">&gt;</span></span>Och <span class="sc2"><span class="kw2">&lt;em&gt;</span></span>svensk<span class="sc2"><span class="kw2">&lt;/em&gt;</span></span> huvudtext<span class="sc2"><span class="kw2">&lt;/div&gt;</span></span>
+<span class="sc2"><span class="kw2">&lt;/div&gt;</span></span></pre></div>
+<p>Would be parsed into something like:
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-javascript"><span class="br0">{</span>
+  <span class="st0">"type"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"h-entry"</span><span class="br0">]</span><span class="sy0">,</span>
+  <span class="st0">"lang"</span><span class="sy0">:</span> <span class="st0">"sv"</span><span class="sy0">,</span>
+  <span class="st0">"properties"</span><span class="sy0">:</span> <span class="br0">{</span>
+    <span class="st0">"name"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"En svensk titel"</span><span class="br0">]</span><span class="sy0">,</span>
+    <span class="st0">"content"</span><span class="sy0">:</span> <span class="br0">[</span>
+      <span class="br0">{</span>
+        <span class="st0">"lang"</span><span class="sy0">:</span> <span class="st0">"en"</span><span class="sy0">,</span>
+        <span class="st0">"html"</span><span class="sy0">:</span> <span class="st0">"With an &lt;em&gt;english&lt;/em&gt; summary"</span><span class="sy0">,</span>
+        <span class="st0">"value"</span><span class="sy0">:</span> <span class="st0">"With an english summary"</span>
+      <span class="br0">}</span><span class="sy0">,</span>
+      <span class="br0">{</span>
+        <span class="st0">"html"</span><span class="sy0">:</span> <span class="st0">"Och &lt;em&gt;svensk&lt;/em&gt; huvudtext"</span><span class="sy0">,</span>
+        <span class="st0">"value"</span><span class="sy0">:</span> <span class="st0">"Och svensk huvudtext"</span>
+      <span class="br0">}</span>
+    <span class="br0">]</span>
+  <span class="br0">}</span>
+<span class="br0">}</span></pre></div>
+<p>This was <a class="external text" href="http://indiewebcamp.com/irc/2015-07-23#t1437667712078" rel="nofollow" title="http://indiewebcamp.com/irc/2015-07-23#t1437667712078">brainstormed on the IndieWebCamp IRC-channel</a> where the mentioned example came up.
+</p>
+<ul><li> Pull request for implementation in microformat-node added 2015-07-23 <a class="external free" href="https://github.com/glennjones/microformat-node/pull/23" rel="nofollow" title="https://github.com/glennjones/microformat-node/pull/23">https://github.com/glennjones/microformat-node/pull/23</a>
+<ul><li> Closed 2015-09-08 because the library has changed and parsing is now handled by microformat-shiv. New issue opened there: <a class="external free" href="https://github.com/glennjones/microformat-shiv/issues/22" rel="nofollow" title="https://github.com/glennjones/microformat-shiv/issues/22">https://github.com/glennjones/microformat-shiv/issues/22</a>
+</li></ul>
+</li><li> Issue around implementation in php-mf2 added 2016-05-07 <a class="external free" href="https://github.com/indieweb/php-mf2/issues/96" rel="nofollow" title="https://github.com/indieweb/php-mf2/issues/96">https://github.com/indieweb/php-mf2/issues/96</a>
+</li></ul>
+<p>Additionally: consider the same for "id" attributes (use-case: rel=feed local discovery of a nested h-feed on the home page), specifically, parsing the first instance of any "id" attribute (ignoring latter duplicate id attribute values on any subsequent elements).
+</p><p><br/>
+And alternatively: consider parsing as "html-id" and "html-lang" prefixed properties in the parsed result, e.g.
+</p><p><br/>
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;div</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"h-entry"</span> <span class="kw3">lang</span><span class="sy0">=</span><span class="st0">"sv"</span> <span class="kw3">id</span><span class="sy0">=</span><span class="st0">"postfrag123"</span><span class="kw2">&gt;</span></span>
+  <span class="sc2"><span class="kw2">&lt;h1</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-name"</span><span class="kw2">&gt;</span></span>En svensk titel<span class="sc2"><span class="kw2">&lt;/h1&gt;</span></span>
+  <span class="sc2"><span class="kw2">&lt;div</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"e-content"</span> <span class="kw3">lang</span><span class="sy0">=</span><span class="st0">"en"</span><span class="kw2">&gt;</span></span>With an <span class="sc2"><span class="kw2">&lt;em&gt;</span></span>english<span class="sc2"><span class="kw2">&lt;/em&gt;</span></span> summary<span class="sc2"><span class="kw2">&lt;/div&gt;</span></span>
+  <span class="sc2"><span class="kw2">&lt;div</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"e-content"</span><span class="kw2">&gt;</span></span>Och <span class="sc2"><span class="kw2">&lt;em&gt;</span></span>svensk<span class="sc2"><span class="kw2">&lt;/em&gt;</span></span> huvudtext<span class="sc2"><span class="kw2">&lt;/div&gt;</span></span>
+<span class="sc2"><span class="kw2">&lt;/div&gt;</span></span></pre></div>
+<p>Would be parsed into something like:
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-javascript"><span class="br0">{</span>
+  <span class="st0">"type"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"h-entry"</span><span class="br0">]</span><span class="sy0">,</span>
+  <span class="st0">"html-id"</span><span class="sy0">:</span> <span class="st0">"postfrag123"</span><span class="sy0">,</span>
+  <span class="st0">"html-lang"</span><span class="sy0">:</span> <span class="st0">"sv"</span><span class="sy0">,</span>
+  <span class="st0">"properties"</span><span class="sy0">:</span> <span class="br0">{</span>
+    <span class="st0">"name"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"En svensk titel"</span><span class="br0">]</span><span class="sy0">,</span>
+    <span class="st0">"content"</span><span class="sy0">:</span> <span class="br0">[</span>
+      <span class="br0">{</span>
+        <span class="st0">"html-lang"</span><span class="sy0">:</span> <span class="st0">"en"</span><span class="sy0">,</span>
+        <span class="st0">"html"</span><span class="sy0">:</span> <span class="st0">"With an &lt;em&gt;english&lt;/em&gt; summary"</span><span class="sy0">,</span>
+        <span class="st0">"value"</span><span class="sy0">:</span> <span class="st0">"With an english summary"</span>
+      <span class="br0">}</span><span class="sy0">,</span>
+      <span class="br0">{</span>
+        <span class="st0">"html"</span><span class="sy0">:</span> <span class="st0">"Och &lt;em&gt;svensk&lt;/em&gt; huvudtext"</span><span class="sy0">,</span>
+        <span class="st0">"value"</span><span class="sy0">:</span> <span class="st0">"Och svensk huvudtext"</span>
+      <span class="br0">}</span>
+    <span class="br0">]</span>
+  <span class="br0">}</span>
+<span class="br0">}</span></pre></div>
+<a name="Language_inheritance"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Language%20inheritance"></a> Language inheritance </span></h3>
+<p>If the "lang" attribute is not specified for a particular element, it is inherited from the nearest parent (or from the HTTP Content-Language header)
+</p><p>HTML5: <a class="external free" href="https://www.w3.org/TR/html5/dom.html#the-lang-and-xml:lang-attributes" rel="nofollow" title="https://www.w3.org/TR/html5/dom.html#the-lang-and-xml:lang-attributes">https://www.w3.org/TR/html5/dom.html#the-lang-and-xml:lang-attributes</a><br/>
+HTML4: <a class="external free" href="https://www.w3.org/TR/html4/struct/dirlang.html#h-8.1.2" rel="nofollow" title="https://www.w3.org/TR/html4/struct/dirlang.html#h-8.1.2">https://www.w3.org/TR/html4/struct/dirlang.html#h-8.1.2</a>
+</p><p>Proposal: Determine and include the inherited "lang" value on *every* microformat object that directly specifies a lang or that has an ancestor that does, e.g. if &lt;html lang="en"&gt;, then every object in the output will have "lang": "en".
+</p>
+<a name="Pronouns_in_different_languages"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Pronouns%20in%20different%20languages"></a> Pronouns in different languages </span></h3>
+<p>Language is also useful context when defining <a class="new" href="http://microformats.org/wiki/index.php?title=pronouns&amp;action=edit&amp;redlink=1" title="pronouns (not yet written)">pronouns</a>, discussed a bit here<a class="external autonumber" href="https://github.com/idno/Known/pull/1426#issuecomment-217626923" rel="nofollow" title="https://github.com/idno/Known/pull/1426#issuecomment-217626923">[1]</a>.
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;div</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"h-card"</span> <span class="kw3">lang</span><span class="sy0">=</span><span class="st0">"en"</span><span class="kw2">&gt;</span></span>
+  <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-x-pronoun-nominative"</span><span class="kw2">&gt;</span></span>he<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span> /
+  <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-x-pronoun-possessive"</span><span class="kw2">&gt;</span></span>him<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span> /
+  <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-x-pronoun-oblique"</span><span class="kw2">&gt;</span></span>his<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span>
+<span class="sc2"><span class="kw2">&lt;/div&gt;</span></span></pre></div>
+<p>would parse as 
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-javascript"><span class="br0">{</span>
+  <span class="st0">"type"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"h-card"</span><span class="br0">]</span><span class="sy0">,</span>
+  <span class="st0">"lang"</span><span class="sy0">:</span> <span class="st0">"en"</span><span class="sy0">,</span>
+  <span class="st0">"properties"</span><span class="sy0">:</span> <span class="br0">{</span>
+    <span class="st0">"x-pronoun-nominative"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"he"</span><span class="br0">]</span><span class="sy0">,</span>
+    <span class="st0">"x-pronoun-possessive"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"him"</span><span class="br0">]</span><span class="sy0">,</span>
+    <span class="st0">"x-pronoun-oblique"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"his"</span><span class="br0">]</span>
+  <span class="br0">}</span>
+<span class="br0">}</span></pre></div>
+<p>It could also be useful to specify multiple languages within a single h-card (pardon me if I butcher Swedish pronouns)
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;div</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"h-card"</span><span class="kw2">&gt;</span></span>
+  <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">lang</span><span class="sy0">=</span><span class="st0">"en"</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-x-pronoun-nominative"</span><span class="kw2">&gt;</span></span>he<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span> /
+  <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">lang</span><span class="sy0">=</span><span class="st0">"en"</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-x-pronoun-possessive"</span><span class="kw2">&gt;</span></span>him<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span> /
+  <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">lang</span><span class="sy0">=</span><span class="st0">"en"</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-x-pronoun-oblique"</span><span class="kw2">&gt;</span></span>his<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span>
+  <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">lang</span><span class="sy0">=</span><span class="st0">"sv"</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-x-pronoun-nominative"</span><span class="kw2">&gt;</span></span>han<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span> /
+  <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">lang</span><span class="sy0">=</span><span class="st0">"sv"</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-x-pronoun-possessive"</span><span class="kw2">&gt;</span></span>hans<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span> /
+  <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">lang</span><span class="sy0">=</span><span class="st0">"sv"</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-x-pronoun-oblique"</span><span class="kw2">&gt;</span></span>honom<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span>
+<span class="sc2"><span class="kw2">&lt;/div&gt;</span></span></pre></div>
+<p>which might parse as
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-javascript"><span class="br0">{</span>
+  <span class="st0">"type"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"h-card"</span><span class="br0">]</span><span class="sy0">,</span>
+  <span class="st0">"properties"</span><span class="sy0">:</span> <span class="br0">{</span>
+    <span class="st0">"x-pronoun-nominative"</span><span class="sy0">:</span> <span class="br0">[</span><span class="br0">{</span><span class="st0">"lang"</span><span class="sy0">:</span> <span class="st0">"en"</span><span class="sy0">,</span> <span class="st0">"value"</span><span class="sy0">:</span> <span class="st0">"he"</span><span class="br0">}</span><span class="sy0">,</span> <span class="br0">{</span><span class="st0">"lang"</span><span class="sy0">:</span> <span class="st0">"sv"</span><span class="sy0">,</span> <span class="st0">"value"</span><span class="sy0">:</span> <span class="st0">"han"</span><span class="br0">}</span><span class="br0">]</span><span class="sy0">,</span>
+    <span class="st0">"x-pronoun-possessive"</span><span class="sy0">:</span> <span class="br0">[</span><span class="br0">{</span><span class="st0">"lang"</span><span class="sy0">:</span> <span class="st0">"en"</span><span class="sy0">,</span> <span class="st0">"value"</span><span class="sy0">:</span> <span class="st0">"him"</span><span class="br0">}</span><span class="sy0">,</span> <span class="br0">{</span><span class="st0">"lang"</span><span class="sy0">:</span> <span class="st0">"sv"</span><span class="sy0">,</span> <span class="st0">"value"</span><span class="sy0">:</span> <span class="st0">"hans"</span><span class="br0">}</span><span class="br0">]</span><span class="sy0">,</span>
+    <span class="st0">"x-pronoun-oblique"</span><span class="sy0">:</span> <span class="br0">[</span><span class="br0">{</span><span class="st0">"lang"</span><span class="sy0">:</span> <span class="st0">"en"</span><span class="sy0">,</span> <span class="st0">"value"</span><span class="sy0">:</span> <span class="st0">"his"</span><span class="br0">}</span><span class="sy0">,</span> <span class="br0">{</span><span class="st0">"lang"</span><span class="sy0">:</span> <span class="st0">"sv"</span><span class="sy0">,</span> <span class="st0">"value"</span><span class="sy0">:</span> <span class="st0">"honom"</span><span class="br0">}</span><span class="br0">]</span>
+  <span class="br0">}</span>
+<span class="br0">}</span></pre></div>
+<p>or alternatively, we could introduce a new microformat h-x-pronoun to wrap a set of pronouns
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;div</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"h-card"</span><span class="kw2">&gt;</span></span>
+  <span class="sc2"><span class="kw2">&lt;div</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-x-pronoun h-x-pronoun"</span> <span class="kw3">lang</span><span class="sy0">=</span><span class="st0">"en"</span><span class="kw2">&gt;</span></span>
+    <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-nominative"</span><span class="kw2">&gt;</span></span>he<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span> /
+    <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-possessive"</span><span class="kw2">&gt;</span></span>him<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span> /
+    <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-oblique"</span><span class="kw2">&gt;</span></span>his<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span>
+  <span class="sc2"><span class="kw2">&lt;/div&gt;</span></span>
+  <span class="sc2"><span class="kw2">&lt;div</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-x-pronoun h-x-pronoun"</span> <span class="kw3">lang</span><span class="sy0">=</span><span class="st0">"en"</span><span class="kw2">&gt;</span></span>
+    <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-nominative"</span><span class="kw2">&gt;</span></span>han<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span> /
+    <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-possessive"</span><span class="kw2">&gt;</span></span>hans<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span> /
+    <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-oblique"</span><span class="kw2">&gt;</span></span>honom<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span>
+  <span class="sc2"><span class="kw2">&lt;/div&gt;</span></span>
+<span class="sc2"><span class="kw2">&lt;/div&gt;</span></span></pre></div>
+<p><br/>
+parsed as
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-javascript"><span class="br0">{</span>
+  <span class="st0">"type"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"h-card"</span><span class="br0">]</span><span class="sy0">,</span>
+  <span class="st0">"properties"</span><span class="sy0">:</span> <span class="br0">{</span>
+    <span class="st0">"x-pronoun"</span><span class="sy0">:</span> <span class="br0">[</span><span class="br0">{</span>
+      <span class="st0">"type"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"h-x-pronoun"</span><span class="br0">]</span><span class="sy0">,</span>
+      <span class="st0">"lang"</span><span class="sy0">:</span> <span class="st0">"en"</span><span class="sy0">,</span>
+      <span class="st0">"properties"</span><span class="sy0">:</span> <span class="br0">{</span>
+        <span class="st0">"nominative"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"he"</span><span class="br0">]</span><span class="sy0">,</span>
+        <span class="st0">"possessive"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"him"</span><span class="br0">]</span><span class="sy0">,</span>
+        <span class="st0">"oblique"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"his"</span><span class="br0">]</span>
+      <span class="br0">}</span>
+    <span class="br0">}</span><span class="sy0">,</span> <span class="br0">{</span>
+      <span class="st0">"type"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"h-x-pronoun"</span><span class="br0">]</span><span class="sy0">,</span>
+      <span class="st0">"lang"</span><span class="sy0">:</span> <span class="st0">"sv"</span><span class="sy0">,</span>
+      <span class="st0">"properties"</span><span class="sy0">:</span> <span class="br0">{</span>
+        <span class="st0">"nominative"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"han"</span><span class="br0">]</span><span class="sy0">,</span>
+        <span class="st0">"possessive"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"hans"</span><span class="br0">]</span><span class="sy0">,</span>
+        <span class="st0">"oblique"</span><span class="sy0">:</span> <span class="br0">[</span><span class="st0">"honom"</span><span class="br0">]</span>
+      <span class="br0">}</span>
+    <span class="br0">}</span><span class="br0">]</span>
+  <span class="br0">}</span>
+<span class="br0">}</span></pre></div>
+<p><br/>
+</p>
+<div class="discussion">
+<p>Discussion:
+</p>
+<ul><li> <a href="http://microformats.org/wiki/User:Kylewm" title="User:Kylewm">Kylewm</a> Including the "lang" attribute in h- and e- properties makes a ton of sense to me.
+</li><li> <a href="http://microformats.org/wiki/User:Kylewm" title="User:Kylewm">Kylewm</a> I like the idea of introducing an h-x-pronoun container that can define all the different pronoun forms for a particular language
+</li><li> ...
+</li></ul>
+</div>
+<a name="Canonicalization_of_datetime_output"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Canonicalization%20of%20datetime%20output"></a> Canonicalization of datetime output </span></h2>
+<p>Status: resolved, awaiting implementation attempt/experience.
+</p><p>It would be useful to choose a (more) uniform output format for datetimes to make it easier for users of the parser to consume datetimes. Microformats2 parsers already do sophisticated pattern matching to recognize date vs. time vs. datetimes, so converting this to any specific format should not add overhead.
+</p>
+<div class="discussion">
+<p>Specifically: 
+</p>
+<ul><li> Choose either 'T' or space as the date/time separator.
+<ul><li> Prefer space as it is more human friendly/readable, which matters even for syntaxes/formats, as human still develop, debug them. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 19:31, 6 January 2015 (UTC)
+</li></ul>
+</li><li> Choose either +XXYY or +XX:YY as the timezone specification (and convert 'Z' to +0000).
+<ul><li> Would appreciate some study / input here as to which timezone offset syntax is more human friendly. I lean slightly toward +/-NNNN (without the colon) because in the context of seeing a time, leaving out the colon makes it less likely the offset will be confused for a time. E.g. "07:00-08:00" looks like 7-8am, even if it meant 07:00 in PST. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 19:31, 6 January 2015 (UTC)
+</li><li> Space is fine - consensus <a class="mw-redirect" href="http://microformats.org/wiki/2015-01-20" title="2015-01-20">2015-01-20</a> meetup.
+</li></ul>
+</li><li> Parsers should <i>not</i> attempt make datetimes more exact than specified. They should not add time, seconds, or timezone if omitted in the original. <a href="http://microformats.org/wiki/User:Kylewm" title="User:Kylewm">Kylewm</a> 04:02, 14 May 2014 (UTC)
+<ul><li> Agreed. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 19:31, 6 January 2015 (UTC)
+</li><li> or month, day per Tom Morris
+</li><li> consensus <a class="mw-redirect" href="http://microformats.org/wiki/2015-01-20" title="2015-01-20">2015-01-20</a> meetup
+</li></ul>
+</li></ul>
+<ul><li> Counterpoint: PHP's builtin date parsing does not require strict formatting. And the equivalent functionality for Python is provided by the widely used python-dateutil library. <a href="http://microformats.org/wiki/User:Kylewm" title="User:Kylewm">Kylewm</a> 19:02, 14 May 2014 (UTC)
+<ul><li> However we cannot (must not) depend on either PHP or Python's "smart" "fixing" or Postelian "liberal handling", or any other language/framework's for that matter, as they all differ in how "intelligent" they are. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 19:31, 6 January 2015 (UTC)
+</li></ul>
+</li></ul>
+</div>
+<p>Perhaps just provide a guideline for these based on the above consensus.
+</p>
+<a name="Add_meta_http-equiv_to_microformats2_parsing_model"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Add%20meta%20http-equiv%20to%20microformats2%20parsing%20model"></a> Add meta http-equiv to microformats2 parsing model </span></h2>
+<p>Status: disagreement, awaiting implementation attempt/experience.
+</p><p>Similar to document level parsing of <code>rel</code> attributes, it makes sense simultaneously to parse <code>&lt;meta http-equiv&gt;</code> elements, perhaps treating "Status" in a special way (only using first number (sequence of digits) for its "value").
+</p><p>Use case: IndieWeb "deleted" indication inline in content for static file services that don't support HTTP return codes.
+</p>
+<ul><li> <a class="external free" href="http://indiewebcamp.com/deleted#HTML_meta_http-equiv_for_status" rel="nofollow" title="http://indiewebcamp.com/deleted#HTML_meta_http-equiv_for_status">http://indiewebcamp.com/deleted#HTML_meta_http-equiv_for_status</a>
+</li></ul>
+<p>HTTP Header example:
+</p>
+<ul><li> <samp>Content-Type: text/html; charset=utf-8</samp>
+</li></ul>
+<p>HTML equivalent: 
+</p>
+<ul><li> <code>&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"&gt;</code>
+</li></ul>
+<p>Related:
+</p>
+<ul><li> <a class="external free" href="https://www.w3.org/International/O-HTTP-charset" rel="nofollow" title="https://www.w3.org/International/O-HTTP-charset">https://www.w3.org/International/O-HTTP-charset</a>
+</li></ul>
+<div class="discussion">
+<ul><li> Interesting thought. Are you suggesting a top level "http-equivs:" collection similar to "rels:" in the parsed output? Should we consider "metas:" instead or in addition? <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 19:31, 6 January 2015 (UTC)
+</li><li> What's the use case for this? Also, http-equiv on its own is useless. http-equiv is only a supplement to the data stored in headers. And headers aren't always there: what happens in the context of someone debugging a page who pastes the source into the textarea of an mf2 parser? Without a compelling use case for including headers (and then over-riding some of them with http-equivs), I'm not sure why an implementor want to do this. —<a href="http://microformats.org/wiki/User:TomMorris" title="User:TomMorris">Tom Morris</a> 00:25, 8 May 2015 (UTC)
+</li></ul>
+</div>
+<p>E.g. from <a class="external free" href="https://gist.github.com/aaronpk/10297489" rel="nofollow" title="https://gist.github.com/aaronpk/10297489">https://gist.github.com/aaronpk/10297489</a>
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;meta</span> <span class="kw3">http-equiv</span><span class="sy0">=</span><span class="st0">"Status"</span> <span class="kw3">content</span><span class="sy0">=</span><span class="st0">"410 GONE"</span><span class="sy0">/</span><span class="kw2">&gt;</span></span></pre></div>
+<div dir="ltr" style="text-align: left;"><pre class="source-javascript"><span class="br0">{</span>
+ <span class="st0">"items"</span><span class="sy0">:</span> <span class="br0">[</span><span class="br0">]</span><span class="sy0">,</span>
+ <span class="st0">"rels"</span><span class="sy0">:</span> <span class="br0">{</span><span class="br0">}</span><span class="sy0">,</span>
+ <span class="st0">"http"</span><span class="sy0">:</span> <span class="br0">{</span>
+ <span class="st0">"status"</span><span class="sy0">:</span> <span class="nu0">410</span>
+ <span class="br0">}</span>
+<span class="br0">}</span></pre></div>
+<div class="discussion">
+<ul><li> Maybe make this an optional pass in the parser? - Tom Morris <a class="mw-redirect" href="http://microformats.org/wiki/2015-01-20" title="2015-01-20">2015-01-20</a>
+</li><li> For now, don't bother with metas until someone provides a use-case. Tom Morris
+</li><li> Agreed on both counts. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 06:56, 21 January 2015 (UTC)
+</li></ul>
+</div>
+<p><br/>
+</p>
+<a name="MIME_type"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/MIME%20type"></a>MIME type</span></h2>
+<p>See <a href="microformats2-mime-type.html" title="microformats2-mime-type">microformats2-mime-type</a>
+</p>
+<hr/>
+<a name="Other_Interpretation_Parsing_Notes"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Other%20Interpretation%20Parsing%20Notes"></a>Other Interpretation Parsing Notes</span></h2>
+<p>Note: most of these need to be written up as separate <a href="microformats2-parsing-issues.html" title="microformats2-parsing-issues">microformats2-parsing-issues</a>
+</p><p>Author: <a href="http://microformats.org/wiki/User:BenWard" title="User:BenWard">Ben Ward</a>
+</p><p><a class="mw-redirect" href="http://microformats.org/wiki/microformats-2" title="microformats-2">Microformats 2</a> proposes a new, all encompassing syntax modification of <a class="mw-redirect" href="http://microformats.org/wiki/microformats-2-prefixes" title="microformats-2-prefixes">prefixes</a> that will allow microformats to be parsed from pages by processors without prior knowledge of a vocabulary. The core components of this model are quite simple, are quite simple to implement, but there are a number of conflicts that emerge with the functionality of existing microformats parsers that need to be handled. This page documents a proposed model to separate these concerns clearly in a way that can be applied to the documentation of generic microformats parsing rules, and the documentation of individual vocabularies.
+</p><p>Collection of other unresolved parsing issues in a generic model:
+</p><p>This is good material for documenting as <a class="mw-redirect" href="http://microformats.org/wiki/microformats-2-issues" title="microformats-2-issues">microformats-2-issues</a>, <a class="mw-redirect" href="http://microformats.org/wiki/microformats-2-faq" title="microformats-2-faq">microformats-2-faq</a>, and perhaps some of the more technical details in <a class="mw-redirect" href="http://microformats.org/wiki/microformats-2-parsing-faq" title="microformats-2-parsing-faq">microformats-2-parsing-faq</a>.
+</p>
+<ul><li> The include pattern references other elements from elsewhere in a document. A generic parser needs to track IDs and fill them in after walking the DOM. (also, <code>itemref</code> if adopted.)
+<ul><li> The current thinking per <a class="mw-redirect" href="http://microformats.org/wiki/microformats-2-brainstorming" title="microformats-2-brainstorming">microformats-2-brainstorming</a> is to adopt <code>itemref</code> and drop the <a href="http://microformats.org/wiki/include-pattern" title="include-pattern">include-pattern</a>. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a>
+</li></ul>
+</li><li> Will <code>itemref</code> always map to an <code>item</code> property name?
+<ul><li> No, <code>itemref</code> maps to one or more elements by ids, and their children. Those referenced elements may have property class names themselves, or they may contain elements that do. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a>
+</li></ul>
+</li><li> <a class="mw-redirect" href="http://microformats.org/wiki/hAtom" title="hAtom">hAtom</a> implies <code>author</code> from an hCard in a page that uses an <code>address</code> element. This requires format knowledge, but a generic parser does not currently track the element type of a property node. Should it?
+<ul><li> It should not. element-specific handling (e.g. using "alt" from img, and "title" from abbr) is completely done at parse time. The JSON data model does not reflect which element type or attribute the value came from. Additionally, <a class="mw-redirect" href="http://microformats.org/wiki/hAtom" title="hAtom">hAtom</a> is an example where we created far too many vocabulary-specific rules, in practice they're not necessary, and only complicate the microformat for both publisher understanding and parser implementation. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a>
+</li></ul>
+</li><li> <a class="mw-redirect" href="http://microformats.org/wiki/hAtom" title="hAtom">hAtom</a> defines that the highest level heading within an entry implies <code>entry-title</code>. This particular optimisation might be better off dead.
+<ul><li> Agreed, this is gone in microformats 2. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a>
+</li></ul>
+</li><li> <a class="mw-redirect" href="http://microformats.org/wiki/hAtom" title="hAtom">hAtom</a> defines that permalinks be parsed from <code>rel</code> attributes, not <code>class</code>
+<ul><li> In practice this has been one of the more problematic/error prone aspects of hAtom implementations, and it's also inconsistent with other microformats (although <a class="mw-redirect" href="http://microformats.org/wiki/hReview" title="hReview">hReview</a> tried to use both rel permalinks and "url"). The dependence upon <a class="mw-redirect" href="http://microformats.org/wiki/rel-bookmark" title="rel-bookmark">rel-bookmark</a> for permalinks is dropped in h-atom in preference to re-using "u-url" and "u-uid". <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a>
+</li></ul>
+</li><li> <a class="mw-redirect" href="http://microformats.org/wiki/XFN" title="XFN">XFN</a> is entirely built on <code>rel</code> (although, has various other differences from structural microformats, as do vote-links, so perhaps are excluded from this discussion and will always be handled by dedicated parsers/queries regardless?)
+<ul><li> The best (easiest and most reliable) use of 'rel' microformats in practice is when they are orthogonal to 'class' microformats. This is true both with <a class="mw-redirect" href="http://microformats.org/wiki/XFN" title="XFN">XFN</a> and some newer <a href="http://microformats.org/wiki/existing-rel-values" title="existing-rel-values">rel values</a> like <a href="http://microformats.org/wiki/rel-author" title="rel-author">rel-author</a>. In addition, it was very clear at the recent <a href="http://microformats.org/wiki/schema.org" title="schema.org">schema.org</a> workshop's syntax session that RDFa's decision to apparently arbitrarily mix use of 'rel' and 'property' attributes for specifying different types of properties (it wasn't clear to people in the room when you use which for what) has caused a high degree of confusion among publishers and thus high error-rates. Thus if anything we should learn from both the mistakes of RDFa and our own experiences with even very deliberate/specific mixing of rel microformats in class microformats, and keep them defined as separate orthogonal building blocks that work together, but don't depend on each other. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a>
+<ul><li> Relatedly to this: <code>rel-tag</code> in hAtom. --<a href="http://microformats.org/wiki/User:BenWard" title="User:BenWard">BenWard</a> 06:50, 5 October 2011 (UTC)
+<ul><li> Yes, and two related things here. First, despite my (and others') objection and (past) interoperable post/entry-specific treatment by Technorati and Ice Rocket, Hixie has redefined rel-tag in <a class="mw-redirect" href="http://microformats.org/wiki/HTML5" title="HTML5">HTML5</a> to mean applying to the whole page, not a single post. Second, I've explicitly added 'p-category' to the draft 'h-atom' vocabulary in <a class="mw-redirect" href="http://microformats.org/wiki/microformats-2" title="microformats-2">microformats-2</a>. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 07:12, 5 October 2011 (UTC)
+</li></ul>
+</li></ul>
+</li></ul>
+</li><li> HTML's <code>time</code> element includes an optional <code>pubdate</code> attribute. Simply: We should parse this as <code><a class="dashAnchor" name="//apple_ref/cpp/Property/dt-published"></a>dt-published</code>. --<a href="http://microformats.org/wiki/User:BenWard" title="User:BenWard">BenWard</a> 06:12, 10 October 2011 (UTC)
+<ul><li> *If* there is even some reasonable data on actual use of the "pubdate" attribute (I don't think there is, frankly, especially with the removal of the algorithm to produce Atom from HTML5), then we could consider parsing "pubdate" as backwards compatible option for "dt-published". As a general rule, however, it is bad (demonstrably/experienced) design to depend on additional attributes (c.f. RDFa confusion over "property" vs. "rel"), especially for an instance where no additional attribute is necessary. I would leave this out for now until there is non-trivial (more than just test pages or folks who've written HTML5 books, ahem) use in the wild. When there is such use in the wild, it should be documented on a wiki page. We don't want to encourage more complex (additional attribute) publishing as a result of supporting it. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 12:12, 10 October 2011 (UTC)
+</li></ul>
+</li><li> <a href="http://microformats.org/wiki/value-class-pattern" title="value-class-pattern">value-class-pattern</a>: In microformats-2, since there are no sub-properties, there will presumably no-longer be a 'value' property in any parsed model. Properties such as 'tel &gt; type' in hCard are, as I recall, deprecated due to underuse anyway, so 'tel &gt; value' becomes redundant. (There's also potentially some clarification around 'price &gt; value' in hListing, whereby value was used in a pattern. So, what does this mean for value class parsing, with regard to value-title patterns and date separation patterns. Are we looking for a 'p-value' and 'p-value-title' classname, but treating them specially (excluding them from regular property parsing.) Or, are we giving them a special prefix (v-text, v-title? That seems confusing, but could be a concept.) I'm fine with p- for both, and just having the parser ignore them since they're special, but need clarification and naming confirmation. --<a href="http://microformats.org/wiki/User:BenWard" title="User:BenWard">BenWard</a> 09:35, 10 October 2011 (UTC)
+<ul><li> A few things:
+<ul><li> 1. Yes, no more subproperties. 'tel' becomes just 'p-tel'. If there is demand for a structured 'tel' value, then we can use that demand (and research into publishing in practice) to brainstorm and create an 'h-tel' structured telephone number (with perhaps fields like 'type', 'extension', some indication of it being local dialing (an extra 0 in some countries) or international dialing, etc.) Or, we address the different 'tel' types as their own flat properties (again as justified by research), e.g. perhaps 'p-tel-fax', or 'p-tel-mobile'. Something for hcard-2-brainstorming.
+</li><li> 2. For prices, e.g. hListing, either we're going to need to encode how to parse monetary amounts including monetary symbols, or consider creating an 'h-price' structured price. Not sure what the right answer is here, again, will need to be informed by analysis of documented actual price publication practices.
+</li><li> 3. We should avoid introducing a new prefix 'v-' just for value-class-pattern. As we've noted elsewhere, each new prefix adds complexity and should be avoided without substantial advantage.
+</li><li> 4. Using 'p-value-title' is strange, as it would be an exception to 'p-' parsing, since it would get the value from the 'title' attribute whereas 'p-' properties don't normally do that (exception: abbr).
+</li><li> 5. Using 'p-value' is also strange, as it wouldn't generate a 'value' property in the JSON data model.
+</li><li> 6. Class name 'value-title' is already sufficiently prefixed - we've found or even heard of no collisions in practice.
+</li><li> 7. Class name 'value' can, by its simpler naming nature, be expected to potentially collide with other web designer class name usage though we have no documentation/mention thereof. We could consider a renaming, or providing of alternative, such as 'value-string', or 'value-content', etc. However, let's keep that as a backup plan to use only if/when evidence is presented that we need to.
+</li></ul>
+</li><li> Conclusions: for now, in microformats-2, keep using 'value' and 'value-title' as defined in the <a href="http://microformats.org/wiki/value-class-pattern" title="value-class-pattern">value-class-pattern</a>, and add the additional (obvious) interpretation that <a href="http://microformats.org/wiki/value-class-pattern#Date_and_time_parsing" title="value-class-pattern">value class pattern: date and time parsing</a> applies to all 'dt-' properties. - <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 12:12, 10 October 2011 (UTC)
+</li></ul>
+</li></ul>
+<a name="incorporated_2015-05-28"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/incorporated%202015-05-28"></a> incorporated 2015-05-28 </span></h2>
+<p>The following brainstorms were incorporated 2015-05-28.
+</p>
+<a name="more_information_for_alternates"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/more%20information%20for%20alternates"></a> more information for alternates </span></h2>
+<p>Raised 2015-04-24 by <a href="http://microformats.org/wiki/User:Kevin_Marks" title="User:Kevin Marks">Kevin Marks</a>
+</p><p>The existing <code>alternate</code> parsing is omitting <code>title</code> - that should be added.  The <code>text</code> would make sense to add here too.
+</p><p>Use-case: labels for presenting alternates
+</p>
+<div class="discussion">
+<ul><li> +1 Makes sense. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 03:41, 25 April 2015 (UTC)
+</li></ul>
+</div>
+<a name="more_information_for_rel-based_formats"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/more%20information%20for%20rel-based%20formats"></a> more information for rel-based formats </span></h2>
+<p>Raised 2015-04-18 by <a href="http://microformats.org/wiki/User:Kevin_Marks" title="User:Kevin Marks">Kevin Marks</a>
+</p><p>Related github test suite issue: <a class="external free" href="https://github.com/microformats/tests/issues/16" rel="nofollow" title="https://github.com/microformats/tests/issues/16">https://github.com/microformats/tests/issues/16</a>
+</p><p>Several rel-based formats have additional information that is useful beyond the link itself, which is all we capture at the moment. As I am trying to update the Universal feedparser to support mf2 based I will show examples from the <a class="external text" href="https://github.com/kevinmarks/feedparser/tree/365623a9470e99246f393a8c1f49a0db567826b8/feedparser/tests/microformats" rel="nofollow" title="https://github.com/kevinmarks/feedparser/tree/365623a9470e99246f393a8c1f49a0db567826b8/feedparser/tests/microformats">testcases</a> there.
+</p><p>The main change is to add a <code>rel-urls</code> entry for more information about the attributes and text of the urls pointed to by rel's in the document
+</p><p>A fork of mf2py that implements these changes is at <a class="external free" href="https://github.com/kevinmarks/mf2py" rel="nofollow" title="https://github.com/kevinmarks/mf2py">https://github.com/kevinmarks/mf2py</a>
+</p>
+<a name="rel-tag"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/rel-tag"></a> rel-tag </span></h3>
+<pre><code>&lt;a rel="tag" href="<a class="external free" href="http://del.icio.us/tag/tech" rel="nofollow" title="http://del.icio.us/tag/tech">http://del.icio.us/tag/tech</a>"&gt;Technology&lt;/a&gt; </code>
+</pre>
+<p>currently parses to:
+</p>
+<pre><code>{"rels": {"tag": ["<a class="external free" href="http://del.icio.us/tag/tech" rel="nofollow" title="http://del.icio.us/tag/tech">http://del.icio.us/tag/tech</a>"]}, "items": []} </code>
+</pre>
+<p>This loses the link text, which is useful as a label. 
+</p><p>We add a <code>rel-urls</code> element to the parsed output with this extra data that can be looked up from the rels, which doesn't break backward compatibility and works better with xfn (see below)
+</p>
+<code><pre>{
+    "rels": {
+        "tag": [
+            "http://del.icio.us/tag/tech"
+        ]
+    }, 
+    "items": [], 
+    "rel-urls": {
+        "http://del.icio.us/tag/tech": {
+            "rels": [
+                "tag"
+            ], 
+            "text": "Technology"
+        }
+    }
+}
+</pre></code>
+<a name="xfn"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/xfn"></a> xfn </span></h3>
+<p><code>&lt;a rel="coworker" href="<a class="external free" href="http://example.com/johndoe" rel="nofollow" title="http://example.com/johndoe">http://example.com/johndoe</a>"&gt;John Doe&lt;/a&gt;</code>
+</p><p>currently parses to:
+</p>
+<pre><code>{"rels": {"coworker": ["<a class="external free" href="http://example.com/johndoe" rel="nofollow" title="http://example.com/johndoe">http://example.com/johndoe</a>"]}, "items": []}</code>
+</pre>
+<p>This loses the link text, which is the person's name. Suggested output using the urls object:
+</p>
+ <code><pre>{
+{
+    "rels": {
+        "coworker": [
+            "http://example.com/johndoe"
+        ]
+    }, 
+    "items": [], 
+    "rel-urls": {
+        "http://example.com/johndoe": {
+            "rels": [
+                "coworker"
+            ], 
+            "text": "John Doe"
+        }
+    }
+}
+</pre></code>
+<p>with multiple xfn values 
+</p><p><code>&lt;a rel="coworker friend" href="<a class="external free" href="http://example.com/johndoe" rel="nofollow" title="http://example.com/johndoe">http://example.com/johndoe</a>"&gt;John Doe&lt;/a&gt;</code>
+we get this: 
+</p>
+ <code><pre>{
+    "rels": {
+        "coworker": [
+            "http://example.com/johndoe"
+        ], 
+        "friend": [
+            "http://example.com/johndoe"
+        ]
+    }, 
+    "items": [], 
+    "rel-urls": {
+        "http://example.com/johndoe": {
+            "rels": [
+                "coworker", 
+                "friend"
+            ], 
+            "text": "John Doe"
+        }
+    }
+}
+</pre></code>
+<a name="rel-enclosure"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/rel-enclosure"></a> rel-enclosure </span></h3>
+<p><code>&lt;a rel="enclosure" href="<a class="external free" href="http://example.com/movie.mp4" rel="nofollow" title="http://example.com/movie.mp4">http://example.com/movie.mp4</a>" type="video/mpeg" title="real title"&gt;my movie&lt;/a&gt;</code>
+</p><p>currently parses to:
+</p>
+<pre><code>'{"rels": {"enclosure": ["<a class="external free" href="http://example.com/movie.mp4" rel="nofollow" title="http://example.com/movie.mp4">http://example.com/movie.mp4</a>"]}, "items": []}'</code>
+</pre>
+<p>This loses the link text,  which is the title and the attributes which give type. Suggested output:
+</p>
+ <code><pre>{
+    "rels": {
+        "enclosure": [
+            "http://example.com/movie.mp4"
+        ]
+    }, 
+    "items": [], 
+    "rel-urls": {
+        "http://example.com/movie.mp4": {
+            "rels": [
+                "enclosure"
+            ], 
+            "text": "my movie", 
+            "type": "video/mpeg", 
+            "title": "real title"
+        }
+    }
+}
+</pre></code>
+<p>This generalises to other rel's too, such as <a class="new" href="http://microformats.org/wiki/index.php?title=rel-feed&amp;action=edit&amp;redlink=1" title="rel-feed (not yet written)">rel-feed</a> and <a href="http://microformats.org/wiki/rel-alternate" title="rel-alternate">rel-alternate</a> that have type, lang etc attributes.
+</p><p>(updated to include changes from feedback below) <a href="http://microformats.org/wiki/User:Kevin_Marks" title="User:Kevin Marks">Kevin Marks</a> 22:13, 26 April 2015 (UTC)
+</p>
+<a name="attributes_parsed"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/attributes%20parsed"></a> attributes parsed </span></h3>
+<p>Attributes currently parsed are:
+</p>
+<ul><li> <code>hreflang</code> for alternate and enclosure
+</li><li> <code>media</code> for alternate and enclosure
+</li><li> <code>title</code> for alternate and enclosure
+</li><li> <code>type</code> for alternate and enclosure
+</li></ul>
+<p>Attributes we may consider parsing if we have a use case are 
+</p>
+<ul><li> <code>sizes</code> for icon - need use-case documentation
+</li><li> <code>coords</code> for area - possibly for people tagging - no examples yet, and unnecessary as people-tagging requires using h-* microformats
+</li><li> <code>shape</code> for area - possibly for people tagging - no examples yet, and unnecessary as people-tagging requires using h-* microformats
+</li></ul>
+<p>In addition there is a special attribute <s><code>name</code> </s><code>text</code> which is the text contents of the link, which is useful in rel-tag rel-enclosure and xfn, and in alternate when used for feeds. It's also clarifying for rel-me links. 
+</p><p>Tantek <a class="external text" href="http://logs.glob.uno/?c=freenode%23microformats&amp;s=today#c79057" rel="nofollow" title="http://logs.glob.uno/?c=freenode%23microformats&amp;s=today#c79057">suggests</a> we use <code>textContent</code> for this instead, and make it a single string, not a list as <code>name</code> is elsewhere in mf2 parsing
+</p>
+<ul><li> Update: "text" is good enough, and "textContent" is ugly camelCase. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 04:39, 29 May 2015 (UTC)
+</li></ul>
+<a name="feedback_on_more_rel_info"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/feedback%20on%20more%20rel%20info"></a> feedback on more rel info </span></h3>
+<div class="discussion">
+<ol><li> "name" is bad because it misleadingly conflates with use of "name" elsewhere in microformats2.
+<ul><li> Suggested alternative: <a class="external text" href="https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent" rel="nofollow" title="https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent">textContent</a> - since that's literally what is being returned there. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 02:35, 25 April 2015 (UTC)
+<ul><li> as all other mf2 keys are lowercase-with-hyphens, <a class="external text" href="http://logs.glob.uno/?c=freenode%23microformats&amp;s=today#c79101" rel="nofollow" title="http://logs.glob.uno/?c=freenode%23microformats&amp;s=today#c79101">Tantek suggests</a> 'text' as that isn't going to be an html <a href="http://microformats.org/wiki/User:Kevin_Marks" title="User:Kevin Marks">Kevin Marks</a> 07:28, 25 April 2015 (UTC)
+</li></ul>
+</li></ul>
+</li><li> no need for array for "name"/textContent - since there is always only one at most
+<ul><li> E.g. should be "textContent": "my movie" <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 02:35, 25 April 2015 (UTC)
+</li><li> Update: "text": "my movie" <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 04:39, 29 May 2015 (UTC)
+</li></ul>
+</li><li> "urls" key is misleading - implies all URLs in the document, which is neither true, nor desired (takes much more parsing time and work and code)
+<ul><li> Suggested alternative: "rel-urls". And open to better alternatives too. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 02:35, 25 April 2015 (UTC)
+<ul><li> If we are trying to extend the number of properties retuned from a rel without breaking the old structure why don't we call the new structure something like "rels-extended" <a href="http://microformats.org/wiki/User:GlennJones" title="User:GlennJones">Glenn Jones</a> 12:29, 1 June 2015 (UTC)
+<ul><li> Extension is not the point, but rather to use them complementary. One structure for look-up of any rel value, hence "rels", which returns you a list of URLs. Then you can lookup those URLs in the new mapping, by URL, hence it is called "rel-urls" - that's the point to use them in conjunction and that's why rel-urls is named what it is. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 22:03, 1 June 2015 (UTC)
+</li></ul>
+</li></ul>
+</li></ul>
+</li></ol>
+<ol><li> Why is the structure of  "rel-urls" different to the "alternates" structure. Should the "url" not just be added as a property and not as a key. Creating two data structures for one type of object seems inconsistent. It adds cognitive load to anyone trying to understand the JSON structure <a href="http://microformats.org/wiki/User:GlennJones" title="User:GlennJones">Glenn Jones</a> 12:29, 1 June 2015 (UTC)
+<ul><li> I was trying to avoid breaking the existing <code>rels</code> structure and use of it - I did implement a variant that put the structure inside rels, and it became cumbersome and repetitive where there were multiple rels on a url (xfn cases). Denormalising as properties of the URL made more sense. It also dedupes if there is repetitive linking to the same URL, eg a series of posts with rel-author on each. <a href="http://microformats.org/wiki/User:Kevin_Marks" title="User:Kevin Marks">Kevin Marks</a> 20:05, 1 June 2015 (UTC)
+</li></ul>
+</li><li> If the rel is a "tag" then the main value we need to return should be the last path component of the URL, not the link text? Should we add another output property ie "tag" <a href="http://microformats.org/wiki/User:GlennJones" title="User:GlennJones">Glenn Jones</a> 12:29, 1 June 2015 (UTC)
+<ul><li> No need to return last path segment of the URL, because the URL is already there - and that's just a library/framework utility function to get the last path segment of a URL. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 22:03, 1 June 2015 (UTC)
+</li></ul>
+</li><li> As currently described, the URL from <code>alternates</code> is repeated in the <code>rel-urls</code> structure. If we are doing this, surely <code>alternate</code> should be in <code>rels</code> too? I assumed a mapping between them. <a href="http://microformats.org/wiki/User:Kevin_Marks" title="User:Kevin Marks">Kevin Marks</a> 20:05, 1 June 2015 (UTC)
+<ol><li> edit showing this variant: <a class="external free" href="http://microformats.org/wiki/index.php?title=microformats2-parsing&amp;oldid=65021#parse_a_hyperlink_element_for_rel_microformats" rel="nofollow" title="http://microformats.org/wiki/index.php?title=microformats2-parsing&amp;oldid=65021#parse_a_hyperlink_element_for_rel_microformats">http://microformats.org/wiki/index.php?title=microformats2-parsing&amp;oldid=65021#parse_a_hyperlink_element_for_rel_microformats</a>
+</li></ol>
+</li></ol>
+</div>
+<ol><li><ul><li> Yes it makes sense to drop "alternates" assuming the backcompat impact is low, put alternates in "rels" along with everything else, and direct people to use rels and rel-urls for alternates functionality. Evidence this is an acceptable even preferable approach.<a class="external autonumber" href="http://indiewebcamp.com/irc/2015-06-01/line/1433195247005" rel="nofollow" title="http://indiewebcamp.com/irc/2015-06-01/line/1433195247005">[2]</a> Will add an issue accordingly. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 22:03, 1 June 2015 (UTC)
+</li></ul>
+</li></ol>
+<a name="Incorporated_2015-06-06"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Incorporated%202015-06-06"></a> Incorporated 2015-06-06 </span></h2>
+<a name="Nested_h-.2A_objects.27_.22value.22_property"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Nested%20h-%2A%20objects%27%20%22value%22%20property"></a> Nested h-* objects' "value" property </span></h2>
+<p>Status: resolved, resolution iterated, one real world implementation proven implementability, incorporated
+</p>
+<ul><li> 2015-06-06 incorporated into <a href="microformats2-parsing.html" title="microformats2-parsing">microformats2-parsing</a>
+</li></ul>
+<p>Raised 2015-01-06 by <a href="http://microformats.org/wiki/User:Kylewm" title="User:Kylewm">User:Kylewm</a>;
+</p><p>If a child element has a microformat (h-*) and is a property element (p-*, u-*, dt-*, e-*), the parser will add a "value" property to the resulting object. The value should attempt to be a useful representation of the object for consumers that do not have semantic knowledge of the particular h-* type. Ref: <a href="microformats2-parsing.html#parse_an_element_for_class_microformats" title="microformats2-parsing">microformats2-parsing#parse_an_element_for_class_microformats</a>.
+</p><p>To determine the "value", we parse the property element simply (as if it did not have a h-* class), which works well for simple h-* objects, e.g. <code>&lt;a class="u-like-of h-cite" href="..."&gt;...&lt;/a&gt;</code>
+</p>
+<div class="discussion">
+<ul><li> To handle more complex microformats, I propose that "value" for a p-* property element take on the first explicit "name" property of the nested microformat, and for a u-* property, the first explicit "url" property. Parsing will fall back on the current rules if an explicit property does not exist.
+<ul><li> This makes sense to me, and fits with the use-cases and examples I've seen. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 19:31, 6 January 2015 (UTC)
+</li><li> A similar (possibly simpler?) formulation would use the implied name and url rules to determine the "value" for p-* and u-* properties respectively
+<ul><li> I don't think that's needed, as there are already implied rules on a property that should handle that. I'd start with just the "first explicit" scoping to be more conservative, and then see if we find any use-cases that (and existing implied rules) don't/doesn't catch. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 19:31, 6 January 2015 (UTC)
+<ul><li> Agreement at <a class="mw-redirect" href="http://microformats.org/wiki/2015-01-20" title="2015-01-20">2015-01-20</a> meetup.
+</li></ul>
+</li></ul>
+</li></ul>
+</li></ul>
+</div> 
+<p>For example:
+</p>
+<code><pre>&lt;div class="h-entry"&gt;
+  &lt;div class="u-in-reply-to h-cite"&gt;
+    &lt;a class="p-author h-card" href="http://example.com"&gt;Example Author&lt;/a&gt;
+    &lt;a class="p-name u-url" href="http://example.com/post"&gt;Example Post&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre></code>
+<p>The nested u-in-reply-to object would parse as
+</p>
+<code><pre>...
+"in-reply-to": [{ 
+  "type": ["h-cite"],
+  "properties": {
+    "name": ["Example Post"],
+    "url": ["http://example.com/post"],
+    "author": [{
+      "type":["h-card"],
+      "properties": {
+        "url": ["http://example.com"], 
+        "name": ["Example Author"]
+      },
+      "value": "Example Author"
+    }],
+  },
+  "value": "http://example.com/post"
+}]
+...
+</pre></code>
+<p>where the outer "value" gets the in-reply-to h-cite's u-url property, and the inner "value" gets the author's p-name property.
+</p>
+<div class="discussion">
+<ul><li> Because there are no implied properties of the dt-* and e-* types, and no obvious defaults, the value rules for these types would not change.
+<ul><li> A possibility for dt-* h-*: The dt-* could take either the first dt-* of the h-*, or (perhaps if no dt-* in the h-*,) the first <code>&lt;time&gt;</code> element inside. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 19:31, 6 January 2015 (UTC)
+</li><li> First dt-* seems reasonable, predictable, and usable. Consensus at <a class="mw-redirect" href="http://microformats.org/wiki/2015-01-20" title="2015-01-20">2015-01-20</a> meetup.
+</li><li> Update 2015-05-29: no known use-cases for first dt-* or first e-*, and implementing that "would require some refactoring" (in mf2py at least per kylewm), thus until there's a use-case for first dt-*/e-* inside, let's treat "dt-* h-*" and "e-* h-*" as before. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> . In particular:
+<ul><li> p-* h-* - value from first "name" as proposed above
+</li><li> u-* h-* - value from first "url" as proposed above
+</li><li> e-* h-* - value is already defined for e-* parsing, nothing special here
+</li><li> dt-* h-* - value from normal dt-* parsing - nothing special.
+</li><li> +1 totally agree, let's wait for use cases of e-* dt-* <a href="http://microformats.org/wiki/User:Kylewm" title="User:Kylewm">Kylewm</a> 19:44, 29 May 2015 (UTC)
+</li></ul>
+</li></ul>
+</li></ul>
+</div>
+<ul><li> Implemented in mf2py 2015-06-01 <a class="external free" href="https://github.com/tommorris/mf2py/commit/edc895ef5a780bcee654e6644a688688934517b0" rel="nofollow" title="https://github.com/tommorris/mf2py/commit/edc895ef5a780bcee654e6644a688688934517b0">https://github.com/tommorris/mf2py/commit/edc895ef5a780bcee654e6644a688688934517b0</a>
+</li><li> Added to microformats test suite (experimental) 2015-06-01 <a class="external free" href="https://github.com/microformats/tests/commit/90c8a7d8e96c7160036a298e13f16d9ddaec218e" rel="nofollow" title="https://github.com/microformats/tests/commit/90c8a7d8e96c7160036a298e13f16d9ddaec218e">https://github.com/microformats/tests/commit/90c8a7d8e96c7160036a298e13f16d9ddaec218e</a>
+</li></ul>
+<a name="see_also"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/see%20also"></a> see also </span></h2>
+<ul><li> <a href="microformats2.html" title="microformats2">microformats2</a>
+</li><li> <a href="microformats2-brainstorming.html" title="microformats2-brainstorming">microformats2-brainstorming</a>
+</li><li> <a href="microformats2-prefixes.html" title="microformats2-prefixes">microformats2-prefixes</a>
+</li><li> <a href="microformats2-faq.html" title="microformats2-faq">microformats2-faq</a>
+</li><li> <a href="microformats2-issues.html" title="microformats2-issues">microformats2-issues</a>
+</li><li> <a href="microformats2-parsing-faq.html" title="microformats2-parsing-faq">microformats2-parsing-faq</a>
+</li></ul>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 144/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+<div class="printfooter">
+Retrieved from "<a href="microformats2-parsing-brainstorming.html">http://microformats.org/wiki/microformats2-parsing-brainstorming</a>"</div>
+		</div>	
+		
+				
+                    
+        
+        
+
+	</div>
+	
+<!-- end of the sidebar -->
+
+<div id="footer">
+
+
+    <address class="vcard">
+        The content of this wiki is the combined effort of the
+        <a class="fn org url" href="http://microformats.org/">
+            microformats community
+        </a>.
+    </address>
+
+	<ul>
+    				<li id="about"><a href="http://microformats.org/wiki/Microformats_Wiki:About" title="Microformats Wiki:About">About Microformats Wiki</a></li>
+				<li id="disclaimer"><a href="http://microformats.org/wiki/Microformats_Wiki:General_disclaimer" title="Microformats Wiki:General disclaimer">Disclaimers</a></li>
+        <li>Powered by <a href="http://mediawiki.org/">MediaWiki</a> | <a href="http://mediatemple.net/">(mt) media temple</a></li>
+	</ul>
+</div>
+
+		
+<!-- Served in 0.716 secs. -->
+
+
+
+
+
+
+</body><!-- Mirrored from microformats.org/wiki/microformats2-parsing-brainstorming by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 Jun 2016 19:41:11 GMT --></html>
