@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/microformats2-parsing-brainstorming by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 Jun 2016 19:41:11 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/microformats2-parsing-brainstorming by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 May 2017 19:51:27 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
 
 	<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 	
@@ -56,16 +56,102 @@ This page is for brainstorming, discussion, and other questions and explorations
 
 <p><br/>
 </p>
+<a name="Parse_img_alt"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Parse%20img%20alt"></a> Parse img alt </span></h2>
+<p>Per <a class="external free" href="https://github.com/microformats/microformats2-parsing/issues/2" rel="nofollow" title="https://github.com/microformats/microformats2-parsing/issues/2">https://github.com/microformats/microformats2-parsing/issues/2</a> currently any u-* property (e.g. u-photo, u-featured) that extracts a 'src' attr from an img tag loses any associated 'alt' text alternative, and if at some point the consuming application wants to display that u-* property as an img, they have to either omit or synthesize a fake text alternative.
+</p><p>It is desirable to somehow maintain that image src and alt association from the original markup, through the parsing process, up until a consuming application wishes to re-present the image with the text alternative.
+</p><p>There are a number of possibilities / approaches here worth brainstorming:
+</p>
+<a name="Include_alt_property_in_parent_object"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Include%20alt%20property%20in%20parent%20object"></a> Include alt property in parent object </span></h3>
+<ol><li> explicit authoring: require the author to use a new 'p-alt' property on the image to cause parsing and extraction of the text alternative.
+<ul><li> Problem(s): fails for multiple images, some of which may or may not have alt attrs or corresponding p-alt properties (and fragile, forgetting one p-alt throws off the parallel lists of u-* and p-alt).
+</li></ul>
+</li><li> implicit p-alt: for every img that is parsed for a u-* property, the parse could generate a p-alt property with value.
+<ul><li> Problem(s): fragile again for similar reasons, not all u-*s may be on img elements, or may not have alt attrs for all imgs in the source.
+</li></ul>
+</li><li> implicit p-alt only for implied u-photo
+<ul><li> This is better since there can only be one implied u-photo, and thus if there is a p-alt, it must be associated with the one u-photo
+</li><li> Problem(s): does not work for other u-* image properties e.g. u-featured
+</li></ul>
+</li></ol>
+<p><code>&lt;div class="h-entry"&gt;&lt;img src="http://example.com/photo.jpg" alt="Example" class="u-photo p-alt"&gt;&lt;/div&gt;</code>
+</p><p><code>{"type":["h-entry"],"properties":{"photo":["http://example.com/photo.jpg"],"alt":["Example"]}</code>
+</p>
+<a name="Make_photo_property_an_object"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Make%20photo%20property%20an%20object"></a> Make photo property an object </span></h3>
+1. use "h-image" on any u-* on img elements to imply a structure with paired photo and 'name' text alternative, e.g. <blockquote><code>&lt;img src="a.jpg" alt="text about a" class="u-featured h-image"/&gt;</code></blockquote> which would result in a u-featured property with one value, a structure of an h-image with itself having implied properties of a u-photo of "a.jpg" and a p-name of the "text about a". Similarly the author can use the object tag for the same result: <blockquote><code>&lt;object data="a.jpg" class="u-featured h-image"&gt;text about a&lt;/object&gt;</code></blockquote> In either case, the same microformats JSON would be generated, which is correct, as in both cases, there is an image with a fallback text alternative. The specific HTML used should not matter. The semantic of pairing the image with the text alternative is communicated the same way for both.
+<ul><li> Challenge: requires author use of additional classname "h-image".
+</li><li> Benefit: does not require a change to the parsing algorithm
+</li></ul>
+<div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;div</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"h-entry"</span><span class="kw2">&gt;</span></span>
+ <span class="sc2"><span class="kw2">&lt;img</span> <span class="kw3">src</span><span class="sy0">=</span><span class="st0">"http://example.com/eg.jpg"</span> <span class="kw3">alt</span><span class="sy0">=</span><span class="st0">"Photo of an example"</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"u-featured h-image"</span><span class="kw2">&gt;</span></span>
+<span class="sc2"><span class="kw2">&lt;/div&gt;</span></span></pre></div>
+<div dir="ltr" style="text-align: left;"><pre class="source-javascript"><span class="br0">{</span>
+<span class="st0">"type"</span><span class="sy0">:</span><span class="br0">[</span><span class="st0">"h-entry"</span><span class="br0">]</span><span class="sy0">,</span>
+<span class="st0">"properties"</span><span class="sy0">:</span><span class="br0">{</span>
+  <span class="st0">"featured"</span><span class="sy0">:</span><span class="br0">[</span><span class="br0">{</span>
+    <span class="st0">"type"</span><span class="sy0">:</span><span class="br0">[</span><span class="st0">"h-image"</span><span class="br0">]</span><span class="sy0">,</span>
+    <span class="st0">"properties"</span><span class="sy0">:</span><span class="br0">{</span>
+      <span class="st0">"photo"</span><span class="sy0">:</span><span class="br0">[</span><span class="st0">"http://example.com/eg.jpg"</span><span class="br0">]</span><span class="sy0">,</span>
+      <span class="st0">"name"</span><span class="sy0">:</span><span class="br0">[</span><span class="st0">"Photo of an example"</span><span class="br0">]</span>
+    <span class="br0">}</span>
+  <span class="br0">}</span><span class="br0">]</span>
+<span class="br0">}</span></pre></div> <a class="external autonumber" href="http://pin13.net/mf2/?id=20160719001154920" rel="nofollow" title="http://pin13.net/mf2/?id=20160719001154920">[1]</a>
+<p><br/>
+2. have u-* on an &lt;img&gt; automatically create an object if there is a non-empty 'alt' attribute. <br/>If a u-* property is parsed on an &lt;img&gt; element with a non-empty 'alt' attribute, then: <br/>
+Create a structure similar to the e-content nested structure that provides the "value" as the URL, and an "alt" as the text alternative.
+</p>
+<ul><li> Advantage: no additional microformats markup needed from author
+</li><li> Challenge: Many (most?) existing published u-photo properties will now return an object instead of a string, and consuming applications may not be expecting an object for a photo
+<ul><li> Mitigation: If this is done as an explicit parser library upgrade, consuming applications may decide when to take this parser upgrade and thus fix their u-photo handling to look for string or object before upgrading their microformats2 parsing library instance.
+</li></ul>
+</li></ul>
+<div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;div</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"h-entry"</span><span class="kw2">&gt;</span></span>
+ <span class="sc2"><span class="kw2">&lt;img</span> <span class="kw3">src</span><span class="sy0">=</span><span class="st0">"http://example.com/eg.jpg"</span> <span class="kw3">alt</span><span class="sy0">=</span><span class="st0">"Photo of an example"</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"u-featured"</span><span class="kw2">&gt;</span></span>
+<span class="sc2"><span class="kw2">&lt;/div&gt;</span></span></pre></div>
+<div dir="ltr" style="text-align: left;"><pre class="source-javascript"><span class="br0">{</span>
+<span class="st0">"type"</span><span class="sy0">:</span><span class="br0">[</span><span class="st0">"h-entry"</span><span class="br0">]</span><span class="sy0">,</span>
+<span class="st0">"properties"</span><span class="sy0">:</span><span class="br0">{</span>
+  <span class="st0">"featured"</span><span class="sy0">:</span><span class="br0">[</span><span class="br0">{</span>
+    <span class="st0">"value"</span><span class="sy0">:</span><span class="st0">"http://example.com/eg.jpg"</span><span class="sy0">,</span>
+    <span class="st0">"alt"</span><span class="sy0">:</span><span class="st0">"Photo of an example"</span>
+  <span class="br0">}</span><span class="br0">]</span>
+<span class="br0">}</span></pre></div>
+<p>... more brainstorming needed
+</p>
+<a name="img_alt_thoughts"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/img%20alt%20thoughts"></a> img alt thoughts </span></h3>
+<p>Thoughts about img alt brainstorm proposals. Feel free to offer counterpoints with nested items and/or alternative preferences/opinions with (potentially multiple) top level items!
+</p>
+<div class="discussion">
+<ul><li> Tantek: I am <b>leaning towards "Make photo property an object" brainstorm "2."</b> because it feels more "automatic" and thus provides lower friction to more accessibility. Less (author) work for "alt" information to get passed through to the JSON result, and thus more potentially re-usable by consuming applications that want to preserve or re-emit the pairing of a photo and its fallback text alternative.  -- <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 00:53, 19 July 2016 (UTC)
+</li><li> Aaron: I am leaning towards <i>2</i> because it takes less work on the part of publishers as well as consumers. From the publisher POV, if they add the alt attribute, that should be all they need to do, it seems odd to make them do additional work to make that show up in the parsed result. From the consumer side, some implementations will not need changing since when looking for a string value, they already use either the string directly or look for the "value" of the property if it's an object. Making consumers handle a new h- object just to read alt text seems overkill.
+<ul><li> Additionally, if the alt attribute is an empty string, this should be considered the same as if it were missing, so that the photo value will be the URL string rather than the object in this case as well
+</li></ul>
+</li><li> Kevin: 2 makes sense to me as well, as this is a very specific need. If we want an image object with more substructure as 1 implies, that should be a new object type that follows the <a href="http://microformats.org/wiki/process" title="process">process</a> - there is a case for that based on usage of figure/figcaption etc. but caption is not alt, and using name for it implies that it is. <a href="http://microformats.org/wiki/User:Kevin_Marks" title="User:Kevin Marks">Kevin Marks</a> 01:50, 19 July 2016 (UTC)
+</li><li> Bear: The thoughts given above for option 2 make the most sense as a library writer and consumer, tying this change to a parser implementation's major version change will (should) give everyone notice and time to adjust 
+</li></ul>
+<p>...
+</p>
+<ul><li> (unanimity copied to GitHub)
+</li></ul>
+</div>
+<p>When it looks like thoughts are naturally converging, we should take that emergent convergence back to the github thread for proper back/forth discussion and figuring out of details.
+</p><p><a class="external free" href="https://github.com/microformats/microformats2-parsing/issues/2" rel="nofollow" title="https://github.com/microformats/microformats2-parsing/issues/2">https://github.com/microformats/microformats2-parsing/issues/2</a>
+</p>
+<ul><li> <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 22:10, 1 August 2016 (UTC): Thanks Aaron, Kevin, Bear - based on the unanimous support of one particular brainstorm proposal, that proposal has been moved to the GitHub issue, and any follow-up about it (corrections, refinements, iterations) should occur there:
+<ul><li> <a class="external free" href="https://github.com/microformats/microformats2-parsing/issues/2#issuecomment-236708854" rel="nofollow" title="https://github.com/microformats/microformats2-parsing/issues/2#issuecomment-236708854">https://github.com/microformats/microformats2-parsing/issues/2#issuecomment-236708854</a>
+</li></ul>
+</li></ul>
 <a name="Parse_language_information"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Parse%20language%20information"></a> Parse language information </span></h2>
 <p>Raised by <a class="new" href="http://microformats.org/wiki/index.php?title=User:VoxPelli&amp;action=edit&amp;redlink=1" title="User:VoxPelli (not yet written)">VoxPelli</a> 18:04, 23 July 2015 (UTC)
 </p>
 <ul><li> 2016-060: Update: and parse "id" attribute. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 16:39, 29 February 2016 (UTC) (see Additionally below)
+</li><li> 2016-07-13: Update: created <a class="external text" href="https://github.com/microformats/microformats2-parsing/issues/3" rel="nofollow" title="https://github.com/microformats/microformats2-parsing/issues/3">GitHub issue</a> for this brainstorm <a class="new" href="http://microformats.org/wiki/index.php?title=User:VoxPelli&amp;action=edit&amp;redlink=1" title="User:VoxPelli (not yet written)">VoxPelli</a> 14:34, 13 July 2016 (UTC)
 </li></ul>
 <p>Currently there’s no way to tell the language of parsed microformats even if those microformats has been marked up with HTML "lang"-attributes.
 </p><p>There are examples in the wild of people marking up pages in such a way:
 </p>
 <ul><li> <a class="external text" href="http://voxpelli.com/" rel="nofollow" title="http://voxpelli.com/">VoxPelli.com</a> has a "lang"-attribute on the h-entry of his <a class="external text" href="http://voxpelli.com/2011/03/sista-dagen-p-good-old/" rel="nofollow" title="http://voxpelli.com/2011/03/sista-dagen-p-good-old/">swedish articles</a> to signify that the article is swedish even though the rest of the site is english.
 </li><li> Stephanie <a class="external text" href="http://climbtothestars.org/archives/2013/09/17/basic-bilingual-1-0-plugin-for-wordpress-blog-in-more-than-one-language/" rel="nofollow" title="http://climbtothestars.org/archives/2013/09/17/basic-bilingual-1-0-plugin-for-wordpress-blog-in-more-than-one-language/">uses a WordPress plugin</a> that adds summaries of other languages at the start of her content.
+</li><li> <a class="external text" href="https://seblog.nl/" rel="nofollow" title="https://seblog.nl/">Seblog.nl</a> has a <code>lang="nl"</code>-attribute on the <code>&lt;html&gt;</code> of each page, and uses a <code>lang="en"</code> on the p-name, p-summary and e-content of a h-entry if the CMS-field 'lang' is set to "en" (or any language other than "nl"). This to signify that the article is English, but the rest of the page Dutch (including the textual representation of the date). (<a class="external text" href="https://seblog.nl/2017/01/02/2/screenshots" rel="nofollow" title="https://seblog.nl/2017/01/02/2/screenshots">example</a>)
 </li></ul>
 <p>Proposal is to add a new "lang" keyword to h-* and e-* objects so that the following example:
 </p>
@@ -139,7 +225,7 @@ HTML4: <a class="external free" href="https://www.w3.org/TR/html4/struct/dirlang
 </p><p>Proposal: Determine and include the inherited "lang" value on *every* microformat object that directly specifies a lang or that has an ancestor that does, e.g. if &lt;html lang="en"&gt;, then every object in the output will have "lang": "en".
 </p>
 <a name="Pronouns_in_different_languages"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Pronouns%20in%20different%20languages"></a> Pronouns in different languages </span></h3>
-<p>Language is also useful context when defining <a class="new" href="http://microformats.org/wiki/index.php?title=pronouns&amp;action=edit&amp;redlink=1" title="pronouns (not yet written)">pronouns</a>, discussed a bit here<a class="external autonumber" href="https://github.com/idno/Known/pull/1426#issuecomment-217626923" rel="nofollow" title="https://github.com/idno/Known/pull/1426#issuecomment-217626923">[1]</a>.
+<p>Language is also useful context when defining <a class="new" href="http://microformats.org/wiki/index.php?title=pronouns&amp;action=edit&amp;redlink=1" title="pronouns (not yet written)">pronouns</a>, discussed a bit here<a class="external autonumber" href="https://github.com/idno/Known/pull/1426#issuecomment-217626923" rel="nofollow" title="https://github.com/idno/Known/pull/1426#issuecomment-217626923">[2]</a>.
 </p>
 <div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;div</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"h-card"</span> <span class="kw3">lang</span><span class="sy0">=</span><span class="st0">"en"</span><span class="kw2">&gt;</span></span>
   <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-x-pronoun-nominative"</span><span class="kw2">&gt;</span></span>he<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span> /
@@ -185,7 +271,7 @@ HTML4: <a class="external free" href="https://www.w3.org/TR/html4/struct/dirlang
     <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-possessive"</span><span class="kw2">&gt;</span></span>him<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span> /
     <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-oblique"</span><span class="kw2">&gt;</span></span>his<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span>
   <span class="sc2"><span class="kw2">&lt;/div&gt;</span></span>
-  <span class="sc2"><span class="kw2">&lt;div</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-x-pronoun h-x-pronoun"</span> <span class="kw3">lang</span><span class="sy0">=</span><span class="st0">"en"</span><span class="kw2">&gt;</span></span>
+  <span class="sc2"><span class="kw2">&lt;div</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-x-pronoun h-x-pronoun"</span> <span class="kw3">lang</span><span class="sy0">=</span><span class="st0">"sv"</span><span class="kw2">&gt;</span></span>
     <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-nominative"</span><span class="kw2">&gt;</span></span>han<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span> /
     <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-possessive"</span><span class="kw2">&gt;</span></span>hans<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span> /
     <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-oblique"</span><span class="kw2">&gt;</span></span>honom<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span>
@@ -520,7 +606,7 @@ we get this:
 </li></ol>
 </li></ol>
 </div>
-<ol><li><ul><li> Yes it makes sense to drop "alternates" assuming the backcompat impact is low, put alternates in "rels" along with everything else, and direct people to use rels and rel-urls for alternates functionality. Evidence this is an acceptable even preferable approach.<a class="external autonumber" href="http://indiewebcamp.com/irc/2015-06-01/line/1433195247005" rel="nofollow" title="http://indiewebcamp.com/irc/2015-06-01/line/1433195247005">[2]</a> Will add an issue accordingly. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 22:03, 1 June 2015 (UTC)
+<ol><li><ul><li> Yes it makes sense to drop "alternates" assuming the backcompat impact is low, put alternates in "rels" along with everything else, and direct people to use rels and rel-urls for alternates functionality. Evidence this is an acceptable even preferable approach.<a class="external autonumber" href="http://indiewebcamp.com/irc/2015-06-01/line/1433195247005" rel="nofollow" title="http://indiewebcamp.com/irc/2015-06-01/line/1433195247005">[3]</a> Will add an issue accordingly. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 22:03, 1 June 2015 (UTC)
 </li></ul>
 </li></ol>
 <a name="Incorporated_2015-06-06"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Incorporated%202015-06-06"></a> Incorporated 2015-06-06 </span></h2>
@@ -604,7 +690,7 @@ we get this:
 
 <!-- 
 NewPP limit report
-Preprocessor node count: 144/1000000
+Preprocessor node count: 178/1000000
 Post-expand include size: 0/2097152 bytes
 Template argument size: 0/2097152 bytes
 Expensive parser function count: 0/100
@@ -640,11 +726,11 @@ Retrieved from "<a href="microformats2-parsing-brainstorming.html">http://microf
 </div>
 
 		
-<!-- Served in 0.716 secs. -->
+<!-- Served in 0.760 secs. -->
 
 
 
 
 
 
-</body><!-- Mirrored from microformats.org/wiki/microformats2-parsing-brainstorming by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 Jun 2016 19:41:11 GMT --></html>
+</body><!-- Mirrored from microformats.org/wiki/microformats2-parsing-brainstorming by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 May 2017 19:51:27 GMT --></html>

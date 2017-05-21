@@ -1,10 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/h-event by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 Jun 2016 19:41:10 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/h-event by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 May 2017 19:51:27 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
 
 	<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 	
 	<meta content="MediaWiki 1.13.2" name="generator"/>
-		<meta content="h-event,h-adr,h-calendar-to-do,h-card,h-geo,hCalendar,iCalendar,irc,microformats,microformats2,microformats2-parsing" name="keywords"/>
+		<meta content="h-event,IRC,h-adr,h-calendar-to-do,h-card,h-entry,h-event-issues,h-geo,hCalendar,iCalendar,irc" name="keywords"/>
 		
 		
 		
@@ -43,14 +43,26 @@
 		    </div>
 		        
         <div class="entry-content">
-		<p><span class="h-event vcard"><span class="p-name fn"><a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek Çelik</a></span> (<span class="p-role role">Editor</span>)</span>
+		<p><dfn style="font-style:normal;font-weight:bold">h-event</dfn> is a simple, open format for events on the web. h-event is often used with both event listings and individual event pages. h-event is one of several open <a href="http://microformats.org/wiki/microformats" title="microformats">microformat</a> draft standards suitable for embedding data in HTML/HTML5.
+</p><p>h-event is the <a href="microformats2.html" title="microformats2">microformats2</a> update to [[hCalendar] [.]<a class="external autonumber" href="http://www.landrecordinfo.in/" rel="nofollow" title="http://www.landrecordinfo.in/">[1]</a>
 </p>
-<hr/>
-<p><dfn style="font-style:normal;font-weight:bold">h-event</dfn> is a simple, open format for publishing events on the web. h-event is one of several open <a href="http://microformats.org/wiki/microformats" title="microformats">microformat</a> draft standards suitable for embedding data in HTML/HTML5.
-</p><p>h-event is the <a href="microformats2.html" title="microformats2">microformats2</a> update to <a class="mw-redirect" href="http://microformats.org/wiki/hCalendar" title="hCalendar">hCalendar</a>.
-</p><p><small>Per <a class="external text" href="http://creativecommons.org/publicdomain/zero/1.0/" rel="nofollow" title="http://creativecommons.org/publicdomain/zero/1.0/">CC0</a>, to the extent possible under law, the editors have waived all copyright and related or neighboring rights to this work. In addition, as of 2016-06-22, the editors have made this specification available under the <a class="external text" href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="nofollow" title="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0">Open Web Foundation Agreement Version 1.0</a>.</small>
-</p>
+<dl><dt><span id="Status">Status</span>
+</dt><dd>This is a <b>Living Specification</b> yet mature enough to encourage additional implementations and <a href="http://microformats.org/wiki/h-event-issues" title="h-event-issues">feedback</a>.
+</dd><dt>Participate
+</dt><dd><a class="external text" href="https://github.com/microformats/h-event/issues" rel="nofollow" title="https://github.com/microformats/h-event/issues">Open Issues</a>
+</dd><dd><a class="mw-redirect" href="http://microformats.org/wiki/IRC" title="IRC">IRC</a>: <a class="external text" href="irc://irc.freenode.net/microformats" rel="nofollow" title="irc://irc.freenode.net/microformats">#microformats on Freenode</a>
+</dd></dl>
+<div class="p-author h-card vcard">
+<dl><dt><span class="p-role role">Editor</span>
+</dt><dd><span class="p-name fn"><a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek Çelik</a></span>
+</dd></dl>
+</div>
+<dl><dt>License
+</dt><dd> <small>Per <a class="external text" href="http://creativecommons.org/publicdomain/zero/1.0/" rel="nofollow" title="http://creativecommons.org/publicdomain/zero/1.0/">CC0</a>, to the extent possible under law, the editors have waived all copyright and related or neighboring rights to this work. In addition, as of 2017-05-21, the editors have made this specification available under the <a class="external text" href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="nofollow" title="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0">Open Web Foundation Agreement Version 1.0</a>.</small>
+</dd></dl>
 
+<p><br/>
+</p>
 <a name="Example"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Example"></a> Example </span></h2>
 <p>Here is a simple event example:
 </p>
@@ -112,6 +124,15 @@
 </p>
 <ul><li> <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-attendee"></a>p-attendee</code></b> - a person attending the event, optionally embed <a href="h-card.html" title="h-card">h-card</a>
 </li></ul>
+<div class="discussion">
+<ul><li> This draft has not been updated in almost 2 years. During this period, <code><a class="dashAnchor" name="//apple_ref/cpp/Object/h-entry"></a>h-entry</code> <code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-rsvp"></a>p-rsvp</code> has been standardised, thus making it robust and mature enough for the addition. I guess it's about time to unlabel <code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-attendee"></a>p-attendee</code> as experimental.
+<ul><li> I've filed <a class="external free" href="https://github.com/microformats/h-event/issues/2" rel="nofollow" title="https://github.com/microformats/h-event/issues/2">https://github.com/microformats/h-event/issues/2</a> to track advancing this draft as a whole. Let's do that with the existing draft before discussing p-attendee in particular. And rather than guessing, take a look at the vocabulary maturity levels in h-entry and perhaps help evaluate (in another issue) p-attendee according to those criteria. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 01:10, 28 February 2017 (UTC)
+</li></ul>
+</li><li> I would also suggest to extend expected value to <a href="h-entry.html" title="h-entry">h-entry</a>, so that, while the personal info can be preserved, the attendee can also support p-rsvp property of h-entry.
+<ul><li> I don't understand this. p-attendee is supposed to represent a person, e.g. an <a href="h-card.html" title="h-card">h-card</a>. How would it having that be an <a href="h-entry.html" title="h-entry">h-entry</a> make sense and work (from a publishing and consuming code perspective)? This proposed extension to p-attendee may be worth its own issue as well. <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 01:10, 28 February 2017 (UTC)
+</li></ul>
+</li></ul>
+</div>
 <p>All properties are optional.
 </p>
 <a name="Status"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Status"></a> Status </span></h2>
@@ -139,12 +160,12 @@
 <a name="Examples_in_the_wild"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Examples%20in%20the%20wild"></a> Examples in the wild </span></h2>
 <p>Real world in the wild examples:
 </p>
-<ul><li> ... add uses of h-event you see in the wild here.
+<ul><li> ... add uses of h-event you see in the wild here[.][<a class="external text" href="http://www.example.com/" rel="nofollow" title="http://www.example.com">link title</a>[<a class="external text" href="http://www.example.com/" rel="nofollow" title="http://www.example.com">link title</a>]]
 </li><li> <a class="external text" href="http://www.w3.org/conf/" rel="nofollow" title="http://www.w3.org/conf/">W3Conf 2013</a> uses h-event for the main event, and h-card for all the speakers and notable attendees. The h-cards make particularly good use of implied name, url, and photo properties.
 </li><li> <a class="external text" href="http://tantek.com/" rel="nofollow" title="http://tantek.com/">Tantek Çelik</a> uses h-event on his home page
 </li><li> <a class="external text" href="http://tantek.com/presentations/2012/06/microformats" rel="nofollow" title="http://tantek.com/presentations/2012/06/microformats">microformats.org at 7 years</a> presentation with h-event
 </li><li> <a class="external text" href="http://tantek.com/presentations/2012/06/pdf2012-indieweb.html" rel="nofollow" title="http://tantek.com/presentations/2012/06/pdf2012-indieweb.html">Rise of the Indie Web hCards</a> (from Personal Democracy Forum 2012 #pdf12 #pdf2012) has <a href="microformats2.html" title="microformats2">microformats2</a> h-event and h-card markup
-</li><li> WebMaker by Mozilla has h-event and h-card on event search (e.g. <a class="external text" href="https://webmaker.org/en-US/events/near/?lat=45.5234515&amp;lng=-122.6762071" rel="nofollow" title="https://webmaker.org/en-US/events/near/?lat=45.5234515&amp;lng=-122.6762071">search near Portland Oregon</a>) and event pages (e.g. <a class="external text" href="https://webmaker.org/en-US/events/192f56eb9/" rel="nofollow" title="https://webmaker.org/en-US/events/192f56eb9/">IndieWebCamp 2012</a>).<a class="external autonumber" href="https://twitter.com/microformats/status/212207925643587585" rel="nofollow" title="https://twitter.com/microformats/status/212207925643587585">[1]</a>
+</li><li> WebMaker by Mozilla has h-event and h-card on event search (e.g. <a class="external text" href="https://webmaker.org/en-US/events/near/?lat=45.5234515&amp;lng=-122.6762071" rel="nofollow" title="https://webmaker.org/en-US/events/near/?lat=45.5234515&amp;lng=-122.6762071">search near Portland Oregon</a>) and event pages (e.g. <a class="external text" href="https://webmaker.org/en-US/events/192f56eb9/" rel="nofollow" title="https://webmaker.org/en-US/events/192f56eb9/">IndieWebCamp 2012</a>).<a class="external autonumber" href="https://twitter.com/microformats/status/212207925643587585" rel="nofollow" title="https://twitter.com/microformats/status/212207925643587585">[2]</a>
 </li><li> <a class="external text" href="http://indiewebcamp.com/" rel="nofollow" title="http://indiewebcamp.com">IndieWebCamp</a> has <a href="microformats2.html" title="microformats2">microformats2</a> h-event markup with embedded h-cards for the organizers and the location.
 </li><li> <a class="external text" href="https://wiki.mozilla.org/Events" rel="nofollow" title="https://wiki.mozilla.org/Events">Mozilla Events</a> page has <a href="microformats2.html" title="microformats2">microformats2</a> h-event markup with attendees marked up with h-card.
 </li></ul>
@@ -202,7 +223,7 @@ Properties: (parsed as <b>p-</b> plain text unless otherwise specified)
 
 <!-- 
 NewPP limit report
-Preprocessor node count: 100/1000000
+Preprocessor node count: 105/1000000
 Post-expand include size: 1136/2097152 bytes
 Template argument size: 16/2097152 bytes
 Expensive parser function count: 0/100
@@ -245,11 +266,11 @@ Retrieved from "<a href="h-event.html">http://microformats.org/wiki/h-event</a>"
 </div>
 
 		
-<!-- Served in 0.377 secs. -->
+<!-- Served in 0.349 secs. -->
 
 
 
 
 
 
-</body><!-- Mirrored from microformats.org/wiki/h-event by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 Jun 2016 19:41:10 GMT --></html>
+</body><!-- Mirrored from microformats.org/wiki/h-event by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 May 2017 19:51:27 GMT --></html>

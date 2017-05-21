@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/h-feed by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 Jun 2016 19:41:10 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/h-feed by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 May 2017 19:51:27 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
 
 	<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 	
@@ -45,7 +45,7 @@
 		<p><br/>
 <dfn style="font-style:normal;font-weight:bold">h-feed</dfn> is a <a href="microformats2.html" title="microformats2">microformats2</a> draft for marking up a stream or feed of <a href="h-entry.html" title="h-entry">h-entry</a> posts, like complete posts on a home page or archive pages, or summaries or other brief lists of posts.
 </p><p>h-feed is the <a href="microformats2.html" title="microformats2">microformats2</a> update to <a class="mw-redirect" href="http://microformats.org/wiki/hAtom" title="hAtom">hAtom</a>'s "hfeed".
-</p><p><small>Per <a class="external text" href="http://creativecommons.org/publicdomain/zero/1.0/" rel="nofollow" title="http://creativecommons.org/publicdomain/zero/1.0/">CC0</a>, to the extent possible under law, the editors have waived all copyright and related or neighboring rights to this work. In addition, as of 2016-06-22, the editors have made this specification available under the <a class="external text" href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="nofollow" title="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0">Open Web Foundation Agreement Version 1.0</a>.</small>
+</p><p><small>Per <a class="external text" href="http://creativecommons.org/publicdomain/zero/1.0/" rel="nofollow" title="http://creativecommons.org/publicdomain/zero/1.0/">CC0</a>, to the extent possible under law, the editors have waived all copyright and related or neighboring rights to this work. In addition, as of 2017-05-21, the editors have made this specification available under the <a class="external text" href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="nofollow" title="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0">Open Web Foundation Agreement Version 1.0</a>.</small>
 </p>
 
 <a name="Properties"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Properties"></a> Properties </span></h2>
@@ -74,7 +74,7 @@
 </li><li> <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-entry"></a>p-entry</code></b> - to be more consistent with the cascading of p-author or <a class="external text" href="http://microformats.org/wiki/comment-brainstorming#Proposal" rel="nofollow" title="http://microformats.org/wiki/comment-brainstorming#Proposal">p-comment</a>.
 </li></ul>
 <a name="Status"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Status"></a> Status </span></h2>
-<p><b>h-feed</b> is a microformats.org draft specification. Public discussion on h-feed takes place on <a href="http://microformats.org/wiki/h-entry-feedback" title="h-entry-feedback">h-entry-feedback</a> and the #microformats <a href="http://microformats.org/wiki/irc" title="irc">irc</a> channel on irc.freenode.net.
+<p><b>h-feed</b> is a microformats.org draft specification. Public discussion on h-feed takes place on <a class="mw-redirect" href="http://microformats.org/wiki/h-entry-feedback" title="h-entry-feedback">h-entry-feedback</a> and the #microformats <a href="http://microformats.org/wiki/irc" title="irc">irc</a> channel on irc.freenode.net.
 </p><p>h-feed is ready to use and implemented in the wild, but for backwards compatibility you should also mark h-feed up as a classic <a class="mw-redirect" href="http://microformats.org/wiki/hAtom" title="hAtom">hAtom</a> "hfeed".
 </p>
 <a name="Use_Cases"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Use%20Cases"></a> Use Cases </span></h2>
@@ -107,7 +107,8 @@
 <ul><li> Bridgy
 </li></ul>
 <a name="Converters"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Converters"></a> Converters </span></h3>
-<ul><li> <b><a class="external text" href="http://pipes.yahoo.com/pipes/pipe.info?_id=afc5568b4e8643bfb05436b1caaf91bc" rel="nofollow" title="http://pipes.yahoo.com/pipes/pipe.info?_id=afc5568b4e8643bfb05436b1caaf91bc">microformats to RSS</a></b> - a Yahoo! pipe that converts a URL containing an <strong class="selflink">h-feed</strong> containing h-entries, into an <a class="mw-redirect" href="http://microformats.org/wiki/RSS" title="RSS">RSS</a> feed. (<a class="external text" href="http://waterpigs.co.uk/notes/4SeNi5/" rel="nofollow" title="http://waterpigs.co.uk/notes/4SeNi5/">2013-10-21 blog post announcing</a>)
+<ul><li> <b><a class="external text" href="http://unmung.com/" rel="nofollow" title="http://unmung.com">unmung</a></b> - will transform an RSS or Atom feed into an <strong class="selflink">h-feed</strong> containing h-entries,
+</li><li> <b><a class="external text" href="http://pipes.yahoo.com/pipes/pipe.info?_id=afc5568b4e8643bfb05436b1caaf91bc" rel="nofollow" title="http://pipes.yahoo.com/pipes/pipe.info?_id=afc5568b4e8643bfb05436b1caaf91bc">microformats to RSS</a></b> - a Yahoo! pipe that converts a URL containing an <strong class="selflink">h-feed</strong> containing h-entries, into an <a class="mw-redirect" href="http://microformats.org/wiki/RSS" title="RSS">RSS</a> feed. (<a class="external text" href="http://waterpigs.co.uk/notes/4SeNi5/" rel="nofollow" title="http://waterpigs.co.uk/notes/4SeNi5/">2013-10-21 blog post announcing</a>)
 </li></ul>
 <a name="Parsing"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Parsing"></a> Parsing </span></h2>
 <p>When parsing a page for an h-feed, do so per <a href="microformats2.html" title="microformats2">microformats2</a>.
@@ -127,12 +128,6 @@
   … 
   <span class="sc2"><span class="kw2">&lt;title</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-name"</span><span class="kw2">&gt;</span></span>sandeep.io<span class="sc2"><span class="kw2">&lt;/title&gt;</span></span>
   …</pre></div>
-<p>Real world example:
-</p>
-<ul><li> Sandeep Shetty has marked up his home page, <a class="external free" href="http://sandeep.io/" rel="nofollow" title="http://sandeep.io/">http://sandeep.io/</a> in this way.
-</li></ul>
-<p><br/>
-</p>
 <a name="What_should_a_subscriber_do_with_a_page_with_multiple_feeds"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/What%20should%20a%20subscriber%20do%20with%20a%20page%20with%20multiple%20feeds"></a> What should a subscriber do with a page with multiple feeds </span></h3>
 <p><i>What do I do when a user subscribes to a URL with multiple distinct h-feeds?</i>
 </p><p>A feed reader should subscribe to the first h-feed it finds at a URL.
@@ -190,11 +185,11 @@ Retrieved from "<a href="h-feed.html">http://microformats.org/wiki/h-feed</a>"</
 </div>
 
 		
-<!-- Served in 0.305 secs. -->
+<!-- Served in 0.218 secs. -->
 
 
 
 
 
 
-</body><!-- Mirrored from microformats.org/wiki/h-feed by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 Jun 2016 19:41:10 GMT --></html>
+</body><!-- Mirrored from microformats.org/wiki/h-feed by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 May 2017 19:51:27 GMT --></html>

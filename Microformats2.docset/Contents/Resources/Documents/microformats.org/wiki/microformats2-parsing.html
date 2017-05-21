@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/microformats2-parsing by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 Jun 2016 19:41:09 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/microformats2-parsing by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 May 2017 19:51:24 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
 
 	<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 	
@@ -45,8 +45,8 @@
         <div class="entry-content">
 		<p><dfn style="font-style:normal;font-weight:bold"><a href="microformats2.html" title="microformats2">microformats2</a></dfn> is a simple, open format for marking up data in HTML. The microformats2 parsing specification describes how to <a href="#implementations" title="">implement</a> a microformats2 parser, independent of any specific vocabularies.
 </p>
-<dl><dt>Status
-</dt><dd>This is a <b>Living Specification</b> with several interoperable <a href="#implementations" title="">implementations</a>
+<dl><dt><span id="status">Status</span>
+</dt><dd>This is a <b>Living Specification</b> with several interoperable <a href="#implementations" title="">implementations</a>. This specification is stable, subject to editorial changes only for improving clarity of existing meaning. While substantive changes are unexpected, it is a living specification subject to substantive change by issues and errata filed in response to implementation experience, requiring consensus among participating implementers (since 2015-01-21) as part of an explicit <a href="#change_control" title="">change control</a> process. There are currently no draft or proposed new features in this specification, and if any were to be added, they would be explicitly labeled as such.<br/>Note: This specification is only marked as a "Draft Specification" because of pending edits from <a href="microformats2-parsing-issues.html" title="microformats2-parsing-issues">resolved issues before 2016-06-20</a>. Once those edits have been completed, the link to [[Category:Draft Specifications]] at the bottom of this document should be changed to [[Category:Specifications]].
 </dd><dt>Participate
 </dt><dd><a class="external text" href="https://github.com/microformats/microformats2-parsing/issues" rel="nofollow" title="https://github.com/microformats/microformats2-parsing/issues">Open Issues</a>
 </dd><dd><a href="microformats2-parsing-issues.html" title="microformats2-parsing-issues">Resolved issues before 2016-06-20</a>
@@ -58,7 +58,7 @@
 </dd></dl>
 </div>
 <dl><dt>License
-</dt><dd> <small>Per <a class="external text" href="http://creativecommons.org/publicdomain/zero/1.0/" rel="nofollow" title="http://creativecommons.org/publicdomain/zero/1.0/">CC0</a>, to the extent possible under law, the editors have waived all copyright and related or neighboring rights to this work. In addition, as of 2016-06-22, the editors have made this specification available under the <a class="external text" href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="nofollow" title="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0">Open Web Foundation Agreement Version 1.0</a>.</small>
+</dt><dd> <small>Per <a class="external text" href="http://creativecommons.org/publicdomain/zero/1.0/" rel="nofollow" title="http://creativecommons.org/publicdomain/zero/1.0/">CC0</a>, to the extent possible under law, the editors have waived all copyright and related or neighboring rights to this work. In addition, as of 2017-05-21, the editors have made this specification available under the <a class="external text" href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="nofollow" title="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0">Open Web Foundation Agreement Version 1.0</a>.</small>
 </dd></dl>
 
 <a name="algorithm"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/algorithm"></a> algorithm </span></h2>
@@ -114,82 +114,85 @@
 <p>The "*" for root (and property) class names consists only of lowercase a-z and '-' characters.
 </p>
 <a name="parse_an_element_for_properties"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/parse%20an%20element%20for%20properties"></a> parse an element for properties </span></h3>
-<a name="parsing_a_p-_property"></a><h4> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/parsing%20a%20p-%20property"></a> parsing a p- property </span></h4>
-<p>To parse an element for a p-x property value whether explicit "p-*" or backcompat equivalent:
+<a name="parsing_a_p-_property"></a><h4> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/parsing%20a%20p-%20property"></a> parsing a <code>p-</code> property </span></h4>
+<p>To parse an element for a <code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-x"></a>p-x</code> property value (whether explicit <code>p-*</code> or backcompat equivalent):
 </p>
-<ul><li> parse the element for the <a href="http://microformats.org/wiki/value-class-pattern" title="value-class-pattern">value-class-pattern</a>, if a value is found then return it.
-</li><li> if abbr.p-x[title], then return the title attribute
-</li><li> else if data.p-x[value] or input.p-x[value], then return the value attribute
-</li><li> else if img.p-x[alt] or area.p-x[alt], then return the alt attribute
-</li><li> else return the textContent of the element, replacing any nested <code>&lt;img&gt;</code> elements with their <code>alt</code> attribute if present, or otherwise their <code>src</code> attribute if present adding a space at the beginning and end, resolving any relative URLs, and removing all leading/trailing whitespace.
+<ul><li> Parse the element for the <a href="http://microformats.org/wiki/value-class-pattern" title="value-class-pattern">value-class-pattern</a>. If a value is found, return it.
+</li><li> If <code>abbr.p-x[title]</code>, return the <code>title</code> attribute.
+</li><li> else if <code>data.p-x[value]</code> or <code>input.p-x[value]</code>, then return the <code>value</code> attribute
+</li><li> else if <code>img.p-x[alt]</code> or <code>area.p-x[alt]</code>, then return the <code>alt</code> attribute
+</li><li> else return the <code>textContent</code> of the element after:
+<ul><li> dropping any nested <code>&lt;script&gt;</code> &amp; <code>&lt;style&gt;</code> elements;
+</li><li> replacing any nested <code>&lt;img&gt;</code> elements with their <code>alt</code> attribute, if present; otherwise their <code>src</code> attribute, if present, adding a space at the beginning and end, resolving any relative URLs, and removing all leading/trailing whitespace.
 </li></ul>
-<a name="parsing_a_u-_property"></a><h4> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/parsing%20a%20u-%20property"></a> parsing a u- property </span></h4>
-<p>To parse an element for a u-x property value whether explicit "u-*" or backcompat equivalent:
+</li></ul>
+<a name="parsing_a_u-_property"></a><h4> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/parsing%20a%20u-%20property"></a> parsing a <code>u-</code> property </span></h4>
+<p>To parse an element for a <code><a class="dashAnchor" name="//apple_ref/cpp/Property/u-x"></a>u-x</code> property value (whether explicit <code>u-*</code> or backcompat equivalent):
 </p>
-<ul><li> if a.u-x[href] or area.u-x[href], then get the href attribute
-</li><li> else if img.u-x[src] or audio.u-x[src] or video.u-x[src] or source.u-x[src], then get the src attribute
-</li><li> else if object.u-x[data], then get the data attribute
-</li><li> <a href="microformats2-parsing-issues.html#use_poster_if_no_src_on_video_for_u_props" title="microformats2-parsing-issues">PROPOSED 2015-12-13</a>: else if video.u-x[poster], then get the poster attribute
-</li><li> if there is a gotten value, return the normalized absolute URL of it, following the containing document's language's rules for resolving relative URLs (e.g. in HTML, use the current URL context as determined by the page, and first <code>&lt;base&gt;</code> element if any).
-</li><li> else parse the element for the <a href="http://microformats.org/wiki/value-class-pattern" title="value-class-pattern">value-class-pattern</a>, if a value is found then return it.
-</li><li> else if abbr.u-x[title], then return the title attribute
-</li><li> else if data.u-x[value] or input.u-x[value], then return the value attribute
-</li><li> else return the textContent of the element after removing all leading/trailing whitespace.
+<ul><li> if <code>a.u-x[href]</code> or <code>area.u-x[href]</code>, then get the <code>href</code> attribute
+</li><li> else if <code>img.u-x[src]</code> or <code>audio.u-x[src]</code> or <code>video.u-x[src]</code> or <code>source.u-x[src]</code>, then get the <code>src</code> attribute
+</li><li> else if <code>video.u-x[poster]</code>, then get the <code>poster</code> attribute
+</li><li> else if <code>object.u-x[data]</code>, then get the <code>data</code> attribute
+</li><li> if there is a gotten value, return the normalized absolute URL of it, following the containing document's language's rules for resolving relative URLs (e.g. in HTML, use the current URL context as determined by the page, and first <code>&lt;base&gt;</code> element, if any).
+</li><li> else parse the element for the <a href="http://microformats.org/wiki/value-class-pattern" title="value-class-pattern">value-class-pattern</a>. If a value is found, return it.
+</li><li> else if <code>abbr.u-x[title]</code>, then return the <code>title</code> attribute
+</li><li> else if <code>data.u-x[value]</code> or <code>input.u-x[value]</code>, then return the <code>value</code> attribute
+</li><li> else return the <code>textContent</code> of the element after removing all leading/trailing whitespace and nested <code>&lt;script&gt;</code> &amp; <code>&lt;style&gt;</code> elements.
 </li></ul>
-<a name="parsing_a_dt-_property"></a><h4> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/parsing%20a%20dt-%20property"></a> parsing a dt- property </span></h4>
-<p>To parse an element for a dt-x property value whether explicit "dt-*" or backcompat equivalent:
+<a name="parsing_a_dt-_property"></a><h4> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/parsing%20a%20dt-%20property"></a> parsing a <code>dt-</code> property </span></h4>
+<p>To parse an element for a <code><a class="dashAnchor" name="//apple_ref/cpp/Property/dt-x"></a>dt-x</code> property value (whether explicit <code>dt-*</code> or backcompat equivalent):
 </p>
-<ul><li> parse the element for the <a href="http://microformats.org/wiki/value-class-pattern" title="value-class-pattern">value-class-pattern</a> including the date and time parsing rules, if a value is found then return it.
-</li><li> if time.dt-x[datetime] or ins.dt-x[datetime] or del.dt-x[datetime], then return the datetime attribute
-</li><li> else if abbr.dt-x[title], then return the title attribute
-</li><li> else if data.dt-x[value] or input.dt-x[value], then return the value attribute
-</li><li> else return the textContent of the element after removing all leading/trailing whitespace.
+<ul><li> parse the element for the <a href="http://microformats.org/wiki/value-class-pattern" title="value-class-pattern">value-class-pattern</a>, including the date and time parsing rules. If a value is found, then return it.
+</li><li> if <code>time.dt-x[datetime]</code> or <code>ins.dt-x[datetime]</code> or <code>del.dt-x[datetime]</code>, then return the <code>datetime</code> attribute
+</li><li> else if <code>abbr.dt-x[title]</code>, then return the <code>title</code> attribute
+</li><li> else if <code>data.dt-x[value]</code> or <code>input.dt-x[value]</code>, then return the <code>value</code> attribute
+</li><li> else return the <code>&gt;textContent</code>&gt; of the element after removing all leading/trailing whitespace and nested <code>&lt;script&gt;</code> &amp; <code>&lt;style&gt;</code> elements.
 </li></ul>
-<a name="parsing_an_e-_property"></a><h4> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/parsing%20an%20e-%20property"></a> parsing an e- property </span></h4>
-<p>To parse an element for a e-x property value whether explicit "e-*" or backcompat equivalent:
+<a name="parsing_an_e-_property"></a><h4> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/parsing%20an%20e-%20property"></a> parsing an <code>e-</code> property </span></h4>
+<p>To parse an element for a <code><a class="dashAnchor" name="//apple_ref/cpp/Property/e-x"></a>e-x</code> property value (whether explicit "<code>e-*"</code> or backcompat equivalent):
 </p>
 <ul><li> return a dictionary with two keys:
-<ul><li> <code>html</code>: the innerHTML of the element by using the <a class="external text" href="https://html.spec.whatwg.org/multipage/syntax.html#serialising-html-fragments" rel="nofollow" title="https://html.spec.whatwg.org/multipage/syntax.html#serialising-html-fragments">HTML spec: Serializing HTML Fragments algorithm</a>, with leading/trailing whitespace removed.
-</li><li> <code>value</code>: the textContent of the element, replacing any nested <code>&lt;img&gt;</code> elements with their <code>alt</code> attribute if present, or otherwise their <code>src</code> attribute if present, resolving the URL if it’s relative.
+<ul><li> <code>html</code>: the <code>innerHTML</code> of the element by using the <a class="external text" href="https://html.spec.whatwg.org/multipage/syntax.html#serialising-html-fragments" rel="nofollow" title="https://html.spec.whatwg.org/multipage/syntax.html#serialising-html-fragments">HTML spec: Serializing HTML Fragments algorithm</a>, with leading/trailing whitespace removed.
+</li><li> <code>value</code>: the <code>textContent</code> of the element, replacing any nested <code>&lt;img&gt;</code> elements with their <code>alt</code> attribute if present, or otherwise their <code>src</code> attribute if present, resolving the URL if it’s relative.
 </li></ul>
 </li></ul>
 <a name="parsing_for_implied_properties"></a><h4> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/parsing%20for%20implied%20properties"></a> parsing for implied properties </span></h4>
-<p>Imply properties only on explicit h-x class name root microformat element (no backcompat roots)
+<p>Imply properties only on explicit <code><a class="dashAnchor" name="//apple_ref/cpp/Object/h-x"></a>h-x</code> class name root microformat element (no backcompat roots):
 </p>
-<ul><li> if no explicit "name" property, 
+<ul><li> if no explicit "<code>name</code>" property, 
 </li><li> then imply by:
-<ul><li> if img.h-x or area.h-x, then use its alt attribute for name
-</li><li> else if abbr.h-x[title] then use its title attribute for name
-</li><li> else if .h-x&gt;img:only-child[alt]:not([alt=""]):not[.h-*] then use that img alt for name
-</li><li> else if .h-x&gt;area:only-child[alt]:not([alt=""]):not[.h-*] then use that area alt for name
-</li><li> else if .h-x&gt;abbr:only-child[title]:not([title=""]):not[.h-*] then use that abbr title for name
-</li><li> else if .h-x&gt;:only-child:not[.h-*]&gt;img:only-child[alt]:not([alt=""]):not[.h-*] then use that img alt for name
-</li><li> else if .h-x&gt;:only-child:not[.h-*]&gt;area:only-child[alt]:not([alt=""]):not[.h-*] then use that area alt for name
-</li><li> else if .h-x&gt;:only-child:not[.h-*]&gt;abbr:only-child[title]:not([title=""]):not[.h-*] use that abbr title for name
-</li><li> else use the textContent of the .h-x for name
-</li><li> drop all leading and trailing white-space from name
+<ul><li> if <code>img.h-x</code> or <code>area.h-x</code>, then use its <code>alt</code> attribute for name
+</li><li> else if <code>abbr.h-x[title]</code> then use its <code>title</code> attribute for name
+</li><li> else if <code>.h-x&gt;img:only-child[alt]:not([alt=""]):not[.h-*]</code> then use that <code>img</code>’s <code>alt</code> for name
+</li><li> else if <code>.h-x&gt;area:only-child[alt]:not([alt=""]):not[.h-*]</code> then use that <code>area</code>’s <code>alt</code> for name
+</li><li> else if <code>.h-x&gt;abbr:only-child[title]:not([title=""]):not[.h-*]</code> then use that <code>abbr</code> <code>title</code> for name
+</li><li> else if <code>.h-x&gt;:only-child:not[.h-*]&gt;img:only-child[alt]:not([alt=""]):not[.h-*]</code> then use that <code>img</code>’s <code>alt</code> for name
+</li><li> else if <code>.h-x&gt;:only-child:not[.h-*]&gt;area:only-child[alt]:not([alt=""]):not[.h-*]</code> then use that <code>area</code>’s <code>alt</code> for name
+</li><li> else if <code>.h-x&gt;:only-child:not[.h-*]&gt;abbr:only-child[title]:not([title=""]):not[.h-*]</code> use that <code>abbr</code>’s <code>title</code> for name
+</li><li> else use the <code>textContent</code> of the <code>.h-x</code> for name
+</li><li> drop all leading and trailing whitespace from name
 </li></ul>
-</li><li> if no explicit "photo" property, 
+</li><li> if no explicit "<code>photo</code>" property, 
 </li><li> then imply by:
-<ul><li> if img.h-x[src] then use src for photo
-</li><li> else if object.h-x[data] then use data for photo
-</li><li> else if .h-x&gt;img[src]:only-of-type:not[.h-*] then use that img src for photo
-</li><li> else if .h-x&gt;object[data]:only-of-type:not[.h-*] then use that object data for photo
-</li><li> else if .h-x&gt;:only-child:not[.h-*]&gt;img[src]:only-of-type:not[.h-*] then use that img src for photo
-</li><li> else if .h-x&gt;:only-child:not[.h-*]&gt;object[data]:only-of-type:not[.h-*] then use that object data for photo
-</li><li> if there is a gotten photo value, return the normalized absolute URL of it, following the containing document's language's rules for resolving relative URLs (e.g. in HTML, use the current URL context as determined by the page, and first &lt;base&gt; element if any).
+<ul><li> if <code>img.h-x[src]</code>, then use <code>src</code> for photo
+</li><li> else if <code>object.h-x[data]</code> then use <code>data</code> for photo
+</li><li> else if <code>.h-x&gt;img[src]:only-of-type:not[.h-*]</code> then use that <code>img</code> <code>src</code> for photo
+</li><li> else if <code>.h-x&gt;object[data]:only-of-type:not[.h-*]</code> then use that <code>object</code>’s <code>data</code> for photo
+</li><li> else if <code>.h-x&gt;:only-child:not[.h-*]&gt;img[src]:only-of-type:not[.h-*]</code>, then use that <code>img</code>’s <code>src</code> for photo
+</li><li> else if <code>.h-x&gt;:only-child:not[.h-*]&gt;object[data]:only-of-type:not[.h-*]</code>, then use that <code>object</code>’s <code>data</code> for photo
+</li><li> if there is a gotten photo value, return the normalized absolute URL of it, following the containing document's language's rules for resolving relative URLs (e.g. in HTML, use the current URL context as determined by the page, and first <code>&lt;base&gt;</code> element, if any).
 </li></ul>
-</li><li> if no explicit "url" property,
+</li><li> if no explicit "<code>url</code>" property,
 </li><li> then imply by:
-<ul><li> if a.h-x[href] or area.h-x[href] then use that [href] for url
-</li><li> else if .h-x&gt;a[href]:only-of-type:not[.h-*] then use that [href] for url
-</li><li> else if .h-x&gt;area[href]:only-of-type:not[.h-*] then use that [href] for url
-</li><li> else if .h-x&gt;:only-child:not[.h-*]&gt;a[href]:only-of-type:not[.h-*] then use that [href] for url
-</li><li> else if .h-x&gt;:only-child:not[.h-*]&gt;area[href]:only-of-type:not[.h-*] then use that [href] for url
-</li><li> if there is a gotten url value, return the normalized absolute URL of it, following the containing document's language's rules for resolving relative URLs (e.g. in HTML, use the current URL context as determined by the page, and first &lt;base&gt; element if any).
+<ul><li> if <code>a.h-x[href]</code> or <code>area.h-x[href]</code> then use that <code>[href]</code> for url
+</li><li> else if <code>.h-x&gt;a[href]:only-of-type:not[.h-*]</code>, then use that <code>[href]</code> for url
+</li><li> else if <code>.h-x&gt;area[href]:only-of-type:not[.h-*]</code>, then use that <code>[href]</code> for url
+</li><li> else if <code>.h-x&gt;:only-child:not[.h-*]&gt;a[href]:only-of-type:not[.h-*]</code>, then use that <code>[href]</code> for url
+</li><li> else if <code>.h-x&gt;:only-child:not[.h-*]&gt;area[href]:only-of-type:not[.h-*]</code>, then use that <code>[href]</code> for url
+</li><li> if there is a gotten url value, return the normalized absolute URL of it, following the containing document's language's rules for resolving relative URLs (e.g. in HTML, use the current URL context as determined by the page, and first <code>&lt;base&gt;</code> element, if any).
 </li></ul>
 </li></ul>
-<p>Note: The same markup for a property should not be causing that property to occur in <em>both</em> a microformat and one embedded inside - such a property should only be showing up on one of them. The parsing algorithm has details to prevent that, such as the <code>:not[.h-*]</code> tests above.
+<p><strong>Note:</strong> The same markup for a property should not be causing that property to occur in <em>both</em> a microformat and one embedded inside - such a property should only be showing up on one of them. The parsing algorithm has details to prevent that, such as the <code>:not[.h-*]</code> tests above.
 </p>
 <a name="parse_a_hyperlink_element_for_rel_microformats"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/parse%20a%20hyperlink%20element%20for%20rel%20microformats"></a> parse a hyperlink element for rel microformats </span></h3>
 <p>To parse a hyperlink element (e.g. a or link) for rel microformats: use the following algorithm or an algorithm that produces equivalent results:
@@ -321,6 +324,21 @@
 </li></ul>
 <p>Ports to/for other languages encouraged.
 </p>
+<a name="change_control"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/change%20control"></a> change control </span></h2>
+<p>Minor editorial changes (e.g. fixing minor typos or punctuation) that do not change and preferably clarify the structure and existing intended meaning may be done by anyone without filing issues, requiring only a sufficient "Summary" description field entry for the edit. More than minor but still purely editorial changes may be made by an editor. Anyone may question such editorial changes by undoing corresponding edits without filing an issue. Any further reversion or iteration on such an editorial change must be done by filing an issue.
+</p><p>Per the stable status of this document, substantive issue filing, resolution, and edits are done with the following change control steps, which may nearly all be done asynchronously once an issue is filed to reach the required state of "Resolve by implementation verified rough consensus". All steps should be openly documented (e.g. on this wiki or GitHub issues) such that others may later verify the history of an issue, and all steps are encouraged to be announced on #microformats <a class="mw-redirect" href="http://microformats.org/wiki/IRC" title="IRC">IRC</a> with a link to the issue.
+</p>
+<ul><li> <b>File an issue.</b> Anyone may file a new <a href="microformats2-parsing-issues.html" title="microformats2-parsing-issues">issue</a> and is encouraged to do so, with the caveat that per the stable status, only issues originating as a result of implementation experience are likely to have a substantive impact on this specification.
+</li><li> <b>Propose a resolution.</b> Anyone may propose resolutions to existing issues, and should encourage others in the community, especially implementers, to provide feedback. Proposed resolutions should include what specific text of the spec needs changing, preferably with replacement text, and test cases if applicable (e.g. a resolution could just document the current state more precisely without needing to provide any new test cases).
+</li><li> <b>Provide feedback on proposed resolution(s).</b> Anyone may provide feedback on proposed resolutions with their name attached, in summary (e.g. +1/0/-1 opinions), and additionally with reasoning (required for objections, optional otherwise), or optionally with suggested improvements, or counter-proposals (per "Propose a resolution" above).
+</li><li> <b>Iterate to resolve objections if any.</b> If there are any objections to a proposed resolution, proposer(s) and anyone agreeing should work to iterate on the proposal to resolve objections to the satisfaction (or at least withdrawal of objection) of anyone objecting. The more objections resolved the better, and incremental progress is forward progress.
+</li><li> <b>Broaden implementer consensus.</b> Proposer(s) and anyone agreeing should reach out (e.g. via #microformats <a class="mw-redirect" href="http://microformats.org/wiki/IRC" title="IRC">IRC</a>) to multiple implementers of the specification to get their opinions and feedback on proposal(s). The more implementers providing feedback the better. Iterate to resolve any new objections per "Iterate to resolve objections if any" above.
+</li><li> <b>Encourage and get 1+ implementation(s).</b> Encourage, get, and document 1+ implementation(s) of implementation affecting aspects of a proposed resolution, preferably with a test case if applicable.
+</li><li> <b>Resolve by implementation verified rough consensus.</b> Once there is rough consensus on a proposal (where <dfn>rough consensus</dfn> means <strong>either no objections, or at a minimum no objections by implementers, and explicit positive opinions by 2+ implementers</strong>) and a proposal's feasibility is verified by at least 1 implementation of aspects of the proposal that affect implementations (none needed if there are none, e.g. purely editorial), cite those in a "Resolution:" statement on the issue (e.g. in a comment), and explicitly share this resolution statement and link to issue in the #microformats <a class="mw-redirect" href="http://microformats.org/wiki/IRC" title="IRC">IRC</a> channel.
+</li><li> <b>Edit specification.</b> Normally the spec editor(s) will make edits per implementation verified rough consensus resolutions, however anyone (though especially issue discussion participants) may make a specification edit per a resolution if they are able to verify the citations that the resolution has achieve rough consensus, and has 1+ implementation(s) per "Encourage and get 1+ implementation(s)" above. Edits must contain a "Summary" field entry that at a minimum mention the issue by name, should provide a URL to the issue resolution, and preferably be done by a spec editor or an implementer. Once the edit is made, the issue should be closed, or at least a comment made on the issue requesting that the opener of the issue close the issue.
+</li></ul>
+<p>These change control steps are inspired by the tradition of "Rough consensus and running code" as exhibited by example by IETF and W3C processes, and in that regard, seek to be a philosophically compatible approach to specification iteration. They have been in rough practice since 2015-01-21, increasingly strictly applied since then with consensus of issue discussion participants, and explicitly documented based on issue resolving and spec editing experience.
+</p>
 <a name="see_also"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/see%20also"></a> see also </span></h2>
 <ul><li> <a href="microformats2.html" title="microformats2">microformats2</a>
 </li><li> <a href="microformats2-parsing-faq.html" title="microformats2-parsing-faq">microformats2-parsing-faq</a>
@@ -332,7 +350,7 @@
 
 <!-- 
 NewPP limit report
-Preprocessor node count: 78/1000000
+Preprocessor node count: 208/1000000
 Post-expand include size: 511/2097152 bytes
 Template argument size: 29/2097152 bytes
 Expensive parser function count: 0/100
@@ -375,11 +393,11 @@ Retrieved from "<a href="microformats2-parsing.html">http://microformats.org/wik
 </div>
 
 		
-<!-- Served in 0.371 secs. -->
+<!-- Served in 0.489 secs. -->
 
 
 
 
 
 
-</body><!-- Mirrored from microformats.org/wiki/microformats2-parsing by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 Jun 2016 19:41:10 GMT --></html>
+</body><!-- Mirrored from microformats.org/wiki/microformats2-parsing by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 May 2017 19:51:26 GMT --></html>

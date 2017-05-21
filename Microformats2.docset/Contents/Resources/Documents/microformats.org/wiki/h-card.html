@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/h-card by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 Jun 2016 19:41:10 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/h-card by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 May 2017 19:51:26 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
 
 	<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 	
@@ -48,7 +48,7 @@
 <hr/>
 <p><dfn style="font-style:normal;font-weight:bold">h-card</dfn> is a simple, open format for publishing people and organisations on the web. h-card is one of several open <a href="http://microformats.org/wiki/microformats" title="microformats">microformat</a> draft standards suitable for embedding data in HTML/HTML5.
 </p><p>h-card is the <a href="microformats2.html" title="microformats2">microformats2</a> update to <a class="mw-redirect" href="http://microformats.org/wiki/hCard" title="hCard">hCard</a>.
-</p><p><small>Per <a class="external text" href="http://creativecommons.org/publicdomain/zero/1.0/" rel="nofollow" title="http://creativecommons.org/publicdomain/zero/1.0/">CC0</a>, to the extent possible under law, the editors have waived all copyright and related or neighboring rights to this work. In addition, as of 2016-06-22, the editors have made this specification available under the <a class="external text" href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="nofollow" title="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0">Open Web Foundation Agreement Version 1.0</a>.</small>
+</p><p><small>Per <a class="external text" href="http://creativecommons.org/publicdomain/zero/1.0/" rel="nofollow" title="http://creativecommons.org/publicdomain/zero/1.0/">CC0</a>, to the extent possible under law, the editors have waived all copyright and related or neighboring rights to this work. In addition, as of 2017-05-21, the editors have made this specification available under the <a class="external text" href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="nofollow" title="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0">Open Web Foundation Agreement Version 1.0</a>.</small>
 </p>
 
 <a name="Example"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Example"></a> Example </span></h2>
@@ -218,11 +218,18 @@
   <span class="sc2"><span class="kw2">&lt;/p&gt;</span></span>
 <span class="sc2"><span class="kw2">&lt;/div&gt;</span></span></pre></div>
 <p>Q: Why would you use "p-adr" to cluster associated structured address properties?
-</p><p>A: Because if you have more than one structured address, it helps to cluster which properties go with which address, e.g. home vs. work.
+</p><p>A: Because if you have more than one structured address, clustering which properties go with which address keeps them deterministically together, instead of depending on array indices or other heuristics.
 </p>
 <a name="p-tel"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/p-tel"></a> p-tel </span></h3>
 <p>Note: use of 'value' within 'p-tel' should be automatically handled by the support of the <a href="http://microformats.org/wiki/value-class-pattern" title="value-class-pattern">value-class-pattern</a>. And for now, the former <a class="mw-redirect" href="http://microformats.org/wiki/hCard" title="hCard">hCard</a> 'type' subproperty of 'tel' is dropped/ignored. If there is demonstrable documented need for additional tel types (e.g. fax), we can introduce new flat properties as needed (e.g. p-tel-fax).
 </p>
+<a name="dt-bday"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/dt-bday"></a> dt-bday </span></h3>
+<p>Using truncated representations of dates for birth date is often good practice as noted in <a class="external text" href="https://tools.ietf.org/html/rfc6350#section-4.3.1" rel="nofollow" title="https://tools.ietf.org/html/rfc6350#section-4.3.1">the vcard spec</a> eg
+</p>
+<ul><li> <code>1985-04</code> for April 1985
+</li><li> <code>1985</code> for the year 1985
+</li><li> <code>--04-12</code> for April 12th with no specified year
+</li></ul>
 <a name="Reserved_properties"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Reserved%20properties"></a> Reserved properties </span></h3>
 <p>Reserved properties (not used much, if at all, in practice):
 </p>
@@ -232,12 +239,13 @@
 </li><li> <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/dt-rev"></a>dt-rev</code></b>
 </li></ul>
 <a name="Examples_in_the_wild"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Examples%20in%20the%20wild"></a> Examples in the wild </span></h2>
-<p>Real world in the wild examples:
+<p>Real world in the wild examples of sites and services that publish or consume h-card:
 </p>
 <ul><li> ... add uses of h-card you see in the wild here.
 </li><li> App.net rolled out support for h-card and h-entry on all profile pages and permalink pages as of 2013-08-06 (<a class="external text" href="https://alpha.app.net/voidfiles" rel="nofollow" title="https://alpha.app.net/voidfiles">example</a>)
 </li><li> Brett Comnes marks up his posts with h-card (<a class="external text" href="http://bret.io/2013/06/29/getting-started-with-bower/" rel="nofollow" title="http://bret.io/2013/06/29/getting-started-with-bower/">example</a>)
 </li><li> Ben Werdmuller marks up his homepage and posts with h-card <a class="external text" href="http://werd.io/view/51d5097fbed7ded0633a5956" rel="nofollow" title="http://werd.io/view/51d5097fbed7ded0633a5956">example</a>)
+</li><li> <a class="external text" href="https://joelpurra.com/" rel="nofollow" title="https://joelpurra.com/">Joel Purra</a> uses a hidden h-card with legacy <a class="mw-redirect" href="http://microformats.org/wiki/hCard" title="hCard">hCard</a> fallback markup (to satisfy <a class="external text" href="https://search.google.com/structured-data/testing-tool" rel="nofollow" title="https://search.google.com/structured-data/testing-tool">Google's Structured Data Testing Tool</a>) on the front page
 </li><li> Sandeep Shetty marks his homepage and posts up with h-card and h-entry ([sandeep.io/101 example])
 </li><li> <a class="external text" href="http://eschnou.com/" rel="nofollow" title="http://eschnou.com/">Laurent Eschenauer</a> marks his homepage profile up using h-card
 </li><li> <a class="external text" href="http://tommorris.org/" rel="nofollow" title="http://tommorris.org/">Tom Morris</a> marks himself up with h-card as well as venues he’s checked into (<a class="external text" href="http://tommorris.org/posts/8408" rel="nofollow" title="http://tommorris.org/posts/8408">example</a>)
@@ -260,16 +268,28 @@
 </li><li> <a class="external text" href="http://www.pcwdld.com/" rel="nofollow" title="http://www.pcwdld.com/">PCWDLD.com</a> renders h-cards for download pages(e.g. <a class="external text" href="http://www.pcwdld.com/solarwinds-network-topology-mapper-review" rel="nofollow" title="http://www.pcwdld.com/solarwinds-network-topology-mapper-review">Download page example</a>)
 </li></ul>
 <a name="offline"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/offline"></a> offline </span></h3>
-<ul><li> spreadly marks up share permalink pages with minimal h-cards inside h-entry (<a class="external text" href="http://my.spread.ly/share/51d570bc09e9486562000002" rel="nofollow" title="http://my.spread.ly/share/51d570bc09e9486562000002">example</a>)
+<ul><li> spreadly marks up share permalink pages with minimal h-cards inside h-entry
 </li></ul>
 <a name="Validating"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Validating"></a> Validating </span></h2>
-<ul><li> <b><a class="external text" href="http://indiewebify.waterpigs.co.uk/validate-h-card/" rel="nofollow" title="http://indiewebify.waterpigs.co.uk/validate-h-card/">indiewebify.me h-card validator</a></b> parses <strong class="selflink">h-card</strong> markup and makes suggestions for things to add, with code samples
+<ul><li> <b><a class="external text" href="http://indiewebify.me/validate-h-card/" rel="nofollow" title="http://indiewebify.me/validate-h-card/">indiewebify.me h-card validator</a></b> parses <strong class="selflink">h-card</strong> markup and makes suggestions for things to add, with code samples
 </li></ul>
 <div style="text-indent:2em;font-style:italic">Main article: <a href="http://microformats.org/wiki/validators" title="validators">validators</a></div>
 <p>Test and validate <a href="microformats2.html" title="microformats2">microformats2</a> markup in general with: 
 </p>
 <ul><li> <a class="external free" href="http://waterpigs.co.uk/php-mf2/" rel="nofollow" title="http://waterpigs.co.uk/php-mf2/">http://waterpigs.co.uk/php-mf2/</a> - enter your markup directly
 </li><li> <a class="external free" href="http://pin13.net/" rel="nofollow" title="http://pin13.net/">http://pin13.net/</a> - enter a URL to a page to test where it says "Microformats Parser"
+</li></ul>
+<a name="Implementations"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Implementations"></a> Implementations </span></h2>
+<p>Software implementations that publish or consume h-card, including themes, plugins, or extensions:
+</p><p>(This section is a stub that needs expansion! In practice, nearly every CMS on every <a class="external text" href="https://indieweb.org/" rel="nofollow" title="https://indieweb.org/">indie web</a> site supports publishing h-card by default.)
+</p><p>When adding an implementation, please provide and link to its home page and open source repo if any.
+</p>
+<ul><li> <a class="external text" href="https://gnu.io/social/" rel="nofollow" title="https://gnu.io/social/">GNUsocial</a> <a class="external text" href="https://git.gnu.io/gnu/gnu-social/" rel="nofollow" title="https://git.gnu.io/gnu/gnu-social/">source code</a>
+</li><li> <a class="external text" href="https://hubzilla.org/hubzilla/" rel="nofollow" title="https://hubzilla.org/hubzilla/">Hubzilla</a> <a class="external text" href="https://github.org/redmatrix/hubzilla" rel="nofollow" title="https://github.org/redmatrix/hubzilla">source code</a>
+</li><li> <a class="external text" href="http://friendica.com/" rel="nofollow" title="http://friendica.com/">Friendica</a> <a class="external text" href="https://github.org/friendica/friendica" rel="nofollow" title="https://github.org/friendica/friendica">source code</a>
+</li><li> <a class="external text" href="http://github.com/dissolve/inkblot" rel="nofollow" title="http://github.com/dissolve/inkblot">InkBlot</a>
+</li><li> ...
+</li><li> ...
 </li></ul>
 <a name="Backward_Compatibility"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Backward%20Compatibility"></a> Backward Compatibility </span></h2>
 <a name="Publisher_Compatibility"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Publisher%20Compatibility"></a> Publisher Compatibility </span></h3>
@@ -335,7 +355,7 @@ Properties: (parsed as <b>p-</b> plain text unless otherwise specified)
 <p>(stub, expand)
 </p>
 <a name="Additions"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Additions"></a> Additions </span></h2>
-<p>We've tried very hard with h-card to stay compatible with vCard4, and thus additions should be proposed on the vCard4 mailing list.
+<p>We've tried very hard with h-card to stay compatible with the vCard4 vocabulary, and thus additions should be proposed on the vCard4 mailing list.
 </p><p>However, you may still use this wiki to capture additions for h-card here:
 </p>
 <ul><li> <a href="http://microformats.org/wiki/h-card-brainstorming" title="h-card-brainstorming">h-card-brainstorming</a>
@@ -350,7 +370,7 @@ Properties: (parsed as <b>p-</b> plain text unless otherwise specified)
 
 <!-- 
 NewPP limit report
-Preprocessor node count: 178/1000000
+Preprocessor node count: 183/1000000
 Post-expand include size: 1338/2097152 bytes
 Template argument size: 20/2097152 bytes
 Expensive parser function count: 0/100
@@ -393,11 +413,11 @@ Retrieved from "<a href="h-card.html">http://microformats.org/wiki/h-card</a>"</
 </div>
 
 		
-<!-- Served in 0.542 secs. -->
+<!-- Served in 0.454 secs. -->
 
 
 
 
 
 
-</body><!-- Mirrored from microformats.org/wiki/h-card by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 Jun 2016 19:41:10 GMT --></html>
+</body><!-- Mirrored from microformats.org/wiki/h-card by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 May 2017 19:51:26 GMT --></html>
