@@ -9,7 +9,7 @@ dash-microformats2 is a docset for [Dash.app][] containing the latest [Microform
 Install by opening Dash.app preferences, switch to `Downloads`, click `+`, and enter the feed URL
 `https://raw.githubusercontent.com/pfefferle/dash-microformats2/master/microformats2.xml`.
 
-[Install](dash-feed://https%3A%2F%2Fraw.githubusercontent.com%2Fpfefferle%2Fdash-microformats2%2Fmaster%2Fmicroformats2.xml)
+[![](https://img.shields.io/badge/install-docset-green.svg)](dash-feed://https%3A%2F%2Fraw.githubusercontent.com%2Fpfefferle%2Fdash-microformats2%2Fmaster%2Fmicroformats2.xml)
 
 ## Build
 
