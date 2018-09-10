@@ -1,10 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/h-review-aggregate by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 May 2017 19:51:27 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/h-review-aggregate by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 10 Sep 2018 13:59:30 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
 
 	<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 	
 	<meta content="MediaWiki 1.13.2" name="generator"/>
-		<meta content="h-review-aggregate,h-review,hReview-aggregate,microformats2" name="keywords"/>
+		<meta content="h-review-aggregate,IRC,h-adr,h-card,h-event,h-geo,h-item,h-product,h-review,hReview-aggregate,hreview-aggregate-examples-in-wild" name="keywords"/>
 		
 		
 		
@@ -17,6 +17,7 @@
 
     
     		
+
         
         	
 	<title>h-review-aggregate · Microformats Wiki</title>
@@ -42,7 +43,93 @@
 		        
         <div class="entry-content">
 		<p><b>This article is a stub.</b> You can help the microformats.org wiki by expanding it.
-</p><p>This page is a placeholder for the <strong class="selflink">h-review-aggregate</strong> specification, an upgrade of <a class="mw-redirect" href="http://microformats.org/wiki/hReview-aggregate" title="hReview-aggregate">hReview-aggregate</a> to <a href="microformats2.html" title="microformats2">microformats2</a>.
+</p><p>This page is a placeholder for the <strong class="selflink">h-review-aggregate</strong> specification, an upgrade of <a class="mw-redirect" href="http://microformats.org/wiki/hReview-aggregate" title="hReview-aggregate">hReview-aggregate</a> to <a href="microformats2.html" title="microformats2">microformats2</a>. Please refer to the <a href="#Todo" title="">#Todo</a> section.
+</p>
+<hr/>
+<p><dfn style="font-style:normal;font-weight:bold">h-review-aggregate</dfn> is a simple, open format for embedding review information (of products, services, businesses, etc). Whereas <a href="h-review.html" title="h-review">h-review</a> is intended for an individual review, h-review-aggregate is meant for summary information about a collection of user or critic reviews about an item.
+</p><p>h-review-aggregate is one of several open <a href="http://microformats.org/wiki/microformats" title="microformats">microformat</a> draft standards suitable for embedding data in HTML and is the <a href="microformats2.html" title="microformats2">microformats2</a> update to <a class="mw-redirect" href="http://microformats.org/wiki/hReview-aggregate" title="hReview-aggregate">hReview-aggregate</a>.
+</p>
+<dl><dt><span id="Status">Status</span>
+</dt><dd>This is a <b>Draft Specification</b>.
+</dd><dt>Participate
+</dt><dd><a class="mw-redirect" href="http://microformats.org/wiki/IRC" title="IRC">IRC</a>: <a class="external text" href="irc://irc.freenode.net/microformats" rel="nofollow" title="irc://irc.freenode.net/microformats">#microformats on Freenode</a>
+</dd></dl>
+<div class="p-author h-card vcard">
+<dl><dt><span class="p-role role">Editor</span>
+</dt><dd><span class="p-name fn"><a href="http://microformats.org/wiki/User:GRegorLove" title="User:GRegorLove">gRegor Morrill</a></span>
+</dd></dl>
+</div>
+<dl><dt>License
+</dt><dd> <small>Per <a class="external text" href="http://creativecommons.org/publicdomain/zero/1.0/" rel="nofollow" title="http://creativecommons.org/publicdomain/zero/1.0/">CC0</a>, to the extent possible under law, the editors have waived all copyright and related or neighboring rights to this work. In addition, as of 2018-09-10, the editors have made this specification available under the <a class="external text" href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="nofollow" title="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0">Open Web Foundation Agreement Version 1.0</a>.</small>
+</dd></dl>
+
+<p><br/>
+</p>
+<a name="Example"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Example"></a> Example </span></h2>
+<p>Here is a simple example showing aggregate review information for a restaurant:
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2">&lt;article <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"h-review-aggregate"</span><span class="kw2">&gt;</span></span>
+ <span class="sc2"><span class="kw2">&lt;h1</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-item"</span><span class="kw2">&gt;</span></span>Mediterranean Wraps<span class="sc2"><span class="kw2">&lt;/h1&gt;</span></span>
+ <span class="sc2"><span class="kw2">&lt;p</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-name"</span><span class="kw2">&gt;</span></span>Customers flock to this small restaurant for their 
+ tasty falafel and shawerma wraps and welcoming staff.<span class="sc2"><span class="kw2">&lt;/p&gt;</span></span>
+ <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-average"</span><span class="kw2">&gt;</span></span>4.5<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span> out of 5 
+ based on <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-count"</span><span class="kw2">&gt;</span></span>17<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span> reviews
+<span class="sc2"><span class="kw2">&lt;</span><span class="sy0">/</span>article&gt;</span></pre></div>
+<a name="Properties"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Properties"></a> Properties </span></h2>
+<a name="Proposed_Properties"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Proposed%20Properties"></a> Proposed Properties </span></h3>
+<p>Proposed properties from <a class="mw-redirect" href="http://microformats.org/wiki/hReview-aggregate" title="hReview-aggregate">hReview-aggregate</a> awaiting citations of publishing and consuming examples.
+</p>
+<ul><li> <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-item"></a>p-item</code></b> - Required: the thing been reviewed, including embedded microformat for e.g. business or person (<a href="h-card.html" title="h-card">h-card</a>), event (<a href="h-event.html" title="h-event">h-event</a>), place (<a href="h-adr.html" title="h-adr">h-adr</a> or <a href="h-geo.html" title="h-geo">h-geo</a>), product (<a href="h-product.html" title="h-product">h-product</a>), website, url, or other item (<a href="h-item.html" title="h-item">h-item</a>).
+</li><li> <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-average"></a>p-average</code></b> - Required: the fixed point integer [1.0-5.0] of the average rating (5.0 best)
+</li><li> <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-best"></a>p-best</code></b>  - Optionally define best rating value. can be numerically lower than worst.
+</li><li> <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-worst"></a>p-worst</code></b>  - Optionally define worst rating value. can be numerically higher than best.
+</li><li> <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-count"></a>p-count</code></b>  - the total number of reviews
+</li><li> <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-votes"></a>p-votes</code></b>  - the total number of users who have rated the product or service, contributing to the average rating. For some sites, the number of votes is equal to the number of reviews, so <code>count</code> may be used and this property omitted.
+</li><li> <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-name"></a>p-name</code></b> - This optional property can be the title for the review collection or a very short summary of the consensus opinion from the collection.
+</li></ul>
+<a name="Property_Details"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Property%20Details"></a> Property Details </span></h2>
+<a name="Examples_in_the_wild"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Examples%20in%20the%20wild"></a> Examples in the wild </span></h2>
+<p>Add any h-review-aggregate examples you find in the wild:
+</p>
+<ul><li> ...
+</li></ul>
+<a name="Validating"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Validating"></a> Validating </span></h2>
+<div style="text-indent:2em;font-style:italic">Main article: <a href="http://microformats.org/wiki/validators" title="validators">validators</a></div>
+<p>Test and validate <a href="microformats2.html" title="microformats2">microformats2</a> markup in general with: 
+</p>
+<ul><li> <a class="external free" href="https://pin13.net/mf2/" rel="nofollow" title="https://pin13.net/mf2/">https://pin13.net/mf2/</a> - enter your markup directly
+</li><li> <a class="external free" href="https://pin13.net/" rel="nofollow" title="https://pin13.net/">https://pin13.net/</a> - enter a URL to a page to test where it says "Microformats Parser"
+</li></ul>
+<a name="Implementations"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Implementations"></a> Implementations </span></h2>
+<a name="Backward_Compatibility"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Backward%20Compatibility"></a> Backward Compatibility </span></h2>
+<a name="Parser_Compatibility"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Parser%20Compatibility"></a> Parser Compatibility </span></h3>
+<p>This is a <b>draft</b> based on reviewing <a href="http://microformats.org/wiki/hreview-aggregate-examples-in-wild#Reviewed_Examples" title="hreview-aggregate-examples-in-wild">hReview-aggregate examples</a>, pending parser implementations and feedback.
+</p><p>Microformats parsers <em class="RFC2119" style="text-transform: lowercase; font-style: italic;" title="SHOULD in RFC 2119 context">SHOULD</em> detect classic properties only if a classic root class name is found and parse them as microformats2 properties. 
+</p><p>If an <code><a class="dashAnchor" name="//apple_ref/cpp/Object/h-review-aggregate"></a>h-review-aggregate</code> is found, don't look for an <code>hreview-aggregate</code> on the same element.
+</p><p>Compat root class name: <code id="hreview-aggregate">hreview-aggregate</code><br/>
+Properties: (parsed as <b>p-</b> plain text unless otherwise specified):
+</p>
+<ul><li> <code>item</code> - parse as <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-item"></a>p-item</code></b>
+</li><li> <code>average</code> - parse as <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-average"></a>p-average</code></b>
+</li><li> <code>best</code> - parse as <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-best"></a>p-best</code></b>
+</li><li> <code>worst</code> - parse as <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-worst"></a>p-worst</code></b>
+</li><li> <code>count</code> - parse as <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-count"></a>p-count</code></b>
+</li><li> <code>votes</code> - parse as <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-votes"></a>p-votes</code></b>
+</li><li> <code>summary</code> - parse as <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-name"></a>p-name</code></b>
+</li></ul>
+<a name="Notes"></a><h4> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Notes"></a> Notes </span></h4>
+<p>Based on <a href="http://microformats.org/wiki/hreview-aggregate-examples-in-wild#Reviewed_Examples" title="hreview-aggregate-examples-in-wild">hReview-aggregate examples</a>, this is how many times each property appeared.
+</p>
+<pre>item: 10
+rating: 10
+average: 8
+best: 8
+count: 5
+votes: 5
+worst: 0
+summary: 0</pre>
+<a name="Todo"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Todo"></a> Todo </span></h2>
+<p>Tasks for this page.
 </p><p>In summary:
 </p>
 <ul><li> copy <a href="h-review.html" title="h-review">h-review</a>
@@ -60,13 +147,11 @@
 
 <!-- 
 NewPP limit report
-Preprocessor node count: 4/1000000
-Post-expand include size: 85/2097152 bytes
-Template argument size: 0/2097152 bytes
+Preprocessor node count: 74/1000000
+Post-expand include size: 999/2097152 bytes
+Template argument size: 10/2097152 bytes
 Expensive parser function count: 0/100
 -->
-
-<!-- Saved in parser cache with key microformats_wiki_v3:pcache:idhash:19494-0!1!0!!en!2!edit=0 and timestamp 20170520234424 -->
 <div class="printfooter">
 Retrieved from "<a href="h-review-aggregate.html">http://microformats.org/wiki/h-review-aggregate</a>"</div>
 		</div>	
@@ -98,11 +183,11 @@ Retrieved from "<a href="h-review-aggregate.html">http://microformats.org/wiki/h
 </div>
 
 		
-<!-- Served in 0.131 secs. -->
+<!-- Served in 0.315 secs. -->
 
 
 
 
 
 
-</body><!-- Mirrored from microformats.org/wiki/h-review-aggregate by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 May 2017 19:51:27 GMT --></html>
+</body><!-- Mirrored from microformats.org/wiki/h-review-aggregate by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 10 Sep 2018 13:59:30 GMT --></html>

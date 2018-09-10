@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/h-card by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 May 2017 19:51:26 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/h-card by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 10 Sep 2018 13:59:29 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
 
 	<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 	
@@ -46,9 +46,9 @@
 		<p><span class="h-card vcard"><span class="p-name fn"><a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek Çelik</a></span> (<span class="p-role role">Editor</span>)</span>
 </p>
 <hr/>
-<p><dfn style="font-style:normal;font-weight:bold">h-card</dfn> is a simple, open format for publishing people and organisations on the web. h-card is one of several open <a href="http://microformats.org/wiki/microformats" title="microformats">microformat</a> draft standards suitable for embedding data in HTML/HTML5.
+<p><dfn style="font-style:normal;font-weight:bold">h-card</dfn> is a simple, open format for publishing people and organisations on the web. h-card is one of several open <a href="http://microformats.org/wiki/microformats" title="microformats">microformat</a> draft standards suitable for embedding data in HTML.
 </p><p>h-card is the <a href="microformats2.html" title="microformats2">microformats2</a> update to <a class="mw-redirect" href="http://microformats.org/wiki/hCard" title="hCard">hCard</a>.
-</p><p><small>Per <a class="external text" href="http://creativecommons.org/publicdomain/zero/1.0/" rel="nofollow" title="http://creativecommons.org/publicdomain/zero/1.0/">CC0</a>, to the extent possible under law, the editors have waived all copyright and related or neighboring rights to this work. In addition, as of 2017-05-21, the editors have made this specification available under the <a class="external text" href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="nofollow" title="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0">Open Web Foundation Agreement Version 1.0</a>.</small>
+</p><p><small>Per <a class="external text" href="http://creativecommons.org/publicdomain/zero/1.0/" rel="nofollow" title="http://creativecommons.org/publicdomain/zero/1.0/">CC0</a>, to the extent possible under law, the editors have waived all copyright and related or neighboring rights to this work. In addition, as of 2018-09-10, the editors have made this specification available under the <a class="external text" href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="nofollow" title="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0">Open Web Foundation Agreement Version 1.0</a>.</small>
 </p>
 
 <a name="Example"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Example"></a> Example </span></h2>
@@ -198,7 +198,12 @@
 </li><li> <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/dt-anniversary"></a>dt-anniversary</code></b>
 </li></ul>
 <p>All properties are optional.
+</p><p>Experimental properties currently in use in the wild but not (yet) part of the official h-card spec.
 </p>
+<ul><li> <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/u-sound"></a>u-sound</code></b> - sound file containing the proper pronunciation of the name property, per vCard (<a class="external" href="http://tools.ietf.org/html/rfc6350" title="http://tools.ietf.org/html/rfc6350">RFC 6350</a>).
+<ul><li> Used by <a class="external text" href="https://vanderven.se/martijn/" rel="nofollow" title="https://vanderven.se/martijn/">Martijn van der Ven</a> with a clip of his given name.
+</li></ul>
+</li></ul>
 <a name="Status"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Status"></a> Status </span></h2>
 <p><b>h-card</b> is a microformats.org draft specification. Public discussion on h-card takes place on <a class="new" href="http://microformats.org/wiki/index.php?title=h-card-feedback&amp;action=edit&amp;redlink=1" title="h-card-feedback (not yet written)">h-card-feedback</a> and the #microformats <a href="http://microformats.org/wiki/irc" title="irc">irc</a> channel on irc.freenode.net.
 </p><p>h-card is ready to use and implemented in the wild, but for backwards compatibility you should also mark up top-level h-cards as classic <a class="mw-redirect" href="http://microformats.org/wiki/hCard" title="hCard">hCards</a>.
@@ -242,6 +247,7 @@
 <p>Real world in the wild examples of sites and services that publish or consume h-card:
 </p>
 <ul><li> ... add uses of h-card you see in the wild here.
+</li><li> <a class="external text" href="http://www.securityjobslondon.co.uk/" rel="nofollow" title="http://www.securityjobslondon.co.uk">Security Jobs London</a> uses h-card with legacy <a class="mw-redirect" href="http://microformats.org/wiki/hCard" title="hCard">hCard</a> fallback markup (to satisfy <a class="external text" href="https://search.google.com/structured-data/testing-tool" rel="nofollow" title="https://search.google.com/structured-data/testing-tool">Google's Structured Data Testing Tool</a>) in the footer of each page
 </li><li> App.net rolled out support for h-card and h-entry on all profile pages and permalink pages as of 2013-08-06 (<a class="external text" href="https://alpha.app.net/voidfiles" rel="nofollow" title="https://alpha.app.net/voidfiles">example</a>)
 </li><li> Brett Comnes marks up his posts with h-card (<a class="external text" href="http://bret.io/2013/06/29/getting-started-with-bower/" rel="nofollow" title="http://bret.io/2013/06/29/getting-started-with-bower/">example</a>)
 </li><li> Ben Werdmuller marks up his homepage and posts with h-card <a class="external text" href="http://werd.io/view/51d5097fbed7ded0633a5956" rel="nofollow" title="http://werd.io/view/51d5097fbed7ded0633a5956">example</a>)
@@ -276,8 +282,8 @@
 <div style="text-indent:2em;font-style:italic">Main article: <a href="http://microformats.org/wiki/validators" title="validators">validators</a></div>
 <p>Test and validate <a href="microformats2.html" title="microformats2">microformats2</a> markup in general with: 
 </p>
-<ul><li> <a class="external free" href="http://waterpigs.co.uk/php-mf2/" rel="nofollow" title="http://waterpigs.co.uk/php-mf2/">http://waterpigs.co.uk/php-mf2/</a> - enter your markup directly
-</li><li> <a class="external free" href="http://pin13.net/" rel="nofollow" title="http://pin13.net/">http://pin13.net/</a> - enter a URL to a page to test where it says "Microformats Parser"
+<ul><li> <a class="external free" href="https://pin13.net/mf2/" rel="nofollow" title="https://pin13.net/mf2/">https://pin13.net/mf2/</a> - enter your markup directly
+</li><li> <a class="external free" href="https://pin13.net/" rel="nofollow" title="https://pin13.net/">https://pin13.net/</a> - enter a URL to a page to test where it says "Microformats Parser"
 </li></ul>
 <a name="Implementations"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Implementations"></a> Implementations </span></h2>
 <p>Software implementations that publish or consume h-card, including themes, plugins, or extensions:
@@ -370,8 +376,8 @@ Properties: (parsed as <b>p-</b> plain text unless otherwise specified)
 
 <!-- 
 NewPP limit report
-Preprocessor node count: 183/1000000
-Post-expand include size: 1338/2097152 bytes
+Preprocessor node count: 184/1000000
+Post-expand include size: 1330/2097152 bytes
 Template argument size: 20/2097152 bytes
 Expensive parser function count: 0/100
 -->
@@ -413,11 +419,11 @@ Retrieved from "<a href="h-card.html">http://microformats.org/wiki/h-card</a>"</
 </div>
 
 		
-<!-- Served in 0.454 secs. -->
+<!-- Served in 0.559 secs. -->
 
 
 
 
 
 
-</body><!-- Mirrored from microformats.org/wiki/h-card by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 May 2017 19:51:26 GMT --></html>
+</body><!-- Mirrored from microformats.org/wiki/h-card by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 10 Sep 2018 13:59:29 GMT --></html>

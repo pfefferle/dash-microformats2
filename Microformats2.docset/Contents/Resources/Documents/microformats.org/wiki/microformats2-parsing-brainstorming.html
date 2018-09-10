@@ -1,10 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/microformats2-parsing-brainstorming by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 May 2017 19:51:27 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/microformats2-parsing-brainstorming by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 10 Sep 2018 13:59:31 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
 
 	<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 	
 	<meta content="MediaWiki 1.13.2" name="generator"/>
-		<meta content="microformats2-parsing-brainstorming,2015-01-20,HTML5,XFN,existing-rel-values,hAtom,hReview,include-pattern,microformats-2,microformats-2-brainstorming,microformats-2-faq" name="keywords"/>
+		<meta content="microformats2-parsing-brainstorming,2015-01-20,HTML5,XFN,existing-rel-values,h-card-brainstorming,hAtom,hReview,include-pattern,microformats-2,microformats-2-brainstorming" name="keywords"/>
 		
 		
 		
@@ -51,7 +51,9 @@ This page is for brainstorming, discussion, and other questions and explorations
 </li></ul>
 <p>For filing issues / problems with microformats2-parsing, see:
 </p>
-<ul><li> <a href="microformats2-parsing-issues.html" title="microformats2-parsing-issues">microformats2-parsing-issues</a>
+<ul><li> <a class="external free" href="https://github.com/microformats/microformats2-parsing/issues" rel="nofollow" title="https://github.com/microformats/microformats2-parsing/issues">https://github.com/microformats/microformats2-parsing/issues</a>
+<ul><li> <a href="microformats2-parsing-issues.html" title="microformats2-parsing-issues">Resolved issues before 2016-06-20</a>
+</li></ul>
 </li></ul>
 
 <p><br/>
@@ -186,12 +188,15 @@ Create a structure similar to the e-content nested structure that provides the "
 <ul><li> Closed 2015-09-08 because the library has changed and parsing is now handled by microformat-shiv. New issue opened there: <a class="external free" href="https://github.com/glennjones/microformat-shiv/issues/22" rel="nofollow" title="https://github.com/glennjones/microformat-shiv/issues/22">https://github.com/glennjones/microformat-shiv/issues/22</a>
 </li></ul>
 </li><li> Issue around implementation in php-mf2 added 2016-05-07 <a class="external free" href="https://github.com/indieweb/php-mf2/issues/96" rel="nofollow" title="https://github.com/indieweb/php-mf2/issues/96">https://github.com/indieweb/php-mf2/issues/96</a>
+<ul><li> Released 2017-05-27 in v0.3.2 behind a feature flag.
+</li></ul>
 </li></ul>
 <p>Additionally: consider the same for "id" attributes (use-case: rel=feed local discovery of a nested h-feed on the home page), specifically, parsing the first instance of any "id" attribute (ignoring latter duplicate id attribute values on any subsequent elements).
-</p><p><br/>
-And alternatively: consider parsing as "html-id" and "html-lang" prefixed properties in the parsed result, e.g.
-</p><p><br/>
+</p><p>And alternatively: consider parsing as "html-id" and "html-lang" prefixed properties in the parsed result, e.g.
 </p>
+<ul><li> <b>Q:</b> Why parse with the "html-" prefix?
+</li><li> <b>A:</b> "html-lang and html-id to avoid confusing them with a possible actual property p-lang or p-id (which we don't have but might / could, especially from a vocabulary agnostic parser perspective)" <a class="external free" href="https://chat.indieweb.org/microformats/2017-05-30#t1496166813294000" rel="nofollow" title="https://chat.indieweb.org/microformats/2017-05-30#t1496166813294000">https://chat.indieweb.org/microformats/2017-05-30#t1496166813294000</a>
+</li></ul>
 <div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;div</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"h-entry"</span> <span class="kw3">lang</span><span class="sy0">=</span><span class="st0">"sv"</span> <span class="kw3">id</span><span class="sy0">=</span><span class="st0">"postfrag123"</span><span class="kw2">&gt;</span></span>
   <span class="sc2"><span class="kw2">&lt;h1</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-name"</span><span class="kw2">&gt;</span></span>En svensk titel<span class="sc2"><span class="kw2">&lt;/h1&gt;</span></span>
   <span class="sc2"><span class="kw2">&lt;div</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"e-content"</span> <span class="kw3">lang</span><span class="sy0">=</span><span class="st0">"en"</span><span class="kw2">&gt;</span></span>With an <span class="sc2"><span class="kw2">&lt;em&gt;</span></span>english<span class="sc2"><span class="kw2">&lt;/em&gt;</span></span> summary<span class="sc2"><span class="kw2">&lt;/div&gt;</span></span>
@@ -225,7 +230,7 @@ HTML4: <a class="external free" href="https://www.w3.org/TR/html4/struct/dirlang
 </p><p>Proposal: Determine and include the inherited "lang" value on *every* microformat object that directly specifies a lang or that has an ancestor that does, e.g. if &lt;html lang="en"&gt;, then every object in the output will have "lang": "en".
 </p>
 <a name="Pronouns_in_different_languages"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Pronouns%20in%20different%20languages"></a> Pronouns in different languages </span></h3>
-<p>Language is also useful context when defining <a class="new" href="http://microformats.org/wiki/index.php?title=pronouns&amp;action=edit&amp;redlink=1" title="pronouns (not yet written)">pronouns</a>, discussed a bit here<a class="external autonumber" href="https://github.com/idno/Known/pull/1426#issuecomment-217626923" rel="nofollow" title="https://github.com/idno/Known/pull/1426#issuecomment-217626923">[2]</a>.
+<p>Language is also useful context when defining <a class="mw-redirect" href="http://microformats.org/wiki/pronouns" title="pronouns">pronouns</a>, discussed a bit here<a class="external autonumber" href="https://github.com/idno/Known/pull/1426#issuecomment-217626923" rel="nofollow" title="https://github.com/idno/Known/pull/1426#issuecomment-217626923">[2]</a>.
 </p>
 <div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;div</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"h-card"</span> <span class="kw3">lang</span><span class="sy0">=</span><span class="st0">"en"</span><span class="kw2">&gt;</span></span>
   <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-x-pronoun-nominative"</span><span class="kw2">&gt;</span></span>he<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span> /
@@ -309,6 +314,9 @@ parsed as
 </p>
 <ul><li> <a href="http://microformats.org/wiki/User:Kylewm" title="User:Kylewm">Kylewm</a> Including the "lang" attribute in h- and e- properties makes a ton of sense to me.
 </li><li> <a href="http://microformats.org/wiki/User:Kylewm" title="User:Kylewm">Kylewm</a> I like the idea of introducing an h-x-pronoun container that can define all the different pronoun forms for a particular language
+</li><li> <a href="http://microformats.org/wiki/User:Zegnat" title="User:Zegnat">Martijn</a> Turns out that the neat summary of different p-x-pronoun-* per language from the second example is never going to happen. Objective case (here <i>oblique</i>) exists in English and then suddenly doesn’t exist at all in e.g. German.
+</li><li> <a href="http://microformats.org/wiki/User:Zegnat" title="User:Zegnat">Martijn</a> The container is still a viable option because it gives a clear language split. Within the container, completely different case names would be used though. German would get properties for nominative, accusative, genitive, dative, and possessive cases. Every language will require its own documentation for properties, and some like Finnish would require up to 13 properties.
+</li><li> <a href="http://microformats.org/wiki/User:Zegnat" title="User:Zegnat">Martijn</a> I propose an entirely different way of marking up pronouns. See <a href="http://microformats.org/wiki/h-card-brainstorming" title="h-card-brainstorming">h-card-brainstorming</a>.
 </li><li> ...
 </li></ul>
 </div>
@@ -554,7 +562,7 @@ we get this:
     }
 }
 </pre></code>
-<p>This generalises to other rel's too, such as <a class="new" href="http://microformats.org/wiki/index.php?title=rel-feed&amp;action=edit&amp;redlink=1" title="rel-feed (not yet written)">rel-feed</a> and <a href="http://microformats.org/wiki/rel-alternate" title="rel-alternate">rel-alternate</a> that have type, lang etc attributes.
+<p>This generalises to other rel's too, such as <a href="http://microformats.org/wiki/rel-feed" title="rel-feed">rel-feed</a> and <a href="http://microformats.org/wiki/rel-alternate" title="rel-alternate">rel-alternate</a> that have type, lang etc attributes.
 </p><p>(updated to include changes from feedback below) <a href="http://microformats.org/wiki/User:Kevin_Marks" title="User:Kevin Marks">Kevin Marks</a> 22:13, 26 April 2015 (UTC)
 </p>
 <a name="attributes_parsed"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/attributes%20parsed"></a> attributes parsed </span></h3>
@@ -690,7 +698,7 @@ we get this:
 
 <!-- 
 NewPP limit report
-Preprocessor node count: 178/1000000
+Preprocessor node count: 179/1000000
 Post-expand include size: 0/2097152 bytes
 Template argument size: 0/2097152 bytes
 Expensive parser function count: 0/100
@@ -726,11 +734,11 @@ Retrieved from "<a href="microformats2-parsing-brainstorming.html">http://microf
 </div>
 
 		
-<!-- Served in 0.760 secs. -->
+<!-- Served in 0.678 secs. -->
 
 
 
 
 
 
-</body><!-- Mirrored from microformats.org/wiki/microformats2-parsing-brainstorming by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 May 2017 19:51:27 GMT --></html>
+</body><!-- Mirrored from microformats.org/wiki/microformats2-parsing-brainstorming by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 10 Sep 2018 13:59:32 GMT --></html>

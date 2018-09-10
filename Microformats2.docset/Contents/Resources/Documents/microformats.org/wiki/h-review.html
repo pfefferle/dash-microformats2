@@ -1,10 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/h-review by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 May 2017 19:51:27 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/h-review by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 10 Sep 2018 13:59:30 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
 
 	<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 	
 	<meta content="MediaWiki 1.13.2" name="generator"/>
-		<meta content="h-review,h-adr,h-card,h-event,h-geo,h-item,h-product,h-review-feedback,hCalendar,hCard,hProduct" name="keywords"/>
+		<meta content="h-review,h-adr,h-card,h-entry,h-event,h-feed,h-geo,h-item,h-product,h-review-feedback,hCalendar" name="keywords"/>
 		
 		
 		
@@ -46,9 +46,9 @@
 		<p><span class="h-card vcard"><span class="p-name fn"><a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek Çelik</a></span> (<span class="p-role role">Editor</span>)</span>
 </p>
 <hr/>
-<p><dfn style="font-style:normal;font-weight:bold">h-review</dfn> is a simple, open format for publishing reviews on the web. h-review is one of several open <a href="http://microformats.org/wiki/microformats" title="microformats">microformat</a> draft standards suitable for embedding data in HTML/HTML5 on the web.
+<p><dfn style="font-style:normal;font-weight:bold">h-review</dfn> is a simple, open format for publishing reviews on the web. h-review is one of several open <a href="http://microformats.org/wiki/microformats" title="microformats">microformat</a> draft standards suitable for embedding data in HTML.
 </p><p>h-review is the <a href="microformats2.html" title="microformats2">microformats2</a> update to <a class="mw-redirect" href="http://microformats.org/wiki/hReview" title="hReview">hReview</a>.
-</p><p><small>Per <a class="external text" href="http://creativecommons.org/publicdomain/zero/1.0/" rel="nofollow" title="http://creativecommons.org/publicdomain/zero/1.0/">CC0</a>, to the extent possible under law, the editors have waived all copyright and related or neighboring rights to this work. In addition, as of 2017-05-21, the editors have made this specification available under the <a class="external text" href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="nofollow" title="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0">Open Web Foundation Agreement Version 1.0</a>.</small>
+</p><p><small>Per <a class="external text" href="http://creativecommons.org/publicdomain/zero/1.0/" rel="nofollow" title="http://creativecommons.org/publicdomain/zero/1.0/">CC0</a>, to the extent possible under law, the editors have waived all copyright and related or neighboring rights to this work. In addition, as of 2018-09-10, the editors have made this specification available under the <a class="external text" href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="nofollow" title="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0">Open Web Foundation Agreement Version 1.0</a>.</small>
 </p>
 
 <a name="Example"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Example"></a> Example </span></h2>
@@ -153,7 +153,12 @@
 </li><li> <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/u-url"></a>u-url</code></b> - review permalink URL
 </li></ul>
 <p>All properties are optional.
+</p><p>Experimental properties currently in use in the wild but not (yet) part of the official h-review spec. Several of these seem to be because of h-review convergence towards <a href="h-entry.html" title="h-entry">h-entry</a>, as h-review gets used alongside h-entry within <a href="h-feed.html" title="h-feed">h-feed</a>:
 </p>
+<ul><li> <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-location"></a>p-location</code></b> - location the review was posted from, optionally embed <a href="h-card.html" title="h-card">h-card</a>, <a href="h-adr.html" title="h-adr">h-adr</a>, or <a href="h-geo.html" title="h-geo">h-geo</a>
+</li><li> <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-summary"></a>p-summary</code></b> - short review summary
+</li><li> <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/u-syndication"></a>u-syndication</code></b> - URL(s) of syndicated copies of this review. The property equivalent of <a href="http://microformats.org/wiki/rel-syndication" title="rel-syndication">rel-syndication</a> (<a class="external text" href="https://aaronparecki.com/2018/01/29/10/" rel="nofollow" title="https://aaronparecki.com/2018/01/29/10/">example</a> with <a class="external text" href="https://www.amazon.com/review/R1P2C3ATN75836/ref=pe_1098610_137716200_cm_rv_eml_rv0_rv" rel="nofollow" title="https://www.amazon.com/review/R1P2C3ATN75836/ref=pe_1098610_137716200_cm_rv_eml_rv0_rv">syndication to Amazon</a>)
+</li></ul>
 <a name="Status"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Status"></a> Status </span></h2>
 <p><b>h-review</b> is a microformats.org draft specification. Public discussion on h-review takes place on <a href="http://microformats.org/wiki/h-review-feedback" title="h-review-feedback">h-review-feedback</a> and the #microformats <a href="http://microformats.org/wiki/irc" title="irc">irc</a> channel on irc.freenode.net.
 </p><p>h-review is ready to use.
@@ -164,6 +169,7 @@
 <a name="Examples_in_the_Wild"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Examples%20in%20the%20Wild"></a> Examples in the Wild </span></h2>
 <ul><li> … add any h-review examples you find in the wild
 </li><li> <a class="external free" href="https://cleverdevil.io/2015/blood-rites-book-six-of-the-dresden-files" rel="nofollow" title="https://cleverdevil.io/2015/blood-rites-book-six-of-the-dresden-files">https://cleverdevil.io/2015/blood-rites-book-six-of-the-dresden-files</a>
+</li><li> <a class="external free" href="https://aaronparecki.com/2018/01/29/10/" rel="nofollow" title="https://aaronparecki.com/2018/01/29/10/">https://aaronparecki.com/2018/01/29/10/</a> (more on Aaron’s <a class="external text" href="https://aaronparecki.com/reviews" rel="nofollow" title="https://aaronparecki.com/reviews">review feed</a>)
 </li></ul>
 <a name="Implementations"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Implementations"></a> Implementations </span></h2>
 <ul><li> <a class="external text" href="https://github.com/cleverdevil/Known-Reviews" rel="nofollow" title="https://github.com/cleverdevil/Known-Reviews">Reviews plugin for Known CMS</a> by <a class="external text" href="https://cleverdevil.io/" rel="nofollow" title="https://cleverdevil.io">Jonathan LaCour</a>.
@@ -174,8 +180,8 @@
 <div style="text-indent:2em;font-style:italic">Main article: <a href="http://microformats.org/wiki/validators" title="validators">validators</a></div>
 <p>Test and validate <a href="microformats2.html" title="microformats2">microformats2</a> markup in general with: 
 </p>
-<ul><li> <a class="external free" href="http://waterpigs.co.uk/php-mf2/" rel="nofollow" title="http://waterpigs.co.uk/php-mf2/">http://waterpigs.co.uk/php-mf2/</a> - enter your markup directly
-</li><li> <a class="external free" href="http://pin13.net/" rel="nofollow" title="http://pin13.net/">http://pin13.net/</a> - enter a URL to a page to test where it says "Microformats Parser"
+<ul><li> <a class="external free" href="https://pin13.net/mf2/" rel="nofollow" title="https://pin13.net/mf2/">https://pin13.net/mf2/</a> - enter your markup directly
+</li><li> <a class="external free" href="https://pin13.net/" rel="nofollow" title="https://pin13.net/">https://pin13.net/</a> - enter a URL to a page to test where it says "Microformats Parser"
 </li></ul>
 <a name="Backward_Compatibility"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Backward%20Compatibility"></a> Backward Compatibility </span></h2>
 <a name="Publisher_Compatibility"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Publisher%20Compatibility"></a> Publisher Compatibility </span></h3>
@@ -184,6 +190,8 @@
 <div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;div</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"h-review hreview"</span><span class="kw2">&gt;</span></span>
   <span class="sc2"><span class="kw2">&lt;h1</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-name fn"</span><span class="kw2">&gt;</span></span>My great review<span class="sc2"><span class="kw2">&lt;/h1&gt;</span></span>
 <span class="sc2"><span class="kw2">&lt;/div&gt;</span></span></pre></div>
+<p>See <a class="external text" href="https://aaronparecki.com/" rel="nofollow" title="https://aaronparecki.com/">Aaron Parecki</a>’s <a class="external text" href="https://aaronparecki.com/2016/12/17/8/owning-my-reviews" rel="nofollow" title="https://aaronparecki.com/2016/12/17/8/owning-my-reviews">Why Microformats? Owning My Reviews</a> for a reason to be backwards compatible.
+</p>
 <a name="Parser_Compatibility"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Parser%20Compatibility"></a> Parser Compatibility </span></h3>
 <p>Microformats parsers should detect classic properties and parse them as microformats 2 properties. If an "h-review" is found, don't look for an "hReview" on the same element.
 </p><p>Compatibility root class name: hreview
@@ -207,7 +215,7 @@
 </li><li> <code>best</code>
 </li><li> <code>worst</code>
 </li><li> <code>description</code> - parse as <b>e-content</b>
-</li><li> <code>rel=tag</code> - parse as <b>p-category</b>
+</li><li> <code>rel=tag</code> - parse as <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-category"></a>p-category</code></b>. While not a class name nor typical microformats property, <a href="http://microformats.org/wiki/rel-tag" title="rel-tag">rel=tag</a> was the typical way to tag an hreview. Thus parsers should look for rel=tag hyperlinks inside an hreview, and take the last path segment of their "href" value as a value for a <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-category"></a>p-category</code></b> property.
 </li><li> <code>rel="self bookmark"</code> - parse as <b>u-url</b>. note that <code>rel</code> attribute value is treated as a space separated set, thus any presence of "self" and "bookmark" within such a set in a rel value is accepted.
 </li></ul>
 <p>Note: The <a class="mw-redirect" href="http://microformats.org/wiki/hReview" title="hReview">hReview</a> format has three properties which make use of <code>rel</code> attribute, these are <code>tag</code>, permalink (via the <code>self</code> and <code>bookmark</code> values) and <code>license</code>. Microformats 2 parsers <em class="RFC2119" style="text-transform: lowercase; font-style: italic;" title="SHOULD in RFC 2119 context">SHOULD</em> map these URLs into the page scoped rel collection.
@@ -234,8 +242,8 @@
 
 <!-- 
 NewPP limit report
-Preprocessor node count: 95/1000000
-Post-expand include size: 922/2097152 bytes
+Preprocessor node count: 100/1000000
+Post-expand include size: 914/2097152 bytes
 Template argument size: 10/2097152 bytes
 Expensive parser function count: 0/100
 -->
@@ -277,11 +285,11 @@ Retrieved from "<a href="h-review.html">http://microformats.org/wiki/h-review</a
 </div>
 
 		
-<!-- Served in 0.321 secs. -->
+<!-- Served in 0.453 secs. -->
 
 
 
 
 
 
-</body><!-- Mirrored from microformats.org/wiki/h-review by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 May 2017 19:51:27 GMT --></html>
+</body><!-- Mirrored from microformats.org/wiki/h-review by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 10 Sep 2018 13:59:30 GMT --></html>

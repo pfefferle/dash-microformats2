@@ -1,10 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/h-feed by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 May 2017 19:51:27 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/h-feed by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 10 Sep 2018 13:59:30 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
 
 	<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 	
 	<meta content="MediaWiki 1.13.2" name="generator"/>
-		<meta content="h-feed,DRY,RSS,h-card,h-entry,h-entry-feedback,hAtom,irc,microformats2,h-feed-issues" name="keywords"/>
+		<meta content="h-feed,DRY,h-card,h-entry,h-entry-feedback,hAtom,hatom,irc,microformats,microformats2,h-feed-issues" name="keywords"/>
 		
 		
 		
@@ -43,9 +43,12 @@
 		        
         <div class="entry-content">
 		<p><br/>
-<dfn style="font-style:normal;font-weight:bold">h-feed</dfn> is a <a href="microformats2.html" title="microformats2">microformats2</a> draft for marking up a stream or feed of <a href="h-entry.html" title="h-entry">h-entry</a> posts, like complete posts on a home page or archive pages, or summaries or other brief lists of posts.
-</p><p>h-feed is the <a href="microformats2.html" title="microformats2">microformats2</a> update to <a class="mw-redirect" href="http://microformats.org/wiki/hAtom" title="hAtom">hAtom</a>'s "hfeed".
-</p><p><small>Per <a class="external text" href="http://creativecommons.org/publicdomain/zero/1.0/" rel="nofollow" title="http://creativecommons.org/publicdomain/zero/1.0/">CC0</a>, to the extent possible under law, the editors have waived all copyright and related or neighboring rights to this work. In addition, as of 2017-05-21, the editors have made this specification available under the <a class="external text" href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="nofollow" title="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0">Open Web Foundation Agreement Version 1.0</a>.</small>
+<span class="h-card vcard"><span class="p-name fn"><a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek Çelik</a></span> (<span class="p-role role">Editor</span>)</span>
+</p>
+<hr/>
+<p><dfn style="font-style:normal;font-weight:bold">h-feed</dfn> is a simple, open format for publishing a stream or feed of <a href="h-entry.html" title="h-entry">h-entry</a> posts, like complete posts on a home page or archive pages, or summaries or other brief lists of posts. h-feed is one of several open <a href="http://microformats.org/wiki/microformats" title="microformats">microformat</a> draft standards suitable for embedding data in HTML.
+</p><p>h-feed is the <a href="microformats2.html" title="microformats2">microformats2</a> update to <a class="mw-redirect" href="http://microformats.org/wiki/hAtom" title="hAtom">hAtom</a>, and in particular its "hfeed" root class.
+</p><p><small>Per <a class="external text" href="http://creativecommons.org/publicdomain/zero/1.0/" rel="nofollow" title="http://creativecommons.org/publicdomain/zero/1.0/">CC0</a>, to the extent possible under law, the editors have waived all copyright and related or neighboring rights to this work. In addition, as of 2018-09-10, the editors have made this specification available under the <a class="external text" href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="nofollow" title="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0">Open Web Foundation Agreement Version 1.0</a>.</small>
 </p>
 
 <a name="Properties"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Properties"></a> Properties </span></h2>
@@ -100,24 +103,35 @@
 </li></ul>
 <a name="Implementations"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Implementations"></a> Implementations </span></h2>
 <a name="Readers"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Readers"></a> Readers </span></h3>
-<ul><li> Shrewdness
-</li><li> <a class="external free" href="http://notenoughneon.com/feed.php" rel="nofollow" title="http://notenoughneon.com/feed.php">http://notenoughneon.com/feed.php</a>
+<ul><li> <a class="external text" href="https://github.com/kylewm/woodwind" rel="nofollow" title="https://github.com/kylewm/woodwind">Woodwind</a>
+</li><li> <a class="external text" href="https://github.com/barnabywalters/shrewdness" rel="nofollow" title="https://github.com/barnabywalters/shrewdness">Shrewdness</a>
 </li></ul>
 <a name="Proxies"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Proxies"></a> Proxies </span></h3>
 <ul><li> Bridgy
 </li></ul>
 <a name="Converters"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Converters"></a> Converters </span></h3>
-<ul><li> <b><a class="external text" href="http://unmung.com/" rel="nofollow" title="http://unmung.com">unmung</a></b> - will transform an RSS or Atom feed into an <strong class="selflink">h-feed</strong> containing h-entries,
-</li><li> <b><a class="external text" href="http://pipes.yahoo.com/pipes/pipe.info?_id=afc5568b4e8643bfb05436b1caaf91bc" rel="nofollow" title="http://pipes.yahoo.com/pipes/pipe.info?_id=afc5568b4e8643bfb05436b1caaf91bc">microformats to RSS</a></b> - a Yahoo! pipe that converts a URL containing an <strong class="selflink">h-feed</strong> containing h-entries, into an <a class="mw-redirect" href="http://microformats.org/wiki/RSS" title="RSS">RSS</a> feed. (<a class="external text" href="http://waterpigs.co.uk/notes/4SeNi5/" rel="nofollow" title="http://waterpigs.co.uk/notes/4SeNi5/">2013-10-21 blog post announcing</a>)
+<ul><li> <b><a class="external text" href="http://unmung.com/" rel="nofollow" title="http://unmung.com">unmung</a></b> - will transform an RSS or Atom feed into an <strong class="selflink">h-feed</strong> containing h-entries
 </li></ul>
-<a name="Parsing"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Parsing"></a> Parsing </span></h2>
-<p>When parsing a page for an h-feed, do so per <a href="microformats2.html" title="microformats2">microformats2</a>.
-</p><p>Fallback:
-</p><p>If there is no explicit "h-feed" element, implementations may:
+<a name="Backward_Compatibility"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Backward%20Compatibility"></a> Backward Compatibility </span></h2>
+<a name="Publisher_Compatibility"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Publisher%20Compatibility"></a> Publisher Compatibility </span></h3>
+<p>(this section is a stub and needs to be expanded with real world examples and minimal properties)
 </p>
-<ul><li> Treat the <code>&lt;title&gt;</code> of the page or the URL of the page as the p-name
-</li><li> Use <a class="external free" href="http://indiewebcamp.com/authorship" rel="nofollow" title="http://indiewebcamp.com/authorship">http://indiewebcamp.com/authorship</a> to discover authorship of posts.
-</li><li> Treat top level <a href="h-entry.html" title="h-entry">h-entry</a> elements as items in the feed.
+<a name="Parser_Compatibility"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Parser%20Compatibility"></a> Parser Compatibility </span></h3>
+<p>For backward compatibility with existing <a href="http://microformats.org/wiki/hatom" title="hatom">hAtom</a> content, microformats parsers <em class="RFC2119" style="text-transform: lowercase; font-style: italic;" title="SHOULD in RFC 2119 context">SHOULD</em> detect classic properties only if a classic root class name is found and parse them as microformats2 properties. 
+</p><p>If an "h-feed" is found, don't look for an "hfeed" on the same element.
+</p><p>Compat root class name: <code id="hfeed">hfeed</code><br/>
+Properties: (parsed as <b>p-</b> plain text unless otherwise specified):
+</p><p>(this section is a stub and needs review and citations to note what real world examples would each of these backcompat parsing rules actually help parse)
+</p>
+<ul><li> <code>rel=tag</code> - parse as <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-category"></a>p-category</code></b>. While not a class name nor typical microformats property, rel=tag was the defined way to tag an hfeed. Thus parsers should look for rel=tag hyperlinks inside an hfeed, and take the last path segment of their "href" value as a value for a <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-category"></a>p-category</code></b> property.
+</li><li> <code>site-title</code> - parse as <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-name"></a>p-name</code></b> [WordPress (Core? Typical themes?) has this class name by default, and without it buggy parsers may imply p-name as the whole h-feed (<a class="external text" href="microformats2-parsing.html#parsing_for_implied_properties" rel="nofollow" title="http://microformats.org/wiki/microformats2-parsing#parsing_for_implied_properties">implied properties only apply to actual h-x roots, not backcompat</a>).]
+</li><li> <code>site-description</code> - parse as <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-summary"></a>p-summary</code></b> [WordPress (Core? Typical themes?) has this class name by default]
+</li></ul>
+<p>If no "h-feed" nor "hfeed" element is found, however multiple top-level <a href="h-entry.html" title="h-entry">h-entry</a> elements (explicit or backcompat) are found, implementations may use:
+</p>
+<ul><li> top level <a href="h-entry.html" title="h-entry">h-entry</a> elements as items in a synthetic h-feed.
+</li><li> <code>&lt;title&gt;</code> of the page or the URL of the page as <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-name"></a>p-name</code></b>
+</li><li> <a class="external free" href="https://indieweb.org/authorship" rel="nofollow" title="https://indieweb.org/authorship">https://indieweb.org/authorship</a> on the page to discover default authorship for any h-entry posts lacking explicit parsed <code>author</code> properties.
 </li></ul>
 <a name="FAQ"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/FAQ"></a> FAQ </span></h2>
 <a name="How_do_I_avoid_duplicating_the_page_title"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/How%20do%20I%20avoid%20duplicating%20the%20page%20title"></a> How do I avoid duplicating the page title </span></h3>
@@ -142,8 +156,8 @@
 
 <!-- 
 NewPP limit report
-Preprocessor node count: 46/1000000
-Post-expand include size: 488/2097152 bytes
+Preprocessor node count: 65/1000000
+Post-expand include size: 625/2097152 bytes
 Template argument size: 6/2097152 bytes
 Expensive parser function count: 0/100
 -->
@@ -185,11 +199,11 @@ Retrieved from "<a href="h-feed.html">http://microformats.org/wiki/h-feed</a>"</
 </div>
 
 		
-<!-- Served in 0.218 secs. -->
+<!-- Served in 0.245 secs. -->
 
 
 
 
 
 
-</body><!-- Mirrored from microformats.org/wiki/h-feed by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 May 2017 19:51:27 GMT --></html>
+</body><!-- Mirrored from microformats.org/wiki/h-feed by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 10 Sep 2018 13:59:30 GMT --></html>

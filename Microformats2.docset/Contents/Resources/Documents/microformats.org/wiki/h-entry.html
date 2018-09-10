@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/h-entry by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 May 2017 19:51:26 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/h-entry by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 10 Sep 2018 13:59:29 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
 
 	<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 	
@@ -43,8 +43,8 @@
 		    </div>
 		        
         <div class="entry-content">
-		<p><dfn style="font-style:normal;font-weight:bold">h-entry</dfn> is a simple, open format for episodic or datestamped content on the web. h-entry is often used with content intended to be syndicated, e.g. blog posts. h-entry is one of several open <a href="http://microformats.org/wiki/microformats" title="microformats">microformat</a> standards suitable for embedding data in HTML/HTML5.
-</p><p>h-entry is the <a href="microformats2.html" title="microformats2">microformats2</a> update to <a class="mw-redirect" href="http://microformats.org/wiki/hAtom" title="hAtom">hAtom</a>'s "hentry" which itself was based on <a class="mw-redirect" href="http://microformats.org/wiki/Atom" title="Atom">Atom</a>'s "entry" element. For an update to "hfeed" see <a href="h-feed.html" title="h-feed">h-feed</a>.
+		<p><dfn style="font-style:normal;font-weight:bold">h-entry</dfn> is a simple, open format for episodic or datestamped content on the web. h-entry is often used with content intended to be syndicated, e.g. blog posts. h-entry is one of several open <a href="http://microformats.org/wiki/microformats" title="microformats">microformat</a> standards suitable for embedding data in HTML.
+</p><p>h-entry is the <a href="microformats2.html" title="microformats2">microformats2</a> update to <a class="mw-redirect" href="http://microformats.org/wiki/hAtom" title="hAtom">hAtom</a>, in particular its "hentry" root class which itself was based on <a class="mw-redirect" href="http://microformats.org/wiki/Atom" title="Atom">Atom</a>'s "entry" element. For an update to "hfeed" see <a href="h-feed.html" title="h-feed">h-feed</a>.
 </p>
 <dl><dt><span id="Status">Status</span>
 </dt><dd>This is a <b>Living Specification</b> yet mature enough to encourage additional implementations and <a href="http://microformats.org/wiki/h-entry-issues" title="h-entry-issues">feedback</a>. This specification has portions that are stable, draft, and proposed. Features are stable unless explicitly labeled draft or proposed, or in draft or proposed sections. Draft and proposed features are likely to change substantively. While substantive changes to stable features are unexpected, it is a living specification subject to substantive change by issues and errata filed in response to implementation experience, requiring consensus among participating implementers as part of an explicit <a href="#change_control" title="">change control</a> process. 
@@ -59,7 +59,7 @@
 </dd></dl>
 </div>
 <dl><dt>License
-</dt><dd> <small>Per <a class="external text" href="http://creativecommons.org/publicdomain/zero/1.0/" rel="nofollow" title="http://creativecommons.org/publicdomain/zero/1.0/">CC0</a>, to the extent possible under law, the editors have waived all copyright and related or neighboring rights to this work. In addition, as of 2017-05-21, the editors have made this specification available under the <a class="external text" href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="nofollow" title="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0">Open Web Foundation Agreement Version 1.0</a>.</small>
+</dt><dd> <small>Per <a class="external text" href="http://creativecommons.org/publicdomain/zero/1.0/" rel="nofollow" title="http://creativecommons.org/publicdomain/zero/1.0/">CC0</a>, to the extent possible under law, the editors have waived all copyright and related or neighboring rights to this work. In addition, as of 2018-09-10, the editors have made this specification available under the <a class="external text" href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="nofollow" title="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0">Open Web Foundation Agreement Version 1.0</a>.</small>
 </dd></dl>
 
 <p><br/>
@@ -70,7 +70,7 @@
 <div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2">&lt;article <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"h-entry"</span><span class="kw2">&gt;</span></span>
   <span class="sc2"><span class="kw2">&lt;h1</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-name"</span><span class="kw2">&gt;</span></span>Microformats are amazing<span class="sc2"><span class="kw2">&lt;/h1&gt;</span></span>
   <span class="sc2"><span class="kw2">&lt;p&gt;</span></span>Published by <span class="sc2"><span class="kw2">&lt;a</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-author h-card"</span> <span class="kw3">href</span><span class="sy0">=</span><span class="st0">"http://example.com"</span><span class="kw2">&gt;</span></span>W. Developer<span class="sc2"><span class="kw2">&lt;/a&gt;</span></span>
-     on <span class="sc2">&lt;time <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"dt-published"</span> <span class="kw3">datetime</span><span class="sy0">=</span><span class="st0">"2013-06-13 12:00:00"</span><span class="kw2">&gt;</span></span>13<span class="sc2"><span class="kw2">&lt;sup&gt;</span></span>th<span class="sc2"><span class="kw2">&lt;/sup&gt;</span></span> June 2013<span class="sc2"><span class="kw2">&lt;</span><span class="sy0">/</span>time&gt;</span>
+     on <span class="sc2">&lt;time <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"dt-published"</span> <span class="kw3">datetime</span><span class="sy0">=</span><span class="st0">"2013-06-13 12:00:00"</span><span class="kw2">&gt;</span></span>13<span class="sc2"><span class="kw2">&lt;sup&gt;</span></span>th<span class="sc2"><span class="kw2">&lt;/sup&gt;</span></span> June 2013<span class="sc2"><span class="kw2">&lt;</span><span class="sy0">/</span>time&gt;</span><span class="sc2"><span class="kw2">&lt;/p&gt;</span></span>
  
   <span class="sc2"><span class="kw2">&lt;p</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-summary"</span><span class="kw2">&gt;</span></span>In which I extoll the virtues of using microformats.<span class="sc2"><span class="kw2">&lt;/p&gt;</span></span>
  
@@ -122,14 +122,16 @@
     <span class="br0">}</span>
   <span class="br0">]</span>
 <span class="br0">}</span></pre></div>
-<a name="Get_started"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Get%20started"></a> Get started </span></h3>
+<a name="Get_started"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Get%20started"></a> Get started </span></h2>
 <p>The class <b><code><a class="dashAnchor" name="//apple_ref/cpp/Object/h-entry"></a>h-entry</code></b> is a <i>root class name</i> that indicates the presence of an h-entry.
 </p><p><b>p-name</b>, <b>p-author</b>, <b>dt-published</b> and the other h-entry property classnames listed below define properties of the h-entry.
-</p><p>See <a href="microformats2-parsing.html" title="microformats2-parsing">microformats2-parsing</a> to learn more about property classnames.
+</p><p>Note: The purpose of an entry is to place it around both the explicitly written content (in the content property or in other specific properties for non-textual content or responses) and whatever else is the context for that content, including properties for when it was published and/or updated, who created it, tags or categorization, and links to what the content is a response to (perhaps with a quoted excerpt) and/or links to syndicated copies.
 </p>
 <a name="Properties"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Properties"></a> Properties </span></h2>
 <p>h-entry properties, inside an element with class <b>h-entry</b>. All properties are optional.
 </p>
+<ul><li> See <a href="microformats2-parsing.html" title="microformats2-parsing">microformats2-parsing</a> to learn more about property classnames.
+</li></ul>
 <a name="Core_Properties"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Core%20Properties"></a> Core Properties </span></h3>
 <p>The following <i>core</i> h-entry properties have broad consensus and are broadly interoperably published and consumed:
 </p>
@@ -160,7 +162,7 @@
 </p>
 <ul><li> <b><code id="p-comment"><a class="dashAnchor" name="//apple_ref/cpp/Property/p-comment"></a>p-comment</code></b> - optionally embedded (or nested?) <a href="h-cite.html" title="h-cite">h-cite</a>(s), each of which is a comment on/reply to the parent h-entry. See <a href="http://microformats.org/wiki/comment-brainstorming" title="comment-brainstorming">comment-brainstorming</a> (<a class="external text" href="http://waterpigs.co.uk/notes/4V2DjG/" rel="nofollow" title="http://waterpigs.co.uk/notes/4V2DjG/">example</a>)
 </li><li> <b><code id="u-photo"><a class="dashAnchor" name="//apple_ref/cpp/Property/u-photo"></a>u-photo</code></b> - one or more photos that is/are considered the primary content of the entry, unless there is a <code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-location%20h-card"></a>p-location h-card</code>, which is still considered a "checkin" (i.e. with a photo). Otherwise the presence of a u-photo means the name of the entry should be interpreted as a caption on the photo, and the summary/content should be interpreted as a description of the photo.
-</li><li> <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/u-video"></a>u-video</code></b> - special u- parsing rules for <code>&lt;video src&gt; &amp; &lt;source src&gt;</code>
+</li><li> <b><code id="u-video"><a class="dashAnchor" name="//apple_ref/cpp/Property/u-video"></a>u-video</code></b> - special u- parsing rules for <code>&lt;video src&gt; &amp; &lt;source src&gt;</code>
 </li></ul>
 <p><br/>
 </p>
@@ -181,6 +183,8 @@
 <ul><li> -1 <a href="http://microformats.org/wiki/User:Aaronpk" title="User:Aaronpk">Aaronpk</a> 14:22, 19 January 2017 (UTC) <a class="external text" href="https://aaronparecki.com/2017/01/13/21/" rel="nofollow" title="https://aaronparecki.com/2017/01/13/21/">this post</a> is not a checkin, but has an h-card as the p-location property. 
 </li></ul>
 </li></ul>
+<p>Note: As <strong class="selflink">h-entry</strong> usage grows to express and consume different kinds of content, we expect additional properties may be proposed and iterated as demonstrated by real-world needs, usage, and interoperability.
+</p>
 <a name="Property_Details"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Property%20Details"></a> Property Details </span></h2>
 <p>This section is a stub.
 </p>
@@ -308,8 +312,8 @@
 <div style="text-indent:2em;font-style:italic">Main article: <a href="http://microformats.org/wiki/validators" title="validators">validators</a></div>
 <p>Test and validate <a href="microformats2.html" title="microformats2">microformats2</a> markup in general with: 
 </p>
-<ul><li> <a class="external free" href="http://waterpigs.co.uk/php-mf2/" rel="nofollow" title="http://waterpigs.co.uk/php-mf2/">http://waterpigs.co.uk/php-mf2/</a> - enter your markup directly
-</li><li> <a class="external free" href="http://pin13.net/" rel="nofollow" title="http://pin13.net/">http://pin13.net/</a> - enter a URL to a page to test where it says "Microformats Parser"
+<ul><li> <a class="external free" href="https://pin13.net/mf2/" rel="nofollow" title="https://pin13.net/mf2/">https://pin13.net/mf2/</a> - enter your markup directly
+</li><li> <a class="external free" href="https://pin13.net/" rel="nofollow" title="https://pin13.net/">https://pin13.net/</a> - enter a URL to a page to test where it says "Microformats Parser"
 </li></ul>
 <a name="Implementations"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Implementations"></a> Implementations </span></h2>
 <p>Software implementations that publish or consume h-entry, including themes, plugins, or extensions:
@@ -347,7 +351,7 @@ Properties: (parsed as <b>p-</b> plain text unless otherwise specified):
 </li><li> <code>rel=bookmark</code> - parse as <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/u-url"></a>u-url</code></b>. While not a class name nor typical microformats property, rel=bookmark was the only way to indicate an hentry permalink. Thus parsers should look for rel=bookmark hyperlinks inside an hentry, and take their "href" value as a value for a <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/u-url"></a>u-url</code></b> property, including handling any relative URL resolution.
 </li><li> <code>rel=tag</code> - parse as <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-category"></a>p-category</code></b>. While not a class name nor typical microformats property, rel=tag was the typical way to tag an hentry. Thus parsers should look for rel=tag hyperlinks inside an hentry, and take the last path segment of their "href" value as a value for a <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-category"></a>p-category</code></b> property.
 </li></ul>
-<p>Proposed:
+<p>Proposed: (<a class="external text" href="https://github.com/microformats/h-entry/issues/7" rel="nofollow" title="https://github.com/microformats/h-entry/issues/7">follow-up in issue #7</a>)
 </p>
 <ul><li> <code>time.entry-date[datetime]</code> - in the absence of <code>published</code>, parse as <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/dt-published"></a>dt-published</code></b>. parse for the first <code>&lt;time&gt;</code> element with class name of <code>entry-date</code> and non-empty <code>datetime</code> attribute inside an hentry, if there is no <code>published</code> property, use that time element's <code>datetime</code> attribute value for the <code><a class="dashAnchor" name="//apple_ref/cpp/Property/dt-published"></a>dt-published</code> property. Evidence: default WordPress themes 2011-2014(<a class="external autonumber" href="https://wp-themes.com/twentyeleven/" rel="nofollow" title="https://wp-themes.com/twentyeleven/">[1]</a><a class="external autonumber" href="https://wp-themes.com/twentytwelve/" rel="nofollow" title="https://wp-themes.com/twentytwelve/">[2]</a><a class="external autonumber" href="https://wp-themes.com/twentythirteen/" rel="nofollow" title="https://wp-themes.com/twentythirteen/">[3]</a><a class="external autonumber" href="https://wp-themes.com/twentyfourteen/" rel="nofollow" title="https://wp-themes.com/twentyfourteen/">[4]</a>).
 </li><li> <code>rel=author</code> - in the absence of <code>author</code>, parse as <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/u-author"></a>u-author</code></b>. While not a class name nor typical microformats property, rel=author was commonly used to link to an author's URL. Thus parsers should look for rel=author hyperlinks inside an hentry (or even on the same page, preceding the hentry), use the absolute version of it as a value for the <b><code><a class="dashAnchor" name="//apple_ref/cpp/Property/u-author"></a>u-author</code></b> property if there is no "author" property. (citations to "hentry" examples in the wild that <em>depend</em> on rel=author needed to accepted this proposal. Note: default WordPress themes twentyeleven, twentytwelve, twentythirteen, twentyfourteen all use rel=author but only inside class="author vcard", and thus rel=author can be ignored since authorship is already picked up by existing <code>author</code> backcompat parsing.)
@@ -404,7 +408,7 @@ Properties: (parsed as <b>p-</b> plain text unless otherwise specified):
 <!-- 
 NewPP limit report
 Preprocessor node count: 179/1000000
-Post-expand include size: 922/2097152 bytes
+Post-expand include size: 914/2097152 bytes
 Template argument size: 10/2097152 bytes
 Expensive parser function count: 0/100
 -->
@@ -446,11 +450,11 @@ Retrieved from "<a href="h-entry.html">http://microformats.org/wiki/h-entry</a>"
 </div>
 
 		
-<!-- Served in 0.475 secs. -->
+<!-- Served in 0.516 secs. -->
 
 
 
 
 
 
-</body><!-- Mirrored from microformats.org/wiki/h-entry by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 May 2017 19:51:27 GMT --></html>
+</body><!-- Mirrored from microformats.org/wiki/h-entry by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 10 Sep 2018 13:59:30 GMT --></html>

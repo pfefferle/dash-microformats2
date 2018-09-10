@@ -1,0 +1,419 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/microformats2-origins by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 10 Sep 2018 13:59:30 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+	
+	<meta content="MediaWiki 1.13.2" name="generator"/>
+		<meta content="microformats2-origins,H2VX,Yahoo,events/2010-05-02-microformats-2-0,hAtom,hCalendar,hCard,hRecipe,hcard-faq,hcard-implied,issues" name="keywords"/>
+		
+		
+		
+		
+	<link href="skins/common/shared.css" rel="stylesheet" type="text/css"/>		
+	<link href="skins/Microformats/microformats.css" rel="stylesheet" type="text/css"/>
+
+	
+
+
+    
+    		
+
+        
+        	
+	<title>microformats2-origins · Microformats Wiki</title>
+	
+<style id="dash-style" type="text/css">.content { width: 100%; }</style></head>
+	<!-- TODO: Template-dervied body class: spec and draft -->
+<body class="page-microformats2-origins ">
+    
+    
+
+    <div class="content hentry">
+    
+	
+
+	    <h1 class="entry-title">microformats2-origins</h1>
+
+		<p class="sub-title"></p>
+
+								    <!-- TODO: Jump nav -->
+		    <div id="jump-to-nav">Jump to:		        <a href="#sidebar">navigation</a>, 
+		        <a href="#search">search</a>
+		    </div>
+		        
+        <div class="entry-content">
+		<p><a href="microformats2.html" title="microformats2">microformats2</a> was originally proposed and conceptually explored during a <a href="http://microformats.org/wiki/events/2010-05-02-microformats-2-0" title="events/2010-05-02-microformats-2-0">discussion session at FOO East 2010</a>.
+</p><p>During that session, much of the below was brainstormed, written up, and iterated. We have kept this documentation of microformats2 origins for those who want to understand how microformats2 was designed and evolved in the early years.
+</p><p>For the formal microformats2 documentation see:
+</p>
+<ul><li> <a href="microformats2.html" title="microformats2">microformats2</a>
+</li><li> <a href="microformats2-parsing.html" title="microformats2-parsing">microformats2-parsing</a>
+</li></ul>
+
+<a name="About_This_Brainstorm"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/About%20This%20Brainstorm"></a> About This Brainstorm </span></h2>
+<p>The rest of this page is a brainstorm originally written in narrative / exploratory format on the "microformats2" page, that is, acknowledging the success that microformats have had, why so, and then a walk through of known issues with microformats in general along with iteration of ways to address said issues, ending up with the current microformats2 design as a conclusion.
+</p><p>The proposals build on each other resulting in a solution that addresses the vast majority of general issues. The proposed changes merit a major version number increment, hence:
+</p>
+<ul><li> <a href="microformats2.html" title="microformats2">microformats2</a>
+</li></ul>
+<p>This mathematical proof/derivation style is used to explicitly encourage understanding (and double-checking) of the rational steps taken in the development of microformats2. Reasons are documented, sometimes along with alternatives considered (and reasons for rejection of those alternatives).
+</p><p>Since the microformats2 brainstorm evolved sufficiently to demonstrate some degree of stability, usability, and implementability, it was rewritten in a more declarative specification style:
+</p>
+<ul><li> <a href="microformats2-parsing.html" title="microformats2-parsing">microformats2-parsing</a>
+</li></ul>
+<p>And this narrative/derivation has been archived to a background development page ("microformats2-origins") for historical purposes.
+</p><p>— <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a>
+</p>
+<a name="Background"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Background"></a> Background </span></h2>
+<p>2004: In early February microformats were introduced as a concept at eTech, and in September <a class="mw-redirect" href="http://microformats.org/wiki/hCard" title="hCard">hCard</a> and <a class="mw-redirect" href="http://microformats.org/wiki/hCalendar" title="hCalendar">hCalendar</a> were proposed at FOO Camp.
+</p><p>2010:
+</p>
+<ul><li> 34% of webdevs use microformats (<a class="external text" href="http://www.webdirections.org/sotw10/markup/#semantics" rel="nofollow" title="http://www.webdirections.org/sotw10/markup/#semantics">2010 State of Web Development survey</a>)
+</li><li> 1.88 billion hCards (per <a class="mw-redirect" href="http://microformats.org/wiki/Yahoo" title="Yahoo">Yahoo</a> SearchMonkey)
+</li><li> 36 million hCalendar events (ibid)
+</li></ul>
+<ul><li> XFN -&gt; Social Graph API -&gt; Web as Social Network / Address Book
+</li></ul>
+<a name="Addressing_Issues"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/Addressing%20Issues"></a> Addressing Issues </span></h2>
+<a name="AUTHORS_and_PUBLISHING"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/AUTHORS%20and%20PUBLISHING"></a> AUTHORS and PUBLISHING </span></h3>
+<p>Authors and publishers are perhaps the most important constituency in the microformats community. There are more of them than there are developers, programmers, parsers, etc. and they're the ones that solved the chicken-egg problem by publishing microformats even before tools were available for consuming them.
+</p><p>Therefore we must first address author/publisher general issues with microformats.
+</p>
+<a name="can_we_make_the_simplest_case_simpler"></a><h4> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/can%20we%20make%20the%20simplest%20case%20simpler"></a> can we make the simplest case simpler </span></h4>
+<p>Issue: <b>How can we make it easier for authors to publish microformats?</b>
+</p><p>Currently the simplest hCard:
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"vcard"</span><span class="kw2">&gt;</span></span>
+  <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"fn"</span><span class="kw2">&gt;</span></span>
+    Chris Messina
+  <span class="sc2"><span class="kw2">&lt;/span&gt;</span></span>
+<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span></pre></div>
+<p>requires 2 elements (nested, with perhaps at least one being pre-existing), and 2 class names.
+</p><p>Web authors/designers are used to the simplicity of most HTML tags, e.g. to mark up a heading:
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;h1&gt;</span></span>Chris Messina<span class="sc2"><span class="kw2">&lt;/h1&gt;</span></span></pre></div>
+<p>requires just 1 element.
+</p><p><a class="external text" href="http://zeldman.com/" rel="nofollow" title="http://zeldman.com/">Jeffrey Zeldman</a> pointed out this apparent perceived incremental complexity (2 elements vs 1) during a microformats workshop in 2009 in New York City.
+</p><p><b>How can we make microformats just as easy?</b>
+</p><p><b>Proposal: allow root class name only.</b>
+</p><p>This would enable:
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;h1</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"vcard"</span><span class="kw2">&gt;</span></span>Chris Messina<span class="sc2"><span class="kw2">&lt;/h1&gt;</span></span></pre></div>
+<p>requiring only 1 class name for the simplest case.
+</p><p><br/>
+</p>
+<a name="renaming_for_usability"></a><h4> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/renaming%20for%20usability"></a> renaming for usability </span></h4>
+<p>Otherwise known as, choosing one form of consistency over another.
+</p><p><b>Can we do even better?</b>
+</p><p>One of the most common questions asked about hCard is:
+</p><p><a href="http://microformats.org/wiki/hcard-faq#Why_does_hCard_use_vcard_as_the_root_class_name" title="hcard-faq">Why does hCard use vcard as the root class name?</a>
+</p><p>This slight inconsistency between the name of the format and the name of the root class name consistently causes confusion in a large percentage of newcomers to microformats.
+</p>
+<ul><li> See <a href="http://microformats.org/wiki/issues#hcard-vs-vcard-name" title="issues">issues#hcard-vs-vcard-name</a> for details/links.
+</li></ul>
+<p>Though in microformats we believe very strongly in the <a class="mw-redirect" href="http://microformats.org/wiki/principle" title="principle">principle</a> of <a href="http://microformats.org/wiki/reuse" title="reuse">reuse</a>, we have to admit that in this case experience/evidence has shown that this may be a case where we re-used something too far beyond it's original meaning. Thus:
+</p><p><b>Proposal: use root class name "hcard" instead of "vcard" for future hCards.</b>
+</p><p>This would result in:
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;h1</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"hcard"</span><span class="kw2">&gt;</span></span>Chris Messina<span class="sc2"><span class="kw2">&lt;/h1&gt;</span></span></pre></div>
+<p>making the simple case even simpler:
+</p><p>Just 1 additional class name, named the same as the format you're adding.  Think hCard, markup class="hcard".
+</p><p>At a minimum for compatibility we should document that parsers should accept "hcard" as an alternative to "vcard" as the root class name for hCard 1.0, and similarly for hCalendar 1.0: "hcalendar" in addition to "vcalendar", "hevent" in addition to "vevent".
+</p><p>However, for <a class="mw-redirect" href="http://microformats.org/wiki/microformats-2" title="microformats-2">microformats-2</a> we are going to distinguish root class names further by using an "h-" prefix (e.g. "h-card"). Read on to understand why.
+</p>
+<a name="simplifying_to_only_needing_one_element"></a><h4> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/simplifying%20to%20only%20needing%20one%20element"></a> simplifying to only needing one element </span></h4>
+<p>It's very important for the simple case to be as simple as possible, to enable the maximum number of people to get started with minimum effort. (The idea of using a single class name for a microformat was proposed by Ryan Cannon in 2006 specifically <a href="http://microformats.org/wiki/hcard-implied" title="hcard-implied">for hCard</a>, and rediscovered by <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> in 2010 and subsequently generalized to all microformats.)
+</p><p>From there on, it's ok to require incremental effort for incremental return.
+</p><p>E.g. to add any additional information about a person, add explicit property names.
+</p><p><b>How does this simple root-only case work?</b>
+</p>
+<ul><li> root class name reflects name of the microformat
+</li><li> every microformat must require at most 1 property (preferably 0)
+<ul><li> admit that requiring a field in an application just results in noise (the 90210 problem - apps which require zip code get lots of false 90210 entries), and specify that any application use cases which appear to "require" specific properties must instead define how to imply sensible defaults for them.
+</li></ul>
+</li><li> when only a root class name is specified, imply the entire text contents of the element as the value of the primary property of the microformat. e.g.
+<ul><li> "hcard" implies "fn"
+</li><li> hcalendar event - "hevent" - implies "summary"
+</li><li> "hreview" implies "summary"
+</li><li> "hentry" implies "entry-summary" (perhaps collapse into "summary" - in practice they're not sufficiently semantically distinct to require separate property names)
+</li><li> <b>OR</b> instead of making the one implied property be vocabulary specific, introduce a new generic (applicable to all vocabularies) 'p-name' property (subsuming hCard's 'fn'). See <a class="mw-redirect" href="http://microformats.org/wiki/microformats-2-brainstorming#further_simplifications" title="microformats-2-brainstorming">microformats2 brainstorming: further simplifications</a> for latest thoughts along these lines, including the following specific mark-up implied generic properties across all microformats (based on existing published markup use-cases)
+<ul><li> 'p-name'
+</li><li> 'u-url'
+</li><li> 'u-photo'
+</li></ul>
+</li></ul>
+</li></ul>
+<a name="flat_sets_of_properties"></a><h4> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/flat%20sets%20of%20properties"></a> flat sets of properties </span></h4>
+<p><b>What more can we simplify about microformats?</b>
+</p><p>Numerous individuals have provided the feedback that whenever there is more than one level of hierarchy in a microformat, many (most?) developers get confused - in particular Kavi Goel of Google / Rich Snippets provided this feedback at a microformats dinner.  Thus depending on multiple levels of hierarchy is likely resulting in a loss of authorability, perhaps even accuracy as confusion undoubtedly leads to more errors. Thus:
+</p><p><b>Proposal: simplify all microformats to flat sets of properties. </b>
+</p><p>What this means:
+</p>
+<ul><li> all microformats are simply an object with a set of properties with values.
+</li><li> no more subproperties- drop the notion of subproperties.
+</li><li> use composition of multiple microformats for any further hierarchy, e.g. the "location" of an hCalendar event can be an hCard, or the "agent" of one hCard can be another hCard.
+</li></ul>
+<p>For example for hCard this would mean the following specific changes to keep relevant functionality:
+</p>
+<ul><li> drop "n", promote all "n" subproperties to full properties
+<ul><li> given-name, family-name, additional-name, honorific-prefix, honorific-suffix
+</li></ul>
+</li><li> treat "geo" as a nested microformat
+</li><li> treat "adr" as a nested microformat (what to do about adr's "type"?)
+</li><li> treat "org" as a flat string and drop "organization-name" and "organization-unit" (in practice rarely used, also not revealed or ignored in contact management user interfaces - e.g. Address Book)
+</li></ul>
+<p>Example: add a middle initial to the previous example Chris Messina's name, and markup each name component:
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;h1</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"hcard"</span><span class="kw2">&gt;</span></span>
+ <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"fn"</span><span class="kw2">&gt;</span></span>
+  <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"given-name"</span><span class="kw2">&gt;</span></span>Chris<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span>
+  <span class="sc2"><span class="kw2">&lt;abbr</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"additional-name"</span><span class="kw2">&gt;</span></span>R.<span class="sc2"><span class="kw2">&lt;/abbr&gt;</span></span>
+  <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"family-name"</span><span class="kw2">&gt;</span></span>Messina<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span>
+ <span class="sc2"><span class="kw2">&lt;/span&gt;</span></span>
+<span class="sc2"><span class="kw2">&lt;/h1&gt;</span></span></pre></div>
+<p>Note:
+</p>
+<ol><li> use of an explicit span with "fn" to markup his entire formatted name
+</li><li> use of the abbr element to explicitly indicate the semantic that "R." is merely an abbreviation for his additional-name.
+</li></ol>
+<a name="distinguishing_properties_from_other_classes"></a><h4> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/distinguishing%20properties%20from%20other%20classes"></a> distinguishing properties from other classes </span></h4>
+<p>Current microformats properties re-use generic terms like "summary", "photo", "updated" both for ease of use and understanding.
+</p><p>However, through longer term experience, we've seen sites that accidentally drop (or break) their microformats support (e.g. Upcoming.org, Facebook) because web authors sometimes rewrite all their class names, and either are unaware that microformats were in the page, or couldn't easily distinguish microformats property class names from other site-specific class names.
+</p><p>This issue has been reported by a number of web authors.
+</p>
+<ul><li> See: <a href="http://microformats.org/wiki/issues#class-collisions" title="issues">issues#class-collisions</a>
+</li></ul>
+<p>Thus microformats2 uses <i>prefixes</i> for property class names, e.g.:
+</p>
+<ul><li> <b>p-summary</b> instead of <i>summary</i>
+</li><li> <b>u-photo</b> instead of <i>photo</i> 
+</li><li> <b>dt-updated</b> instead of <i>updated</i>
+</li></ul>
+<p>Such prefixing of all microformats class names was first suggested by Scott Isaacs of Microsoft to Tantek on a visit to Microsoft sometime in 2006/2007, but specifically aimed at making microformats easier to parse. At the time the suggestion was rejected since microformats were focused on web authors rather than parsers.
+</p><p>However, since experience has shown that distinguishing property class names is an issue for <b>both web authors and parser developers</b>, this is a key change that microformats2 is adopting. See the next section for details.
+</p>
+<a name="COMMUNITY_and_TOOLS"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/COMMUNITY%20and%20TOOLS"></a> COMMUNITY and TOOLS </span></h3>
+<p>The second most important constituency in the microformats community are the developers, programmers, tool-makers.
+</p><p>A non-trivial number of them have been sufficiently frustrated with some general issues with microformats that they've done the significant extra work to support very different and less friendly alternatives (microdata, RDFa). Based on this real-world data (market behavior), it behooves us to address these general issues with microformats for this constituency.
+</p>
+<a name="existing_microformats_parsing_requirements"></a><h4> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/existing%20microformats%20parsing%20requirements"></a> existing microformats parsing requirements </span></h4>
+<p>COMMUNITY and TOOLS (that) USE MICROFORMATS 
+</p>
+<ul><li> parser / parsing
+</li><li> structured
+</li><li> getting the data out
+</li><li> json - 1:1 mapping
+</li></ul>
+<p><a href="http://microformats.org/wiki/parsing" title="parsing">parsing</a> microformats currently requires
+</p>
+<ol><li> a list of root class names of each microformat to be parsed
+</li><li> a list of properties for each specific microformats, along with knowledge of the type of each property in order to parse their data from potentially different portions of the HTML markup
+</li><li> some number of format-specific specific rules (markup/content optimizations)
+</li></ol>
+<p>This has meant that whenever a new microformat is drafted/specificied/adopted, parsers need to updated to handle it correctly, at a minimum to parse them when inside other microformats and avoid errantly implying properties from one to the other (containment, <a class="mw-redirect" href="http://microformats.org/wiki/mfo" title="mfo">mfo</a> problem).
+</p>
+<a name="naming_conventions_for_generic_parsing"></a><h4> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/naming%20conventions%20for%20generic%20parsing"></a> naming conventions for generic parsing </span></h4>
+<p>I think there is a fairly simple solution to #1 and #2 from the above list, and we can make progress towards minimizing #3.  In short:
+</p><p><b>Proposal: a set of naming conventions for microformat root class names and properties that make it obvious when:</b>
+</p>
+<ul><li> a class name represents a microformat root class name
+</li><li> a class name represents a microformat property name
+</li><li> a class name represents a microformat property that needs special parsing (specific type of property).
+</li></ul>
+<p>In particular - derived from the real world examples of existing proven microformats (rather than any abstraction of what a schema should have)
+</p>
+<ul><li> <b>"h-*" for root class names</b>, e.g. "h-card", "h-event", "h-entry"
+<ul><li> The 'h-' prefix is based on the existing microformats naming pattern of starting with 'h'.
+</li></ul>
+</li><li> <b>"p-*" for simple (text) properties</b>, e.g. "p-fn", "p-summary"
+<ul><li> vocabulary generic parsing, element text in general, treat certain HTML element/attribute combination as special and use those first, e.g. img/alt, abbr/title.
+</li><li> The 'p-' prefix is based on the word "property" starting with 'p'.
+</li></ul>
+</li><li> <b>"u-*" for URL properties</b>, e.g. "u-url", "u-photo", "u-logo"
+<ul><li> special parsing required: prefer a/href, img/src, object/data etc. attributes to element contents.
+</li><li> The 'u-' prefix is based on URL/URI starting with the letter 'u', which is the type of most of these related properties.
+</li></ul>
+</li><li> <b>"dt-*" for datetime properties</b>, e.g. "dt-start", "dt-end", "dt-bday"
+<ul><li> special parsing required: <a href="http://microformats.org/wiki/value-class-pattern" title="value-class-pattern">value-class-pattern</a>, in particular separate date time value parsing for better human readabillity / DRY balance.
+</li><li> The 'dt-' prefix is based on "date time" having the initials "dt" and the preponderance of existing date time properties starting with "dt", e.g. dtstart, dtend, dtstamp, dtreviewed.
+</li></ul>
+</li><li> <b>"e-*" for element tree properties</b> where the entire contained element hierarchy is the value, e.g. "e-content" (formerly "entry-content") for <a class="mw-redirect" href="http://microformats.org/wiki/hAtom" title="hAtom">hAtom</a>. The 'e-' prefix can also be mnemonically remembered as "element tree", "embedded markup", or "encapsulated markup".
+<ul><li> special parsing required: follow the <a class="external text" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-end.html#serializing-html-fragments" rel="nofollow" title="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-end.html#serializing-html-fragments">HTML spec: Serializing HTML Fragments algorithm</a> to create a serialization.
+</li></ul>
+</li></ul>
+<p>This provides a simpler transition/education story for existing microformats authors/publishers: 
+</p>
+<ul><li> "h*" to "h-*", "dt*" to "dt-*", url-like properties to "u-*", entire embedded markup to "e-*", and "p-*" for all "plain text" properties.
+</li></ul>
+<p>See <a class="mw-redirect" href="http://microformats.org/wiki/microformats-2-prefixes" title="microformats-2-prefixes">microformats-2-prefixes</a> for further thoughts and discussions on these and other class prefixes.
+</p><p>Example: taking that simple heading hCard example forward:
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;h1</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"h-card"</span><span class="kw2">&gt;</span></span>Chris Messina<span class="sc2"><span class="kw2">&lt;/h1&gt;</span></span></pre></div>
+<p>As part of microformats2 we would immediately define root class names and property names for all existing microformats and drafts consistent with this naming convention, and require support thereof from all new implementations, as well as strongly encouraging existing implementations to adopt the simplified microformats2 syntax and mechanism. Question: which microformats deserve explicit backward compatibility?
+</p><p>As a community we would continue to use the microformats <a href="http://microformats.org/wiki/process" title="process">process</a> both for researching and determining the need for new microformats, and for naming new microformat property names for maximum re-use and interoperability of a shared vocabulary.
+</p><p>If it turns out we need a new property type in the future, we can use one of the remaining single-letter-prefixes to add it to microformats2. This would require updating of parsers of course, but in practice the number of different types of properties has grown very slowly, and we know from other schema/programming languages that there's always some small limited number of scalar/atomic property types that you need, and using those you can create compound types/objects that represent richer / more complicated types of data. See <a class="mw-redirect" href="http://microformats.org/wiki/microformats-2-prefixes" title="microformats-2-prefixes">microformats-2-prefixes</a> for documentation of existing single-letter class name prefixes in practice.
+</p>
+<a name="ADVANTAGES"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/ADVANTAGES"></a> ADVANTAGES </span></h3>
+<p>This has numerous advantages:
+</p>
+<ul><li> <b>better maintainability</b> - much more obvious to web authors/designers/publishers which class names are for/from microformats.
+</li><li> <b>no chance of collision</b> - for all practical purposes with existing class names and thus avoiding any need to add more complex CSS style rules to prevent unintended styling effects.
+</li><li> <b>simpler parsing</b> - parsers can now do a simple stream-parse (or in-order DOM tree walk) and parse out <b>all</b> microformat objects, properties, and values, without having to know anything about any specific microformats.
+</li><li> <b>separation of syntax and vocabulary</b> - by abstracting microformats2 syntax independent of any vocabulary, it allows and encourages development of shared vocabularies  that can work in alternative syntaxes.
+</li></ul>
+<p>More examples: here is that same heading example with name components:
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;h1</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"h-card"</span><span class="kw2">&gt;</span></span>
+ <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-fn"</span><span class="kw2">&gt;</span></span>
+  <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-given-name"</span><span class="kw2">&gt;</span></span>Chris<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span>
+  <span class="sc2"><span class="kw2">&lt;abbr</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-additional-name"</span><span class="kw2">&gt;</span></span>R.<span class="sc2"><span class="kw2">&lt;/abbr&gt;</span></span>
+  <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-family-name"</span><span class="kw2">&gt;</span></span>Messina<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span>
+ <span class="sc2"><span class="kw2">&lt;/span&gt;</span></span>
+<span class="sc2"><span class="kw2">&lt;/h1&gt;</span></span></pre></div>
+<p>with a hyperlink to Chris's URL:
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;h1</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"h-card"</span><span class="kw2">&gt;</span></span>
+ <span class="sc2"><span class="kw2">&lt;a</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-fn u-url"</span> <span class="kw3">href</span><span class="sy0">=</span><span class="st0">"http://factoryjoe.com/"</span><span class="kw2">&gt;</span></span>
+  <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-given-name"</span><span class="kw2">&gt;</span></span>Chris<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span>
+  <span class="sc2"><span class="kw2">&lt;abbr</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-additional-name"</span><span class="kw2">&gt;</span></span>R.<span class="sc2"><span class="kw2">&lt;/abbr&gt;</span></span>
+  <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-family-name"</span><span class="kw2">&gt;</span></span>Messina<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span>
+ <span class="sc2"><span class="kw2">&lt;/a&gt;</span></span>
+<span class="sc2"><span class="kw2">&lt;/h1&gt;</span></span></pre></div>
+<a name="COMPATIBILITY"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/COMPATIBILITY"></a> COMPATIBILITY </span></h3>
+<p>microformats2 is backwards compatible in that in permits content authors to markup with both old and new class names for compatibility with old tools.
+</p><p>Here is a simple example:
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;h1</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"h-card vcard"</span><span class="kw2">&gt;</span></span>
+ <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"fn"</span><span class="kw2">&gt;</span></span>Chris Messina<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span>
+<span class="sc2"><span class="kw2">&lt;/h1&gt;</span></span></pre></div>
+<p>a microformats2 parser would see the class name "h-card" and imply the one required property from the contents, while a microformats 1.0 parser would find the class name "vcard" and then look for the class name "fn". no data duplication is required. this is a very important continuing application of the <abbr title="don't repeat yourself">DRY</abbr> <a class="mw-redirect" href="http://microformats.org/wiki/principle" title="principle">principle</a>.
+</p><p>And the above hyperlinked example with both sets of class names:
+</p>
+<div dir="ltr" style="text-align: left;"><pre class="source-html4strict"><span class="sc2"><span class="kw2">&lt;h1</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"h-card vcard"</span><span class="kw2">&gt;</span></span>
+ <span class="sc2"><span class="kw2">&lt;a</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-fn u-url n fn url"</span> <span class="kw3">href</span><span class="sy0">=</span><span class="st0">"http://factoryjoe.com/"</span><span class="kw2">&gt;</span></span>
+  <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-given-name given-name"</span><span class="kw2">&gt;</span></span>Chris<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span>
+  <span class="sc2"><span class="kw2">&lt;abbr</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-additional-name additional-name"</span><span class="kw2">&gt;</span></span>R.<span class="sc2"><span class="kw2">&lt;/abbr&gt;</span></span>
+  <span class="sc2"><span class="kw2">&lt;span</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">"p-family-name family-name"</span><span class="kw2">&gt;</span></span>Messina<span class="sc2"><span class="kw2">&lt;/span&gt;</span></span>
+ <span class="sc2"><span class="kw2">&lt;/a&gt;</span></span>
+<span class="sc2"><span class="kw2">&lt;/h1&gt;</span></span></pre></div>
+<p><br/>
+</p>
+<a name="VENDOR_EXTENSIONS"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/VENDOR%20EXTENSIONS"></a> VENDOR EXTENSIONS </span></h3>
+<p>(this section was only discussed verbally and not written up during discussions - capturing here as it is topical)
+</p><p>Proprietary extensions to formats have typically been shortlived experimental failures with one big recent exception.
+</p><p>Proprietary or experimental CSS3 property implementations have been very successful.
+</p><p>There has been much use of border radius properties and animations/transitions which use CSS properties with vendor-specific prefixes like:
+</p>
+<ul><li> -moz-border-radius
+</li><li> -webkit-border-radius
+</li></ul>
+<p>etc.
+</p><p>Note that these are merely string <b>prefixes</b>, not bound to any URL, and thus not namespaces in any practical sense of the word.  This is quite an important distinction, as avoiding the need to bind to a URL has made them easier to support and use.
+</p><p>This use of vendor specific CSS properties has in recent years allowed the larger web design/development/implementor communities to experiment and iterate on new CSS features while the features were being developed and standardized.
+</p><p>The benefits have been two-fold:
+</p>
+<ul><li> designers have been able to make more attractive sites sooner (at least in some browsers)
+</li><li> features have been market / real-world tested before being fully standardized, thus resulting in better features
+</li></ul>
+<p>Implementers have used/introduced "x-" prefixes for IETF MIME/content-types for experimental content-types, MIME parameter extensions, and HTTP header extensions, per <a class="external" href="http://tools.ietf.org/html/rfc2045" title="http://tools.ietf.org/html/rfc2045">RFC 2045</a> Section 6.3, <a class="external" href="http://tools.ietf.org/html/rfc3798" title="http://tools.ietf.org/html/rfc3798">RFC 3798</a> section 3.3, and <a class="external text" href="https://secure.wikimedia.org/wikipedia/en/wiki/List_of_HTTP_header_fields#Common_non-standard_headers" rel="nofollow" title="https://secure.wikimedia.org/wikipedia/en/wiki/List_of_HTTP_header_fields#Common_non-standard_headers">Wikipedia: HTTP header fields - non-standard headers</a> (could use RFC reference instead) respectively, like:
+</p>
+<ul><li> application/x-latex (per <a class="external text" href="https://secure.wikimedia.org/wikipedia/en/wiki/Internet_media_type#Type_x" rel="nofollow" title="https://secure.wikimedia.org/wikipedia/en/wiki/Internet_media_type#Type_x">Wikipedia Internet media type: Type x</a>)
+</li><li> x-spam-score (in email headers)
+</li><li> X-Pingback (per <a class="external text" href="http://en.wikipedia.org/wiki/Pingback" rel="nofollow" title="http://en.wikipedia.org/wiki/Pingback">Wikipedia:Pingback</a>)
+</li></ul>
+<p>Some standard types started as experimental "x-" types, thus demonstrating this experiment first, standardize later approach has worked for at least some cases:
+</p>
+<ul><li> image/x-png (standardized as image/png, both per <a class="external text" href="http://tools.ietf.org/html/rfc2083" rel="nofollow" title="http://tools.ietf.org/html/rfc2083">RFC2083</a>)
+</li></ul>
+<p>There have been times when specific sites have wanted to extend microformats beyond what the set of properties in the microformat, and currently lack any <b>experimental</b> way to do so - to try and see if a feature (or even a whole format) is interesting in the real world before bothering to pursue researching and walking it through the microformats process.  Thus:
+</p><p><b>Proposal:</b>
+</p>
+<ul><li> '*-x-' + '-' + meaningful name for root and property class names
+<ul><li> where "*" indicates the single-character-prefix as defined above
+</li><li> where "x" indicates a literal 'x' for an experimental extension OR
+</li><li> OR "x" indicates a vendor prefix (more than one character, e.g. like CSS vendor extension abbreviations, or some stock symbols, avoiding first words/phrases/abbreviations of microformats properties like dt-)
+</li><li> e.g.
+</li><li> "h-bigco-one-ring" - a hypothetical "bigco" vendor-specific "one-ring" microformat root class name.
+</li><li> "p-goog-preptime" - to represent <a class="external text" href="http://www.google.com/support/webmasters/bin/answer.py?answer=173379" rel="nofollow" title="http://www.google.com/support/webmasters/bin/answer.py?answer=173379">Google's "preptime" property extension</a> to <a class="mw-redirect" href="http://microformats.org/wiki/hRecipe" title="hRecipe">hRecipe</a> (aside: "duration" may be another property type to consider separate from "datetime" as it may be subject to different parsing rules.)
+</li><li> "p-x-prep-time" - a possible experimental property name to be added to hRecipe upon consideration/documentation of real-world usage/uptake.
+</li></ul>
+</li></ul>
+<p>Background - this proposal is a composition of the following (at least somewhat) successful vendor extension syntaxes
+</p>
+<ul><li> <a class="external text" href="http://www.w3.org/TR/CSS21/syndata.html#vendor-keywords" rel="nofollow" title="http://www.w3.org/TR/CSS21/syndata.html#vendor-keywords">CSS 2.1 4.1.2.1 Vendor-specific extensions</a>
+</li><li> IETF MIME/content-type "x-*" extensions per <a class="external" href="http://tools.ietf.org/html/rfc2045" title="http://tools.ietf.org/html/rfc2045">RFC 2045</a> Section 6.3. <a class="external autonumber" href="http://en.wikipedia.org/wiki/Internet_media_type" rel="nofollow" title="http://en.wikipedia.org/wiki/Internet_media_type">[1]</a>
+</li><li> IETF MIME experimental fields (e.g. x-spam-score)
+</li><li> HTTP header extensions (e.g. x-pingback)
+</li><li> note also <a class="external text" href="http://www.mnot.net/blog/2009/02/18/x-" rel="nofollow" title="http://www.mnot.net/blog/2009/02/18/x-">some critical thoughts from mnot</a>
+</li></ul>
+<a name="USERS"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/USERS"></a> USERS </span></h3>
+<p>Need more tools and interfaces that:
+</p>
+<ul><li> publish
+</li><li> copy/paste
+</li><li> right-click on a microformat
+</li><li> share
+</li><li> search results
+</li></ul>
+<p>discussed some existing like: <a class="mw-redirect" href="http://microformats.org/wiki/H2VX" title="H2VX">H2VX</a> converts hCard to vCard, hCalendar to iCalendar
+</p><p>how would we re-implement Live Clipboard today, making it easier for publishers and developers?
+</p>
+<a name="See_Also"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/See%20Also"></a> See Also </span></h2>
+<ul><li> <a href="microformats2.html" title="microformats2">microformats2</a>
+</li><li> <a href="microformats2-brainstorming.html" title="microformats2-brainstorming">microformats2-brainstorming</a> - moving more experimental / undeveloped / and rejected thoughts ideas here to simplify/progress *this* page further.
+</li><li> <a href="microformats2-experimental-properties.html" title="microformats2-experimental-properties">microformats2-experimental-properties</a> - listing experimental (-x- prefixed) properties and their use
+</li><li> <a href="microformats2-prefixes.html" title="microformats2-prefixes">microformats2-prefixes</a>
+</li><li> <a href="http://microformats.org/wiki/vendor-prefixes" title="vendor-prefixes">vendor-prefixes</a>
+</li><li> <a href="microformats2-faq.html" title="microformats2-faq">microformats2-faq</a>
+</li><li> <a href="microformats2-parsing.html" title="microformats2-parsing">microformats2-parsing</a>
+</li><li> 2010-05-02 <a href="http://microformats.org/wiki/events/2010-05-02-microformats-2-0" title="events/2010-05-02-microformats-2-0">microformats 2.0 discussion session at FOO East</a>
+</li></ul>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 52/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key microformats_wiki_v3:pcache:idhash:19976-0!1!0!!en!2!edit=0 and timestamp 20180909171230 -->
+<div class="printfooter">
+Retrieved from "<a href="microformats2-origins.html">http://microformats.org/wiki/microformats2-origins</a>"</div>
+		</div>	
+		
+				
+                    
+        
+        
+
+	</div>
+	
+<!-- end of the sidebar -->
+
+<div id="footer">
+
+
+    <address class="vcard">
+        The content of this wiki is the combined effort of the
+        <a class="fn org url" href="http://microformats.org/">
+            microformats community
+        </a>.
+    </address>
+
+	<ul>
+    				<li id="about"><a href="http://microformats.org/wiki/Microformats_Wiki:About" title="Microformats Wiki:About">About Microformats Wiki</a></li>
+				<li id="disclaimer"><a href="http://microformats.org/wiki/Microformats_Wiki:General_disclaimer" title="Microformats Wiki:General disclaimer">Disclaimers</a></li>
+        <li>Powered by <a href="http://mediawiki.org/">MediaWiki</a> | <a href="http://mediatemple.net/">(mt) media temple</a></li>
+	</ul>
+</div>
+
+		
+<!-- Served in 0.183 secs. -->
+
+
+
+
+
+
+</body><!-- Mirrored from microformats.org/wiki/microformats2-origins by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 10 Sep 2018 13:59:30 GMT --></html>

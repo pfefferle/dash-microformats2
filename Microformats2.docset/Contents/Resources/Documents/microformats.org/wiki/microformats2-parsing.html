@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/microformats2-parsing by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 May 2017 19:51:24 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/microformats2-parsing by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 10 Sep 2018 13:59:24 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
 
 	<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 	
@@ -58,7 +58,7 @@
 </dd></dl>
 </div>
 <dl><dt>License
-</dt><dd> <small>Per <a class="external text" href="http://creativecommons.org/publicdomain/zero/1.0/" rel="nofollow" title="http://creativecommons.org/publicdomain/zero/1.0/">CC0</a>, to the extent possible under law, the editors have waived all copyright and related or neighboring rights to this work. In addition, as of 2017-05-21, the editors have made this specification available under the <a class="external text" href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="nofollow" title="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0">Open Web Foundation Agreement Version 1.0</a>.</small>
+</dt><dd> <small>Per <a class="external text" href="http://creativecommons.org/publicdomain/zero/1.0/" rel="nofollow" title="http://creativecommons.org/publicdomain/zero/1.0/">CC0</a>, to the extent possible under law, the editors have waived all copyright and related or neighboring rights to this work. In addition, as of 2018-09-10, the editors have made this specification available under the <a class="external text" href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="nofollow" title="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0">Open Web Foundation Agreement Version 1.0</a>.</small>
 </dd></dl>
 
 <a name="algorithm"></a><h2> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/algorithm"></a> algorithm </span></h2>
@@ -86,7 +86,7 @@
 </li><li> else if found, start parsing a new microformat
 <ul><li> keep track of whether the root class name(s) was from backcompat
 </li><li> create a new { } structure with:
-<ul><li> <code>type: [array of microformat "h-*" type(s) on the element],</code>
+<ul><li> <code>type: [array of unique microformat "h-*" type(s) on the element sorted alphabetically],</code>
 </li><li> <code>properties: { } </code> - to be filled in when that element itself is parsed for microformats properties
 </li></ul>
 </li><li> parse child elements (document order) by:
@@ -111,33 +111,38 @@
 </li></ul>
 </li></ul>
 </li></ul>
-<p>The "*" for root (and property) class names consists only of lowercase a-z and '-' characters.
+<p>The "*" for root (and property) class names consists of an optional vendor prefix (series of 1+ number or lowercase a-z characters i.e. <code>[0-9a-z]+</code>, followed by '-'), then one or more '-' separated lowercase a-z words.
 </p>
 <a name="parse_an_element_for_properties"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/parse%20an%20element%20for%20properties"></a> parse an element for properties </span></h3>
 <a name="parsing_a_p-_property"></a><h4> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/parsing%20a%20p-%20property"></a> parsing a <code>p-</code> property </span></h4>
 <p>To parse an element for a <code><a class="dashAnchor" name="//apple_ref/cpp/Property/p-x"></a>p-x</code> property value (whether explicit <code>p-*</code> or backcompat equivalent):
 </p>
 <ul><li> Parse the element for the <a href="http://microformats.org/wiki/value-class-pattern" title="value-class-pattern">value-class-pattern</a>. If a value is found, return it.
-</li><li> If <code>abbr.p-x[title]</code>, return the <code>title</code> attribute.
+</li><li> If <code>abbr.p-x[title]</code> or <code>link.p-x[title]</code>, return the <code>title</code> attribute.
 </li><li> else if <code>data.p-x[value]</code> or <code>input.p-x[value]</code>, then return the <code>value</code> attribute
 </li><li> else if <code>img.p-x[alt]</code> or <code>area.p-x[alt]</code>, then return the <code>alt</code> attribute
 </li><li> else return the <code>textContent</code> of the element after:
 <ul><li> dropping any nested <code>&lt;script&gt;</code> &amp; <code>&lt;style&gt;</code> elements;
-</li><li> replacing any nested <code>&lt;img&gt;</code> elements with their <code>alt</code> attribute, if present; otherwise their <code>src</code> attribute, if present, adding a space at the beginning and end, resolving any relative URLs, and removing all leading/trailing whitespace.
+</li><li> replacing any nested <code>&lt;img&gt;</code> elements with their <code>alt</code> attribute, if present; otherwise their <code>src</code> attribute, if present, adding a space at the beginning and end, resolving the URL if it’s relative;
+</li><li> removing all leading/trailing whitespace
 </li></ul>
 </li></ul>
 <a name="parsing_a_u-_property"></a><h4> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/parsing%20a%20u-%20property"></a> parsing a <code>u-</code> property </span></h4>
 <p>To parse an element for a <code><a class="dashAnchor" name="//apple_ref/cpp/Property/u-x"></a>u-x</code> property value (whether explicit <code>u-*</code> or backcompat equivalent):
 </p>
-<ul><li> if <code>a.u-x[href]</code> or <code>area.u-x[href]</code>, then get the <code>href</code> attribute
-</li><li> else if <code>img.u-x[src]</code> or <code>audio.u-x[src]</code> or <code>video.u-x[src]</code> or <code>source.u-x[src]</code>, then get the <code>src</code> attribute
+<ul><li> if <code>a.u-x[href]</code> or <code>area.u-x[href]</code> or <code>link.u-x[href]</code>, then get the <code>href</code> attribute
+</li><li> else if <code>img.u-x[src]</code> or <code>audio.u-x[src]</code> or <code>video.u-x[src]</code> or <code>source.u-x[src]</code> or <code>iframe.u-x[src]</code>, then get the <code>src</code> attribute
 </li><li> else if <code>video.u-x[poster]</code>, then get the <code>poster</code> attribute
 </li><li> else if <code>object.u-x[data]</code>, then get the <code>data</code> attribute
 </li><li> if there is a gotten value, return the normalized absolute URL of it, following the containing document's language's rules for resolving relative URLs (e.g. in HTML, use the current URL context as determined by the page, and first <code>&lt;base&gt;</code> element, if any).
-</li><li> else parse the element for the <a href="http://microformats.org/wiki/value-class-pattern" title="value-class-pattern">value-class-pattern</a>. If a value is found, return it.
-</li><li> else if <code>abbr.u-x[title]</code>, then return the <code>title</code> attribute
-</li><li> else if <code>data.u-x[value]</code> or <code>input.u-x[value]</code>, then return the <code>value</code> attribute
-</li><li> else return the <code>textContent</code> of the element after removing all leading/trailing whitespace and nested <code>&lt;script&gt;</code> &amp; <code>&lt;style&gt;</code> elements.
+<ul><li> PROPOSED (<a class="external text" href="https://github.com/microformats/microformats2-parsing/issues/10" rel="nofollow" title="https://github.com/microformats/microformats2-parsing/issues/10">per issue 10</a>): do this relative URL resolution step AFTER all the other (following) value retrieval steps.
+</li></ul>
+</li><li> else parse the element for the <a href="http://microformats.org/wiki/value-class-pattern" title="value-class-pattern">value-class-pattern</a>. If a value is found, get it
+</li><li> else if <code>abbr.u-x[title]</code>, then get the <code>title</code> attribute
+</li><li> else if <code>data.u-x[value]</code> or <code>input.u-x[value]</code>, then get the <code>value</code> attribute
+</li><li> else get the <code>textContent</code> of the element after removing all leading/trailing whitespace and nested <code>&lt;script&gt;</code> &amp; <code>&lt;style&gt;</code> elements
+</li><li> PROPOSED (<a class="external text" href="https://github.com/microformats/microformats2-parsing/issues/10" rel="nofollow" title="https://github.com/microformats/microformats2-parsing/issues/10">per issue 10</a>): "return the normalized absolute URL of the gotten value, following the containing document's language's rules for resolving relative URLs (e.g. in HTML, use the current URL context as determined by the page, and first <code>&lt;base&gt;</code> element, if any)."
+</li><li> return the gotten value
 </li></ul>
 <a name="parsing_a_dt-_property"></a><h4> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/parsing%20a%20dt-%20property"></a> parsing a <code>dt-</code> property </span></h4>
 <p>To parse an element for a <code><a class="dashAnchor" name="//apple_ref/cpp/Property/dt-x"></a>dt-x</code> property value (whether explicit <code>dt-*</code> or backcompat equivalent):
@@ -146,20 +151,26 @@
 </li><li> if <code>time.dt-x[datetime]</code> or <code>ins.dt-x[datetime]</code> or <code>del.dt-x[datetime]</code>, then return the <code>datetime</code> attribute
 </li><li> else if <code>abbr.dt-x[title]</code>, then return the <code>title</code> attribute
 </li><li> else if <code>data.dt-x[value]</code> or <code>input.dt-x[value]</code>, then return the <code>value</code> attribute
-</li><li> else return the <code>&gt;textContent</code>&gt; of the element after removing all leading/trailing whitespace and nested <code>&lt;script&gt;</code> &amp; <code>&lt;style&gt;</code> elements.
+</li><li> else return the <code>textContent</code> of the element after removing all leading/trailing whitespace and nested <code>&lt;script&gt;</code> &amp; <code>&lt;style&gt;</code> elements.
 </li></ul>
 <a name="parsing_an_e-_property"></a><h4> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/parsing%20an%20e-%20property"></a> parsing an <code>e-</code> property </span></h4>
 <p>To parse an element for a <code><a class="dashAnchor" name="//apple_ref/cpp/Property/e-x"></a>e-x</code> property value (whether explicit "<code>e-*"</code> or backcompat equivalent):
 </p>
 <ul><li> return a dictionary with two keys:
-<ul><li> <code>html</code>: the <code>innerHTML</code> of the element by using the <a class="external text" href="https://html.spec.whatwg.org/multipage/syntax.html#serialising-html-fragments" rel="nofollow" title="https://html.spec.whatwg.org/multipage/syntax.html#serialising-html-fragments">HTML spec: Serializing HTML Fragments algorithm</a>, with leading/trailing whitespace removed.
-</li><li> <code>value</code>: the <code>textContent</code> of the element, replacing any nested <code>&lt;img&gt;</code> elements with their <code>alt</code> attribute if present, or otherwise their <code>src</code> attribute if present, resolving the URL if it’s relative.
+<ul><li> <code>html</code>: the <code>innerHTML</code> of the element by using the <a class="external text" href="https://html.spec.whatwg.org/multipage/parsing.html#serialising-html-fragments" rel="nofollow" title="https://html.spec.whatwg.org/multipage/parsing.html#serialising-html-fragments">HTML spec: Serializing HTML Fragments algorithm</a>, with leading/trailing whitespace removed.
+</li><li> <code>value</code>: the <code>textContent</code> of the element after:
+<ul><li> dropping any nested <code>&lt;script&gt;</code> &amp; <code>&lt;style&gt;</code> elements;
+</li><li> replacing any nested <code>&lt;img&gt;</code> elements with their <code>alt</code> attribute, if present; otherwise their <code>src</code> attribute, if present, adding a space at the beginning and end, resolving the URL if it’s relative;
+</li><li> removing all leading/trailing whitespace
 </li></ul>
 </li></ul>
+</li></ul>
+<p><br/>
+</p>
 <a name="parsing_for_implied_properties"></a><h4> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/parsing%20for%20implied%20properties"></a> parsing for implied properties </span></h4>
 <p>Imply properties only on explicit <code><a class="dashAnchor" name="//apple_ref/cpp/Object/h-x"></a>h-x</code> class name root microformat element (no backcompat roots):
 </p>
-<ul><li> if no explicit "<code>name</code>" property, 
+<ul><li> if no explicit "<code>name</code>" property, and no other <code>p-*</code> or <code>e-*</code> properties, and no nested microformats,
 </li><li> then imply by:
 <ul><li> if <code>img.h-x</code> or <code>area.h-x</code>, then use its <code>alt</code> attribute for name
 </li><li> else if <code>abbr.h-x[title]</code> then use its <code>title</code> attribute for name
@@ -169,8 +180,11 @@
 </li><li> else if <code>.h-x&gt;:only-child:not[.h-*]&gt;img:only-child[alt]:not([alt=""]):not[.h-*]</code> then use that <code>img</code>’s <code>alt</code> for name
 </li><li> else if <code>.h-x&gt;:only-child:not[.h-*]&gt;area:only-child[alt]:not([alt=""]):not[.h-*]</code> then use that <code>area</code>’s <code>alt</code> for name
 </li><li> else if <code>.h-x&gt;:only-child:not[.h-*]&gt;abbr:only-child[title]:not([title=""]):not[.h-*]</code> use that <code>abbr</code>’s <code>title</code> for name
-</li><li> else use the <code>textContent</code> of the <code>.h-x</code> for name
-</li><li> drop all leading and trailing whitespace from name
+</li><li> else use the <code>textContent</code> of the <code>.h-x</code> for <code>name</code> after:
+<ul><li> dropping any nested <code>&lt;script&gt;</code> &amp; <code>&lt;style&gt;</code> elements;
+</li><li> replacing any nested <code>&lt;img&gt;</code> elements with their <code>alt</code> attribute, if present;
+</li></ul>
+</li><li> remove all leading/trailing whitespace
 </li></ul>
 </li><li> if no explicit "<code>photo</code>" property, 
 </li><li> then imply by:
@@ -182,7 +196,7 @@
 </li><li> else if <code>.h-x&gt;:only-child:not[.h-*]&gt;object[data]:only-of-type:not[.h-*]</code>, then use that <code>object</code>’s <code>data</code> for photo
 </li><li> if there is a gotten photo value, return the normalized absolute URL of it, following the containing document's language's rules for resolving relative URLs (e.g. in HTML, use the current URL context as determined by the page, and first <code>&lt;base&gt;</code> element, if any).
 </li></ul>
-</li><li> if no explicit "<code>url</code>" property,
+</li><li> if no explicit "<code>url</code>" property, and no other explicit <code>u-*</code> properties, and no nested microformats,
 </li><li> then imply by:
 <ul><li> if <code>a.h-x[href]</code> or <code>area.h-x[href]</code> then use that <code>[href]</code> for url
 </li><li> else if <code>.h-x&gt;a[href]:only-of-type:not[.h-*]</code>, then use that <code>[href]</code> for url
@@ -214,7 +228,7 @@
 </li><li> "text": the text content of the element if any
 </li></ul>
 </li><li> if there is no "rels" key in that hash, add it with an empty array value
-</li><li> set the value of that "rels" key to an array of all unique items in the set of rel values unioned with the current array value of the "rels" key
+</li><li> set the value of that "rels" key to an array of all unique items in the set of rel values unioned with the current array value of the "rels" key, sorted alphabetically.
 </li></ul>
 <a name="rel_parse_examples"></a><h4> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/rel%20parse%20examples"></a> rel parse examples </span></h4>
 <p>Here are some examples to show how parsed rels may be reflected into the JSON (empty items key).
@@ -350,7 +364,7 @@
 
 <!-- 
 NewPP limit report
-Preprocessor node count: 208/1000000
+Preprocessor node count: 223/1000000
 Post-expand include size: 511/2097152 bytes
 Template argument size: 29/2097152 bytes
 Expensive parser function count: 0/100
@@ -393,11 +407,11 @@ Retrieved from "<a href="microformats2-parsing.html">http://microformats.org/wik
 </div>
 
 		
-<!-- Served in 0.489 secs. -->
+<!-- Served in 0.412 secs. -->
 
 
 
 
 
 
-</body><!-- Mirrored from microformats.org/wiki/microformats2-parsing by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 May 2017 19:51:26 GMT --></html>
+</body><!-- Mirrored from microformats.org/wiki/microformats2-parsing by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 10 Sep 2018 13:59:29 GMT --></html>

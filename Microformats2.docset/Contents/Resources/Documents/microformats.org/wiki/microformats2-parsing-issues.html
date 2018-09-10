@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/microformats2-parsing-issues by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 May 2017 19:51:27 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><!-- Mirrored from microformats.org/wiki/microformats2-parsing-issues by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 10 Sep 2018 13:59:31 GMT --><!-- Added by HTTrack --><head><meta content="text/html;charset=utf-8" http-equiv="content-type"/><!-- /Added by HTTrack -->
 
 	<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 	
@@ -133,6 +133,7 @@ However, it does mean the text is somewhat ambiguous, and unclear, especially wh
 <ul><li> Obviously wrong to assume a link explicitly pointing elsewhere is our "url" 
 </li><li> More difficult to make a case for photo
 <ul><li> though if there is an img with u-featured but not u-photo, it's likely that was an explicit author decision (e.g. for an article) - <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 22:11, 1 April 2016 (UTC)
+</li><li> u-photo issue STILL OPEN: <a class="external free" href="https://github.com/microformats/microformats2-parsing/issues/21" rel="nofollow" title="https://github.com/microformats/microformats2-parsing/issues/21">https://github.com/microformats/microformats2-parsing/issues/21</a>
 </li></ul>
 </li><li> Especially difficult to make a case for name.
 <ul><li> "name" is implied at least by [.h-x textContent], so often the excluded element would end up included anyway.
@@ -141,6 +142,8 @@ However, it does mean the text is somewhat ambiguous, and unclear, especially wh
 </li><li> p-name issue forked off and filed separately: <a class="external free" href="https://github.com/microformats/microformats2-parsing/issues/6" rel="nofollow" title="https://github.com/microformats/microformats2-parsing/issues/6">https://github.com/microformats/microformats2-parsing/issues/6</a>
 </li></ul>
 </li><li> +1 consensus in the room at IWS 2016 (willnorris, gRegor, kylewm, tantek): do this for specifically for implied URL, do nothing for now for name and photo. <a href="http://microformats.org/wiki/User:WillNorris" title="User:WillNorris">WillNorris</a> 22:56, 5 June 2016 (UTC)
+<ul><li> Edited: <a class="external free" href="http://microformats.org/wiki/index.php?title=microformats2-parsing&amp;diff=66887&amp;oldid=66871" rel="nofollow" title="http://microformats.org/wiki/index.php?title=microformats2-parsing&amp;diff=66887&amp;oldid=66871">http://microformats.org/wiki/index.php?title=microformats2-parsing&amp;diff=66887&amp;oldid=66871</a> - <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> 01:09, 24 July 2018 (UTC)
+</li></ul>
 </li></ul>
 </li></ul>
 </li></ul>
@@ -241,6 +244,8 @@ Options:
 </p>
 <div class="discussion">
 <ul><li> +1 from the room at IWS 2016 <a href="http://microformats.org/wiki/User:WillNorris" title="User:WillNorris">WillNorris</a> 22:57, 5 June 2016 (UTC)
+<ul><li> Edited: <a class="external free" href="http://microformats.org/wiki/index.php?title=microformats2-parsing&amp;oldid=66890" rel="nofollow" title="http://microformats.org/wiki/index.php?title=microformats2-parsing&amp;oldid=66890">http://microformats.org/wiki/index.php?title=microformats2-parsing&amp;oldid=66890</a> <a href="http://microformats.org/wiki/User:GRegorLove" title="User:GRegorLove">gRegor</a> 01:33, 24 July 2018 (UTC)
+</li></ul>
 </li></ul>
 </div>
 <a name="i-_parsing_iframe_src"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/i-%20parsing%20iframe%20src"></a> i- parsing iframe src </span></h3>
@@ -403,7 +408,7 @@ Options:
 </li><li> +1 implemented in go parser <a href="http://microformats.org/wiki/User:WillNorris" title="User:WillNorris">WillNorris</a> 22:16, 5 June 2016 (UTC)
 </li></ul>
 </div>
-<p><br/>
+<p><b>Spec updated with revisions <a class="external text" href="http://microformats.org/wiki/index.php?title=microformats2-parsing&amp;diff=65669&amp;oldid=65663" rel="nofollow" title="http://microformats.org/wiki/index.php?title=microformats2-parsing&amp;diff=65669&amp;oldid=65663">1</a> and <a class="external text" href="http://microformats.org/wiki/index.php?title=microformats2-parsing&amp;diff=66660&amp;oldid=66658" rel="nofollow" title="http://microformats.org/wiki/index.php?title=microformats2-parsing&amp;diff=66660&amp;oldid=66658">2</a></b>
 </p>
 <a name="default_generated_HTML"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/default%20generated%20HTML"></a> default generated HTML </span></h3>
 <p>2016-06-05 RESOLVED. No change to spec.
@@ -537,7 +542,7 @@ Should we be deduping URLs? Or is this a GIGO issue?
 </li></ul>
 </div>
 <a name="img_fallback_in_p-"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/img%20fallback%20in%20p-"></a> img fallback in p- </span></h3>
-<p>2016-06-05. ACCEPTED. SPEC UPDATED.
+<p>2016-06-05. ACCEPTED. <a class="external text" href="http://microformats.org/wiki/index.php?title=microformats2-parsing&amp;oldid=65598" rel="nofollow" title="http://microformats.org/wiki/index.php?title=microformats2-parsing&amp;oldid=65598">SPEC UPDATED</a>.
 </p><p>Trying to make an author h-card without too many extra elements I first did:
 </p>
 <pre>&lt;div class="p-author h-card"&gt;
@@ -557,7 +562,7 @@ Should we be deduping URLs? Or is this a GIGO issue?
 <div class="discussion">
 <ul><li> +1 <a href="http://microformats.org/wiki/User:Kylewm" title="User:Kylewm">Kylewm</a> reasoning given here makes sense
 </li><li> +1 <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> agreed with reasoning
-</li><li> +1 <a class="new" href="http://microformats.org/wiki/index.php?title=User:GRegorLove&amp;action=edit&amp;redlink=1" title="User:GRegorLove (not yet written)">gRegor</a> agreed
+</li><li> +1 <a href="http://microformats.org/wiki/User:GRegorLove" title="User:GRegorLove">gRegor</a> agreed
 </li><li> +1 totally makes sense to me <a href="http://microformats.org/wiki/User:WillNorris" title="User:WillNorris">WillNorris</a> 21:21, 5 June 2016 (UTC)
 </li><li> ...
 </li></ul>
@@ -592,13 +597,16 @@ Should we be deduping URLs? Or is this a GIGO issue?
 </p><p><a class="new" href="http://microformats.org/wiki/index.php?title=User:Verdy_p&amp;action=edit&amp;redlink=1" title="User:Verdy p (not yet written)">Verdy p</a> 03:54, 1 June 2016 (UTC)
 </p>
 <div class="discussion">
-<ul><li> -1 <a class="new" href="http://microformats.org/wiki/index.php?title=User:GRegorLove&amp;action=edit&amp;redlink=1" title="User:GRegorLove (not yet written)">gRegor</a>: see <a href="http://microformats.org/wiki/namespaces-considered-harmful" title="namespaces-considered-harmful">namespaces-considered-harmful</a>; also seems to solve only hypothetical problems. Are there real-world parsing collision examples?
+<ul><li> -1 <a href="http://microformats.org/wiki/User:GRegorLove" title="User:GRegorLove">gRegor</a>: see <a href="http://microformats.org/wiki/namespaces-considered-harmful" title="namespaces-considered-harmful">namespaces-considered-harmful</a>; also seems to solve only hypothetical problems. Are there real-world parsing collision examples?
 </li><li> -1 agreed with gRegor above.  I would certainly want to see real world parsing problems before adding just a heavyweight "solution". <a href="http://microformats.org/wiki/User:WillNorris" title="User:WillNorris">WillNorris</a> 21:16, 5 June 2016 (UTC)
 </li><li> -1 <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a>: historically none of these namespace setting/using proposals have actually survived in the wild on the web, they all get co-opted to treating the shorthands/prefixes in a hardcoded way, e.g. og: etc. All evidence to date is against such proposals, plus there's no concrete examples provided to motivate this change, only theory.
+</li><li> +1: you've stiull not understood the issue: there are <b>too many</b> collisions with the too many short prefixes used by microformats and actual class names needed and already used in many websites. This means that the recommended classnames in this specification are simply unusable as it is in fact imposible to say if what is in the page is actually a microformat or not, without forcinf sites to also change all their existing stylesheets and application code to not collide with the microformats they'd like to support. At least microformats should all have a "root" element with a single distinctive name, <b>required</b> before parsing any other classes in child elements. This root element should then be "h-microformat". I have seem too many examples with "h-card", "h-event", and so on colliding, producing false results when parsing pages, but another way to do that would be to not just use a "h-card" class to recognize it as a root, but match two classes (i.e. "h-card h-uF-2", the second class "h-uF-2" indicating its specification version). This would have the same effect as namespaces and would allow parsers to discriminate the page contents more precisely when there are collisions, by using an additional filter (the presence of the second class gives additional hint about how parsers can validate and use more strict rules when needed, or perform more checks (it would also allow evolution of the specifications while preserving some compatibility (let's forget the old v1 without any prefix and with collisions on almost all sites, as demosntrated by various "web form filler robots" that constantly need to update their database of known websites, each time their design is changed or there's a new page using forms with data fields named "name", "address", "date" to avoid producing false matches...).
+<ul><li> Note that this page is an archive of issues and their discussion before 2016-06-20. This specific issue was rejected 2016-06-05. Current and new issue discussion is now at: <a class="external free" href="https://github.com/microformats/microformats2-parsing/issues" rel="nofollow" title="https://github.com/microformats/microformats2-parsing/issues">https://github.com/microformats/microformats2-parsing/issues</a>. You're welcome to open an issue there to discuss further, but I don't expect it will get much traction. If you do open a new issue, I'd recommend adding some example URLs to demonstrate the issue. <a href="http://microformats.org/wiki/User:GRegorLove" title="User:GRegorLove">gRegor</a> 00:32, 26 November 2017 (UTC)
+</li></ul>
 </li></ul>
 </div>
 <a name="consistent_implied_name_url_from_grandchildren_of_root"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/consistent%20implied%20name%20url%20from%20grandchildren%20of%20root"></a> consistent implied name url from grandchildren of root </span></h3>
-<p>2016-06-05. ACCEPTED. SPEC UPDATED.
+<p>2016-06-05. ACCEPTED. <a class="external text" href="http://microformats.org/wiki/index.php?title=microformats2-parsing&amp;diff=prev&amp;oldid=65595" rel="nofollow" title="http://microformats.org/wiki/index.php?title=microformats2-parsing&amp;diff=prev&amp;oldid=65595">SPEC UPDATED</a>.
 </p><p>See <a class="external free" href="https://github.com/microformats/tests/issues/50" rel="nofollow" title="https://github.com/microformats/tests/issues/50">https://github.com/microformats/tests/issues/50</a>
 </p><p>Summary: 
 </p>
@@ -617,7 +625,7 @@ these are identical to the existing rules with the addition of the :only-child 
 </li></ul>
 </div>
 <a name="need_more_not_h-.2A_to_avoid_child_root_implying_properties"></a><h3> <span class="mw-headline"><a class="dashAnchor" name="//apple_ref/cpp/Section/need%20more%20not%20h-%2A%20to%20avoid%20child%20root%20implying%20properties"></a> need more not h-* to avoid child root implying properties </span></h3>
-<p>2016-06-05. ACCEPTED. SPEC UPDATED.
+<p>2016-06-05. ACCEPTED. <a class="external text" href="http://microformats.org/wiki/index.php?title=microformats2-parsing&amp;diff=prev&amp;oldid=65593" rel="nofollow" title="http://microformats.org/wiki/index.php?title=microformats2-parsing&amp;diff=prev&amp;oldid=65593">SPEC UPDATED</a>.
 </p><p>See <a class="external free" href="https://github.com/microformats/tests/issues/52" rel="nofollow" title="https://github.com/microformats/tests/issues/52">https://github.com/microformats/tests/issues/52</a> for an example of this
 </p><p>Proposal:
 </p>
@@ -688,7 +696,7 @@ The PHP and JS parsers already seem to return the desired result ("Kyle" in the 
 <ul><li> +1 <a href="http://microformats.org/wiki/User:Tantek" title="User:Tantek">Tantek</a> this makes sense to me, and as far as I can tell, for the other cases too for *implied* properties:
 <ul><li> area[alt], abbr[title], and all other attributes where there is an existence test, there should be a :not[alt=""] empty test, for implied p-name, u-photo, u-url
 </li></ul>
-</li><li> +1 <a class="new" href="http://microformats.org/wiki/index.php?title=User:GRegorLove&amp;action=edit&amp;redlink=1" title="User:GRegorLove (not yet written)">gRegor</a> sounds good to me.
+</li><li> +1 <a href="http://microformats.org/wiki/User:GRegorLove" title="User:GRegorLove">gRegor</a> sounds good to me.
 </li><li> +1 <a href="http://microformats.org/wiki/User:Kylewm" title="User:Kylewm">Kylewm</a> We've added this in mf2py too now, and I'm happy with it.
 </li><li> +1 <a href="http://microformats.org/wiki/User:GlennJones" title="User:GlennJones">Glenn</a> This is often define by the underlying HTML parsing library which will remove attributes that do not have a values.
 </li><li> ...
@@ -1516,7 +1524,7 @@ Template argument size: 50/2097152 bytes
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key microformats_wiki_v3:pcache:idhash:15230-0!1!0!!en!2!edit=0 and timestamp 20170521020117 -->
+<!-- Saved in parser cache with key microformats_wiki_v3:pcache:idhash:15230-0!1!0!!en!2!edit=0 and timestamp 20180910113837 -->
 <div class="printfooter">
 Retrieved from "<a href="microformats2-parsing-issues.html">http://microformats.org/wiki/microformats2-parsing-issues</a>"</div>
 		</div>	
@@ -1548,11 +1556,11 @@ Retrieved from "<a href="microformats2-parsing-issues.html">http://microformats.
 </div>
 
 		
-<!-- Served in 0.144 secs. -->
+<!-- Served in 0.195 secs. -->
 
 
 
 
 
 
-</body><!-- Mirrored from microformats.org/wiki/microformats2-parsing-issues by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 May 2017 19:51:27 GMT --></html>
+</body><!-- Mirrored from microformats.org/wiki/microformats2-parsing-issues by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 10 Sep 2018 13:59:31 GMT --></html>

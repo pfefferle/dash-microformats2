@@ -85,7 +85,7 @@ for filename in os.listdir(os.path.join(DOCUMENTS_DIR, MICROFORMATS_DIR)):
 
         #print 'adding toc tag for section: %s' % text
         name = '//apple_ref/cpp/Section/' + urllib.quote(text, '')
-        dashAnchor = BeautifulSoup('<a name="%s" class="dashAnchor"></a>' % name).a
+        dashAnchor = BeautifulSoup('<a name="%s" class="dashAnchor"></a>' % name, 'html5lib').a
         tag.insert(0, dashAnchor)
 
     # markup properties and objects by adding dash <a> tags for each header in the file
@@ -101,14 +101,14 @@ for filename in os.listdir(os.path.join(DOCUMENTS_DIR, MICROFORMATS_DIR)):
 
             #print 'adding toc tag for section: %s' % text
             name = '//apple_ref/cpp/Property/' + urllib.quote(text, '')
-            dashAnchor = BeautifulSoup('<a name="%s" class="dashAnchor"></a>' % name).a
+            dashAnchor = BeautifulSoup('<a name="%s" class="dashAnchor"></a>' % name, 'html5lib').a
             code.insert(0, dashAnchor)
 
         if (re.search('^h-[a-z]+', text)) :
 
             #print 'adding toc tag for section: %s' % text
             name = '//apple_ref/cpp/Object/' + urllib.quote(text, '')
-            dashAnchor = BeautifulSoup('<a name="%s" class="dashAnchor"></a>' % name).a
+            dashAnchor = BeautifulSoup('<a name="%s" class="dashAnchor"></a>' % name, 'html5lib').a
             code.insert(0, dashAnchor)
 
     fp = open(os.path.join(DOCUMENTS_DIR, MICROFORMATS_DIR, filename), 'w')
